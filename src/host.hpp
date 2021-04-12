@@ -38,6 +38,24 @@ float * img2col(float *in_tensor, int in_batches, int in_channels, int in_height
     return out_tensor;
 }
 
+float * col2img(float *in_tensor, int out_batches, int out_channels, int out_height, int out_width){
+
+    float* out_tensor= new float[out_batches*out_channels*out_height*out_width];
+
+    for(int b=0; b<out_batches; b++){
+        for(int c=0; c<out_channels; c++){
+            for(int h=0; h<out_height; h++){
+                for(int w=0; w<out_width; w++){
+                    out_tensor[(out_width*out_height*out_channels*b)+(out_width*out_height*c)+(out_width*h)+w]
+                        = in_tensor[(out_width*out_height*out_batches*c)+((out_width*out_height*b)+(out_width*h) +(w))];
+                }
+            }
+        }
+    }
+
+    return out_tensor;
+}
+
 void print_tensor(float *tensor, int batches, int channels, int height, int width){
     std::cout<<std::endl;
     for(int b=0; b<batches; b++){
@@ -62,7 +80,7 @@ void init_tensor(float *tensor, int batches, int channels, int height, int width
         for(int c=0; c<channels; c++){
             for(int h=0; h<height; h++){
                 for(int w=0; w<width; w++){
-                    tensor[height*width*channels*b + height*width*c + height*h + w] = i;
+                    tensor[height*width*channels*b + height*width*c + width*h + w] = i;
                     i++;
 
                 }
