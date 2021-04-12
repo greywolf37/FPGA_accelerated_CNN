@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 
 float * img2col(float *in_tensor, int in_batches, int in_channels, int in_height, int in_width, 
             int kernel_height, int kernel_width, int stride, int pad, 
@@ -54,6 +55,29 @@ float * col2img(float *in_tensor, int out_batches, int out_channels, int out_hei
     }
 
     return out_tensor;
+}
+
+float * matmul_sw(float *matrix1, int height1, int width1,
+                    float *matrix2, int height2, int width2){
+    if (height2 != width1){
+        throw std::invalid_argument("Matrix multiplication dim mismatch");
+    }
+
+    float * out_matrix= new float[height1*width2];
+
+    for(int i=0; i<width2; i++){
+        for(int j=0; j<height1; j++){
+            out_matrix[(width2*j)+(i)] = 0;
+
+            for(int k=0; k<height2; k++){
+                out_matrix[(width2*j)+(i)] +=
+                matrix1[(width1*j)+k] * matrix2[(width2*k)+i];
+            }
+        }
+    }
+
+    return out_matrix;
+
 }
 
 void print_tensor(float *tensor, int batches, int channels, int height, int width){
