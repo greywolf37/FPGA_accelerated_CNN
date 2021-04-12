@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv){
 
-    int in_batches=1;
+    int in_batches=2;
     int in_channels=2;
     int in_height=3;
     int in_width=3;
