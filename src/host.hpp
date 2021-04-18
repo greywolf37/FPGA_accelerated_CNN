@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdexcept>
+#include <torch/torch.h>
 
 // Link for tutorials
 // https://www.xilinx.com/support/documentation/sw_manuals/vitis_ai/1_2/ug1414-vitis-ai.pdf
@@ -59,6 +60,35 @@ float * col2img(float *in_tensor, int out_batches, int out_channels, int out_hei
 
     return out_tensor;
 }
+
+float * tensor2arr_4d(torch::Tensor tensor){
+    // int batches = tensor.size(0);
+    // int channels = tensor.size(1);
+    // int height = tensor.size(2);
+    // int width = tensor.size(3);
+
+    // float *array= new float[batches*channels*height*width];
+
+    // for(int b=0; b<batches; b++){
+    //     for(int c=0; c<channels; c++){
+    //         for(int h=0; h<height; h++){
+    //             for(int w=0; w<width; w++){
+    //                 array[(width*height*channels*b)+(width*height*c)+(width*h)+(w)] =
+    //                 tensor.index({b,c,h,w});
+    //             }
+    //         }
+    //     }
+    // }
+
+    // return array;
+    return tensor.data_ptr<float>();
+}
+
+torch::Tensor arr2tensor_4d(float *array, int batches, int channels, int height, int width){
+    auto options = torch::TensorOptions().dtype(torch::kFloat64);
+    return torch::from_blob(array, {batches, channels, height, width});
+}
+
 
 float * matmul_sw(float *matrix1, int height1, int width1,
                     float *matrix2, int height2, int width2){
