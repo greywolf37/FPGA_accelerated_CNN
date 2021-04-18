@@ -1,6 +1,9 @@
 #include <iostream>
 #include <stdexcept>
 
+// Link for tutorials
+// https://www.xilinx.com/support/documentation/sw_manuals/vitis_ai/1_2/ug1414-vitis-ai.pdf
+
 float * img2col(float *in_tensor, int in_batches, int in_channels, int in_height, int in_width, 
             int kernel_height, int kernel_width, int stride, int pad, 
             int *out_height, int *out_width){
