@@ -7,8 +7,9 @@ pytorch_dir="/home/rubin3737/libtorch"
 
 pushd ${prj_dir}/src/src_build
 
-cmake -DCMAKE_PREFIX_PATH=${pytorch_dir} ..
-cmake --build . --config Release
+# cmake -DCMAKE_PREFIX_PATH=${pytorch_dir} ..
+# cmake --build . --config Release
+make
 ./host
 
 popd
