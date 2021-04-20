@@ -2,6 +2,7 @@
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
 
+void forward_sw_test();
 
 int main(int argc, char** argv){
 
@@ -18,21 +19,17 @@ int main(int argc, char** argv){
     float in_array[batches*in_channels*in_height*in_width];
     init_tensor(in_array, batches, in_channels, in_height, in_width);
 
-    float kernel_array[out_channels*in_channels*kernel_height*kernel_width];
-    init_tensor(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-
     torch::Tensor input = arr2tensor_4d(in_array, batches, in_channels, in_height, in_width);
-    torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
 
-    torch::Tensor output = forward_sw(input, weights);
+    torch::Tensor output = transpose_weights(input);
 
     std::cout << "Input" << std::endl;
     std::cout << input << std::endl;
-    std::cout << "Kernel" << std::endl;
-    std::cout << weights << std::endl;
+
     std::cout << "Output" << std::endl;
     std::cout << output << std::endl;
 
+    return 0;
 }
 
 
@@ -75,6 +72,33 @@ torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights){
     return output;
 }
 
-// vector<torch::Tensor> backward_sw(torch::Tensor output_grad, torch::Tensor input, torch::Tensor weights, torch::Tensor output){
-//     return {input, weights};
-// }
+void forward_sw_test(){
+
+    int batches=1;
+    int in_channels=2;
+    int in_height=3;
+    int in_width=3;
+
+    int kernel_height=2;
+    int kernel_width=2;
+
+    int out_channels=2;
+
+    float in_array[batches*in_channels*in_height*in_width];
+    init_tensor(in_array, batches, in_channels, in_height, in_width);
+
+    float kernel_array[out_channels*in_channels*kernel_height*kernel_width];
+    init_tensor(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
+
+    torch::Tensor input = arr2tensor_4d(in_array, batches, in_channels, in_height, in_width);
+    torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
+
+    torch::Tensor output = forward_sw(input, weights);
+
+    std::cout << "Input" << std::endl;
+    std::cout << input << std::endl;
+    std::cout << "Kernel" << std::endl;
+    std::cout << weights << std::endl;
+    std::cout << "Output" << std::endl;
+    std::cout << output << std::endl;
+}

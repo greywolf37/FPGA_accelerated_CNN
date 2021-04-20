@@ -120,6 +120,26 @@ torch::Tensor arr2tensor_4d(float *array, int batches, int channels, int height,
     return torch::from_blob(array, {batches, channels, height, width});
 }
 
+torch::Tensor transpose_weights(torch::Tensor weights){
+
+    int out_channels, in_channels, kernel_height, kernel_width;
+    float * weights_array = tensor2arr_4d(weights, &out_channels, &in_channels, &kernel_height, &kernel_width);
+
+    float * output_array = new float[out_channels*in_channels*kernel_height*kernel_width];
+
+    for(int o=0; o<out_channels; o++){
+        for(int i=0; i<in_channels; i++){
+            for(int h=0; h<kernel_height; h++){
+                for(int w=0; w<kernel_width; w++){
+                    output_array[(kernel_width*kernel_height*in_channels*o)+(kernel_height*kernel_width*i)+(kernel_width*(kernel_height-h-1))+(kernel_width-w-1)]=
+                    weights_array[(kernel_width*kernel_height*in_channels*o)+(kernel_height*kernel_width*i)+(kernel_width*(h))+(w)];
+                }
+            }
+        }
+    }
+
+    return arr2tensor_4d(output_array, out_channels, in_channels, kernel_height, kernel_width);
+}
 
 float * matmul_sw(float *matrix1, int height1, int width1,
                     float *matrix2, int height2, int width2){
