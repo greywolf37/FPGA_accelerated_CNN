@@ -1,4 +1,5 @@
 #include "host.hpp"
+#include <torch/extension.h>
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
 
@@ -78,3 +79,7 @@ torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights){
 // vector<torch::Tensor> backward_sw(torch::Tensor output_grad, torch::Tensor input, torch::Tensor weights, torch::Tensor output){
 //     return {input, weights};
 // }
+
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+  m.def("forward_sw", &forward_sw, "Just forward (CUDA)");
+}
