@@ -8,6 +8,7 @@
 // Link for tutorials
 // https://www.xilinx.com/support/documentation/sw_manuals/vitis_ai/1_2/ug1414-vitis-ai.pdf
 
+void print_tensor(float *tensor, int batches, int channels, int height, int width);
 class Matrix {
         float * array;
     public:
@@ -191,9 +192,10 @@ float * weight_update_img2col(float *in_tensor, int in_batches, int in_channels,
                             out_tensor[
                                 (*out_width)*(kernel_width*kernel_height*b+kernel_width*kh+kw)     /*height  of output*/
                                 +(i)]  /*width of output*/
-                                = in_tensor[(in_width*in_height*in_batches*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)];
-                            // std::cout<<(*out_width)*(kernel_width*kernel_height*c+kernel_width*kh+kw)+(i)<< " <- ";
-                            // std::cout<<(in_width*in_height*in_batches*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)<<std::endl;
+                                = in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)];
+                            std::cout<<(*out_width)*(kernel_width*kernel_height*b+kernel_width*kh+kw)+(i)<< " <- ";
+                            std::cout<<(in_width*in_height*in_batches*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw);
+                            std::cout<<"  ("<<in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)]<<")"<<std::endl;
                         }
                     }
                 }
@@ -201,7 +203,7 @@ float * weight_update_img2col(float *in_tensor, int in_batches, int in_channels,
             }
         }
     }
-
+    print_tensor(out_tensor, 1, 1, *out_height, *out_width);
     return out_tensor;
 }
 

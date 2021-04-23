@@ -125,8 +125,8 @@ void backward_sw_test() {
 
     int pad = 0;
     int stride = 1;
-    int batches=1;
-    int in_channels=2;
+    int batches=2;
+    int in_channels=1;
     int in_height=3;
     int in_width=3;
 
