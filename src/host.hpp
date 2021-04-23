@@ -162,8 +162,62 @@ float * weight2col(float *kernel, int out_channels, int in_channels, int kernel_
     return out_tensor;
 }
 
-Matrix weight_update_img2col(Matrix output_grad, Matrix input, int stride, int pad){
+Matrix weight_update_img2col(Matrix output_grad, Matrix input, int stride, int pad, int *out_shape_height, int *out_shape_width){
 
+    int batches = input.dim1;
+    int in_channels = input.dim2;
+    int in_height = input.dim3;
+    int in_width = input.dim4;
+
+    int kernel_height = output_grad.dim3;
+    int kernel_width = output_grad.dim4;
+
+    int steps_height = ((in_height - kernel_height + 2*pad)/stride) + 1;
+    int steps_width = ((in_width - kernel_width + 2*pad)/stride) + 1;
+
+    *out_shape_height = steps_height;
+    *out_shape_width = steps_width;
+
+    Matrix out_tensor(1, 1, kernel_height*kernel_width*batches, steps_height*steps_width*in_channels);
+    
+    int i=0; /*Slide number*/
+    // Sliding kernel window
+    for(int c=0; c<in_channels; c++){
+        for(int h_in=0; h_in<in_height-kernel_height+1; h_in+=stride){
+            for(int w_in=0; w_in<in_width-kernel_width+1; w_in+=stride){
+
+                // Element in each kernel window
+                for(int b=0; b<batches; b++){
+                    for(int kh=0; kh<kernel_height; kh++){
+                        for(int kw=0; kw<kernel_width; kw++){
+                            out_tensor.set(
+                                input.get(
+                                // Getting indices
+                                b, c, h_in+kh, w_in+kw
+                                ),
+                                // setting indices
+                                1, 1, kernel_width*kernel_height*b+kernel_width*kh+kw, /*height  of output*/
+                                i /*width of output*/
+                            );
+            std::cout<<out_tensor.dim1<<std::endl;
+            std::cout<<out_tensor.dim2<<std::endl;
+            std::cout<<out_tensor.dim3<<std::endl;
+            std::cout<<out_tensor.dim4<<std::endl;
+            // std::cout<<out_tensor.get(1, 1, kernel_width*kernel_height*b+kernel_width*kh+kw, i )<<std::endl;
+
+                                
+                        }
+                    }
+                }
+                i++;
+            }
+        }
+    }
+
+    std::cout<<"in test"<<std::endl;
+    out_tensor.print();
+
+    return out_tensor;
 
 }
 
@@ -203,12 +257,8 @@ Matrix tensor2matrix(torch::Tensor tensor) {
     // float * data_p = new float[tensor.numel()];
     // std::memcpy(data_p, tensor.data_ptr<float>(), sizeof(float)*tensor.numel());
     // return Matrix (data_p, tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3))
-    std::cout<<"Inside test"<<std::endl;
-    std::cout<<tensor<<std::endl;
 
     Matrix matrix = Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
-    std::cout<<"Inside test";
-    matrix.print();
     return Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
 }
 

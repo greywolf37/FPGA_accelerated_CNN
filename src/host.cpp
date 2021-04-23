@@ -57,12 +57,25 @@ torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights){
 
 std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
             torch::Tensor input, torch::Tensor weights) {
-     
-    std::cout << weights << std::endl;
+    
+    int stride = 1;
+    int pad = 0;
+
+    // Casting tensors into custom matrix class
     Matrix weights_mat = tensor2matrix(weights);
-    weights_mat.print();
+    Matrix input_mat = tensor2matrix(input);
+    Matrix output_grad_mat = tensor2matrix(output_grad);
+
+    int weight2col_shape_height, weight2col_shape_width;
+    Matrix weight_update_img2col_mat = weight_update_img2col(
+                    output_grad_mat, input_mat, stride, pad,
+                    &weight2col_shape_height, &weight2col_shape_width);
+
+    weight_update_img2col_mat.print();
+
+    std::cout << "------------*******************-----------------"<< std::endl;
+
     torch::Tensor weights_grad = matrix2tensor(weights_mat);
-    std::cout << "weights_grad" << std::endl;
     return {input, weights_grad};
 }
 
