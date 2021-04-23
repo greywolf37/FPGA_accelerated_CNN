@@ -72,8 +72,9 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
 
     // Gradient of output
     int out_batches, out_channels_output, out_height, out_width;
-    float * output_grad_mat = tensor2arr_4d(output_grad, &out_batches, &out_channels_output, &out_height, &out_width);
+    float * output_grad_arr = tensor2arr_4d(output_grad, &out_batches, &out_channels_output, &out_height, &out_width);
 
+    // WEIGHT UPDATE
     // img2col for weight update (using input_arr)
     int weight_img2col_height, weight_img2col_width; /*Shape of output col*/
     int weight_grad_height, weight_grad_width; /*Shape of weight grad*/
@@ -82,10 +83,18 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
             stride, pad, /*pad and stride are identical to what is used in forward*/
             &weight_img2col_height, &weight_img2col_width, &weight_grad_height, &weight_grad_width);
 
+    // weight2col for weight update (using output grad)
+    int weight_weight2col_height, weight_weight2col_width; /*Shape of output col*/
+    float * weight_update_weight2col_arr = weight_update_weight2col(output_grad_arr, out_batches, out_channels_output, out_height, out_width,
+                    &weight_weight2col_height, &weight_weight2col_width);
 
-    print_tensor(weight_update_img2col_arr, 1, 1, weight_img2col_height, weight_img2col_width);
+    // INPUT GRAD
+    // std::cout<< "weight_update_img2col_arr" <<std::endl;
+    // print_tensor(weight_update_img2col_arr, 1, 1, weight_img2col_height, weight_img2col_width);
+    std::cout<< "weight_update_weight2col_arr" <<std::endl;
+    print_tensor(weight_update_weight2col_arr, 1, 1, weight_weight2col_height, weight_weight2col_width);
 
-    std::cout << "------------*******************-----------------"<< std::endl;
+    std::cout << "------------*******************-----------------" << std::endl;
 
     return {input, weights};
 }

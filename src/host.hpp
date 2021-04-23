@@ -193,9 +193,9 @@ float * weight_update_img2col(float *in_tensor, int in_batches, int in_channels,
                                 (*out_width)*(kernel_width*kernel_height*b+kernel_width*kh+kw)     /*height  of output*/
                                 +(i)]  /*width of output*/
                                 = in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)];
-                            std::cout<<(*out_width)*(kernel_width*kernel_height*b+kernel_width*kh+kw)+(i)<< " <- ";
-                            std::cout<<(in_width*in_height*in_batches*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw);
-                            std::cout<<"  ("<<in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)]<<")"<<std::endl;
+                            // std::cout<<(*out_width)*(kernel_width*kernel_height*b+kernel_width*kh+kw)+(i)<< " <- ";
+                            // std::cout<<(in_width*in_height*in_batches*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw);
+                            // std::cout<<"  ("<<in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)]<<")"<<std::endl;
                         }
                     }
                 }
@@ -204,6 +204,28 @@ float * weight_update_img2col(float *in_tensor, int in_batches, int in_channels,
         }
     }
     print_tensor(out_tensor, 1, 1, *out_height, *out_width);
+    return out_tensor;
+}
+
+float * weight_update_weight2col(float *out_grad, int out_batches, int out_channels, int out_height, int out_width,
+                    int *out_height_shape, int *out_width_shape){
+
+    *out_height_shape = out_channels;
+    *out_width_shape = out_height * out_width * out_batches;
+
+    float * out_tensor = new float[*out_height_shape * (*out_width_shape)];
+
+    for(int o=0; o<out_batches; o++){
+        for(int i=0; i<out_channels; i++){
+            for(int h=0;h<out_height; h++){
+                for(int w=0; w<out_width; w++){
+                    out_tensor[(*out_width_shape)*(i) + (out_width*out_height*o+ out_width*h+ w)] =
+                    out_grad[(out_height * out_width * out_channels* o) + (out_width*out_height*i) + (out_width*h) + (w)];
+                }
+            }
+        }
+    }
+
     return out_tensor;
 }
 
