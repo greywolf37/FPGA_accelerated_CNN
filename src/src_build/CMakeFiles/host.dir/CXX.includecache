@@ -5157,6 +5157,8 @@ stdexcept
 -
 vector
 -
+tuple
+-
 torch/torch.h
 -
 

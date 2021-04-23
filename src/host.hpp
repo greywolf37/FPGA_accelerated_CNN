@@ -1,11 +1,85 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <tuple>
 
 #include <torch/torch.h>
 
 // Link for tutorials
 // https://www.xilinx.com/support/documentation/sw_manuals/vitis_ai/1_2/ug1414-vitis-ai.pdf
+
+class Matrix {
+        float * array;
+    public:
+        int dim1, dim2, dim3, dim4;
+        Matrix (int, int, int, int);
+        Matrix (float *, int, int, int, int);
+        void set(float, int, int, int, int);
+        float get(int, int, int, int);
+        float * data_ptr(void);
+        void print(void);
+        void delete_data(void);
+        // ~Matrix ();
+
+};
+
+Matrix::Matrix (int a, int b, int c, int d) {
+    dim1 = a;
+    dim2 = b;
+    dim3 = c;
+    dim4 = d;
+    array = new float[dim1*dim2*dim3*dim4];
+}
+
+Matrix::Matrix (float * array_ptr, int a, int b, int c, int d) {
+    dim1 = a;
+    dim2 = b;
+    dim3 = c;
+    dim4 = d;
+    array = new float[a*b*c*d];
+    std::memcpy(array, array_ptr, sizeof(float)*a*b*c*d);
+}
+
+void Matrix::set (float value, int a, int b, int c, int d) {
+    array[(dim2 * dim3 * dim4 * a) + (dim3 * dim4 * b) + (dim4 * c) + (d)] = value;
+}
+
+float Matrix::get (int a, int b, int c, int d) {
+    return array[(dim2 * dim3 * dim4 * a) + (dim3 * dim4 * b) + (dim4 * c) + (d)];
+}
+
+float * Matrix::data_ptr () {
+    return array;
+}
+
+void Matrix::print () {
+    std::cout<<std::endl;
+    for(int b=0; b<dim1; b++){
+        for(int c=0; c<dim2; c++){
+
+            for(int h=0; h<dim3; h++){
+                for(int w=0; w<dim4; w++){
+                    std::cout<< get(b, c, h, w);
+                    std::cout<<"\t";
+                }
+                std::cout<<std::endl;
+            }
+            std::cout<<std::endl;
+        }
+        std::cout<<std::endl;
+    }
+}
+
+void Matrix::delete_data () {
+    delete[] array;
+}
+
+// Matrix::~Matrix () {
+//     if (array) {
+//     delete[] array;
+//     }
+// }
+
 
 float * img2col(float *in_tensor, int in_batches, int in_channels, int in_height, int in_width, 
             int kernel_height, int kernel_width, int stride, int pad, 
@@ -88,6 +162,11 @@ float * weight2col(float *kernel, int out_channels, int in_channels, int kernel_
     return out_tensor;
 }
 
+Matrix weight_update_img2col(Matrix output_grad, Matrix input, int stride, int pad){
+
+
+}
+
 float * tensor2arr_4d(torch::Tensor tensor, int *batches, int *in_channels, int *in_height, int *in_width){
     // int batches = tensor.size(0);
     // int channels = tensor.size(1);
@@ -118,6 +197,30 @@ float * tensor2arr_4d(torch::Tensor tensor, int *batches, int *in_channels, int 
 torch::Tensor arr2tensor_4d(float *array, int batches, int channels, int height, int width){
     auto options = torch::TensorOptions().dtype(torch::kFloat64);
     return torch::from_blob(array, {batches, channels, height, width});
+}
+
+Matrix tensor2matrix(torch::Tensor tensor) {
+    // float * data_p = new float[tensor.numel()];
+    // std::memcpy(data_p, tensor.data_ptr<float>(), sizeof(float)*tensor.numel());
+    // return Matrix (data_p, tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3))
+    std::cout<<"Inside test"<<std::endl;
+    std::cout<<tensor<<std::endl;
+
+    Matrix matrix = Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
+    std::cout<<"Inside test";
+    matrix.print();
+    return Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
+}
+
+torch::Tensor matrix2tensor(Matrix matrix) {
+    // float * data_p = new float[matrix.dim1 * matrix.dim2 * matrix.dim3 *matrix.dim4];
+    // std::memcpy(data_p, matrix.data_ptr(), sizeof(float)*matrix.dim1 * matrix.dim2 * matrix.dim3 *matrix.dim4);
+
+    // auto options = torch::TensorOptions().dtype(torch::kFloat64);
+    //  return torch::from_blob(data_p, {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
+
+    auto options = torch::TensorOptions().dtype(torch::kFloat64);
+     return torch::from_blob(matrix.data_ptr(), {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
 }
 
 torch::Tensor transpose_weights(torch::Tensor weights){
@@ -161,6 +264,37 @@ float * matmul_sw(float *matrix1, int height1, int width1,
     }
 
     return out_matrix;
+
+}
+
+float * pad_array(float * array, int batches, int channels, int height, int width, 
+                    int pad_height, int pad_width, int *out_batches, int *out_channels, int *out_height, int *out_width){
+    *out_batches = batches;
+    *out_channels = channels;
+    *out_height = height + 2 * pad_height;
+    *out_width = width + 2 * pad_width;
+
+    float * out_array = new float[*out_batches * (*out_channels) * (*out_height) * (*out_width)];
+
+    for(int b=0; b<*out_batches;b++){
+        for(int c=0; c<*out_channels; c++){
+            for(int h_=0; h_<*out_height; h_++){
+                for(int w_=0; w_<*out_width; w_++){
+                    
+                    if((h_<pad_height) || (w_<pad_width) || 
+                        (h_>=height+pad_height) || (w_>=width+pad_width)){
+                        // Padding with zeroes
+                        out_array[(*out_height * (*out_width)*(*out_channels)*b)+(*out_height * (*out_width)*c)+(*out_width*h_)+(w_)]=0;
+                    }else{
+                        out_array[(*out_height * (*out_width)*(*out_channels)*b)+(*out_height * (*out_width)*c)+(*out_width*h_)+(w_)]=
+                        array[(height*width*channels*b)+(height * width*c)+(width*(h_-pad_height))+(w_-pad_width)];
+                    }
+
+                }
+            }
+        }
+    }
+    return out_array;
 
 }
 
