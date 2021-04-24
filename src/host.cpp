@@ -1,4 +1,5 @@
 #include "host.hpp"
+#include <torch/extension.h>
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
 std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
@@ -199,4 +200,11 @@ void test_Matrix() {
     mat1.set(1000, 1, 1, 1, 1);
     std::cout << "Altered" << std::endl;
     mat1.print();
+}
+// vector<torch::Tensor> backward_sw(torch::Tensor output_grad, torch::Tensor input, torch::Tensor weights, torch::Tensor output){
+//     return {input, weights};
+// }
+
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+  m.def("forward_sw", &forward_sw, "Just forward (CUDA)");
 }
