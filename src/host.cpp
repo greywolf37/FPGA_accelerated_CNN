@@ -1,5 +1,4 @@
 #include "host.hpp"
-#include <torch/extension.h>
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
 std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
@@ -116,11 +115,34 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
     // Deleting intermediate arrays
     delete[] weight_update_img2col_arr, weight_update_weight2col_arr, weight_grad_col_arr;
 
-    // std::cout<< "Test2:" << weight_weight2col_height<< std::endl;
+    // INPUT GRAD
+    // padding output grad
+    int og_pad_in_channels, og_pad_out_channels, og_pad_height, og_pad_width;
+    float * og_pad_arr = pad_array(output_grad_arr, out_batches, out_channels_output, out_height, out_width,
+                                    in_height - out_height, in_width-out_width, /*padding required*/
+                                    &og_pad_in_channels, &og_pad_out_channels, &og_pad_height, &og_pad_width);
+
+    // Tranposing weights
+    int w, x, y, z;
+    float * weights_T_arr = transpose_weights(weights, &w, &x, &y, &z);
+
+    // img2col for input grad (using output grad)
+    int ig_i2c_height, ig_i2c_width;
+    int input_grad_height, input_grad_width;
+    float * ig_i2c_arr = input_grad_img2col(og_pad_arr, og_pad_in_channels, og_pad_out_channels, og_pad_height, og_pad_width, 
+            kernel_height, kernel_width, stride, pad, 
+            &ig_i2c_height, &ig_i2c_width, &input_grad_height, &input_grad_width);
+
+    // Printing
+    std::cout<< "weights_T_arr" <<std::endl;
+    print_tensor(weights_T_arr, w, x, y, z);
+    std::cout<< "og_pad_arr" <<std::endl;
+    print_tensor(og_pad_arr, og_pad_in_channels, og_pad_out_channels, og_pad_height, og_pad_width);
+    std::cout<< "ig_i2c_arr" <<std::endl;
+    print_tensor(ig_i2c_arr, 1, 1, ig_i2c_height, ig_i2c_width);
+    // std::cout<< "Test2:" << ig_i2c_width<< std::endl;
     //  std::cout<< "Test3:" << weight_img2col_width<< std::endl;
     //  std::cout<< "Test4:" << in_channels<< std::endl;
-    // INPUT GRAD
-
     std::cout << "------------*******************-----------------" << std::endl;
 
     return {input, weight_grad};
@@ -169,7 +191,7 @@ void backward_sw_test() {
     int kernel_height=2;
     int kernel_width=2;
 
-    int out_channels=2;
+    int out_channels=1;
 
     int out_height = ((in_height - kernel_height + 2*pad)/stride) + 1;
     int out_width = ((in_width - kernel_width + 2*pad)/stride) + 1;
@@ -246,11 +268,4 @@ void test_Matrix() {
     mat1.set(1000, 1, 1, 1, 1);
     std::cout << "Altered" << std::endl;
     mat1.print();
-}
-// vector<torch::Tensor> backward_sw(torch::Tensor output_grad, torch::Tensor input, torch::Tensor weights, torch::Tensor output){
-//     return {input, weights};
-// }
-
-PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-  m.def("forward_sw", &forward_sw, "Just forward (CUDA)");
 }

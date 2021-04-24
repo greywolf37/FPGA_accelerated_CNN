@@ -4,7 +4,6 @@
 #include <tuple>
 
 #include <torch/torch.h>
-#include <torch/extension.h>
 
 
 // Link for tutorials
@@ -247,6 +246,47 @@ float * weight_update_col2img(float *in_tensor, int out_channels, int in_channel
 
     return out_tensor;
 }
+
+float * input_grad_img2col(float *in_tensor, int in_batches, int in_channels, int in_height, int in_width, 
+            int kernel_height, int kernel_width, int stride, int pad, 
+            int *out_height, int *out_width, int *out_shape_height, int *out_shape_width){
+
+    int steps_height = ((in_height - kernel_height + 2*pad)/stride) + 1;
+    int steps_width = ((in_width - kernel_width + 2*pad)/stride) + 1;
+    *out_height = kernel_height*kernel_width*in_channels;
+    *out_width = steps_height*steps_width*in_batches;
+
+    *out_shape_height = steps_height;
+    *out_shape_width = steps_width;
+
+    float* out_tensor= new float[(*out_height)*(*out_width)];
+
+    int i=0; /*Slide number*/
+    // Sliding kernel window
+    for(int b=0; b<in_batches; b++){
+        for(int h_in=0; h_in<in_height-kernel_height+1; h_in+=stride){
+            for(int w_in=0; w_in<in_width-kernel_width+1; w_in+=stride){
+
+                // Element in each kernel window
+                for(int c=0; c<in_channels; c++){
+                    for(int kh=0; kh<kernel_height; kh++){
+                        for(int kw=0; kw<kernel_width; kw++){
+                            out_tensor[
+                                (*out_width)*(kernel_width*kernel_height*c+kernel_width*kh+kw)     /*height  of output*/
+                                +(i)]  /*width of output*/
+                                = in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)];
+                            // std::cout<<(*out_width)*(kernel_width*kernel_height*b+kernel_width*kh+kw)+(i)<< " <- ";
+                            // std::cout<<(in_width*in_height*in_batches*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw);
+                            // std::cout<<"  ("<<in_tensor[(in_width*in_height*in_channels*b)+(in_width*in_height*c)+(in_width*(h_in+kh))+(w_in+kw)]<<")"<<std::endl;
+                        }
+                    }
+                }
+                i++;
+            }
+        }
+    }
+    return out_tensor;
+}
 float * tensor2arr_4d(torch::Tensor tensor, int *batches, int *in_channels, int *in_height, int *in_width){
     // int batches = tensor.size(0);
     // int channels = tensor.size(1);
@@ -299,7 +339,7 @@ torch::Tensor matrix2tensor(Matrix matrix) {
      return torch::from_blob(matrix.data_ptr(), {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
 }
 
-torch::Tensor transpose_weights(torch::Tensor weights){
+float * transpose_weights(torch::Tensor weights, int *w, int *x, int *y, int *z){
 
     int out_channels, in_channels, kernel_height, kernel_width;
     float * weights_array = tensor2arr_4d(weights, &out_channels, &in_channels, &kernel_height, &kernel_width);
@@ -316,8 +356,11 @@ torch::Tensor transpose_weights(torch::Tensor weights){
             }
         }
     }
-
-    return arr2tensor_4d(output_array, out_channels, in_channels, kernel_height, kernel_width);
+    *w = out_channels;
+    *x = in_channels;
+    *y = kernel_height;
+    *z = kernel_width;
+    return output_array;
 }
 
 float * matmul_sw(float *matrix1, int height1, int width1,
