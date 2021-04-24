@@ -203,7 +203,6 @@ float * weight_update_img2col(float *in_tensor, int in_batches, int in_channels,
             }
         }
     }
-    print_tensor(out_tensor, 1, 1, *out_height, *out_width);
     return out_tensor;
 }
 
@@ -229,6 +228,23 @@ float * weight_update_weight2col(float *out_grad, int out_batches, int out_chann
     return out_tensor;
 }
 
+float * weight_update_col2img(float *in_tensor, int out_channels, int in_channels, int out_height, int out_width){
+
+    float* out_tensor= new float[out_channels*in_channels*out_height*out_width];
+
+    for(int b=0; b<out_channels; b++){
+        for(int c=0; c<in_channels; c++){
+            for(int h=0; h<out_height; h++){
+                for(int w=0; w<out_width; w++){
+                    out_tensor[(out_width*out_height*in_channels*b)+(out_width*out_height*c)+(out_width*h)+w]
+                        = in_tensor[(out_width*out_height*in_channels*b)+((out_width*out_height*c)+(out_width*h) +(w))];
+                }
+            }
+        }
+    }
+
+    return out_tensor;
+}
 float * tensor2arr_4d(torch::Tensor tensor, int *batches, int *in_channels, int *in_height, int *in_width){
     // int batches = tensor.size(0);
     // int channels = tensor.size(1);

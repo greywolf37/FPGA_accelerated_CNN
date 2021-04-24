@@ -83,20 +83,46 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
             stride, pad, /*pad and stride are identical to what is used in forward*/
             &weight_img2col_height, &weight_img2col_width, &weight_grad_height, &weight_grad_width);
 
+    std::cout<< "Test1:" << weight_img2col_width<< std::endl;
     // weight2col for weight update (using output grad)
     int weight_weight2col_height, weight_weight2col_width; /*Shape of output col*/
     float * weight_update_weight2col_arr = weight_update_weight2col(output_grad_arr, out_batches, out_channels_output, out_height, out_width,
                     &weight_weight2col_height, &weight_weight2col_width);
+    // Matrix multiplication
+    std::cout<< weight_weight2col_width <<std::endl;
+    std::cout<< weight_grad_height <<std::endl;
+    float * weight_grad_col_arr = matmul_sw(weight_update_weight2col_arr, weight_weight2col_height, weight_weight2col_width,
+                    weight_update_img2col_arr, weight_img2col_height, weight_img2col_width);
+    int weight_grad_col_height = weight_weight2col_height;
+    int weight_grad_col_width = weight_img2col_width;
 
-    // INPUT GRAD
-    // std::cout<< "weight_update_img2col_arr" <<std::endl;
-    // print_tensor(weight_update_img2col_arr, 1, 1, weight_img2col_height, weight_img2col_width);
+    // col2img for weight update
+    float * weight_grad_arr = weight_update_col2img(weight_grad_col_arr, out_channels_output, in_channels_input, weight_grad_height, weight_grad_width);
+
+    // Converting to tensor
+    torch::Tensor weight_grad = arr2tensor_4d(weight_grad_arr, out_channels_output, in_channels_input, weight_grad_height, weight_grad_width);
+
+    // Printing
+    std::cout<< "weight_update_img2col_arr" <<std::endl;
+    print_tensor(weight_update_img2col_arr, 1, 1, weight_img2col_height, weight_img2col_width);
     std::cout<< "weight_update_weight2col_arr" <<std::endl;
     print_tensor(weight_update_weight2col_arr, 1, 1, weight_weight2col_height, weight_weight2col_width);
+    std::cout<< "weight_grad_col" <<std::endl;
+    print_tensor(weight_grad_col_arr, 1, 1, weight_grad_col_height, weight_grad_col_width);
+    std::cout<< "weight_grad_col_arr" <<std::endl;
+    print_tensor(weight_grad_arr, out_channels_output, in_channels_input, weight_grad_height, weight_grad_width);
+    
+    // Deleting intermediate arrays
+    delete[] weight_update_img2col_arr, weight_update_weight2col_arr, weight_grad_col_arr;
+
+    // std::cout<< "Test2:" << weight_weight2col_height<< std::endl;
+    //  std::cout<< "Test3:" << weight_img2col_width<< std::endl;
+    //  std::cout<< "Test4:" << in_channels<< std::endl;
+    // INPUT GRAD
 
     std::cout << "------------*******************-----------------" << std::endl;
 
-    return {input, weights};
+    return {input, weight_grad};
 }
 
 void forward_sw_test(){
@@ -135,7 +161,7 @@ void backward_sw_test() {
     int pad = 0;
     int stride = 1;
     int batches=2;
-    int in_channels=1;
+    int in_channels=2;
     int in_height=3;
     int in_width=3;
 
