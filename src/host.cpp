@@ -1,7 +1,7 @@
 #include "host.hpp"
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
-std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
+std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
             torch::Tensor input, torch::Tensor weights);
 
 void forward_sw_test();
@@ -55,7 +55,7 @@ torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights){
     return output;
 }
 
-std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
+std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
             torch::Tensor input, torch::Tensor weights) {
     
     int stride = 1;
@@ -238,7 +238,9 @@ void backward_sw_test() {
     torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
     torch::Tensor output_grad = arr2tensor_4d(output_grad_array, batches, out_channels, out_height, out_width);
 
-    auto [input_grad, weights_grad] = backward_sw(output_grad, input, weights);
+    std::vector<torch::Tensor> output = backward_sw(output_grad, input, weights);
+    torch::Tensor input_grad = output[0];
+    torch::Tensor weights_grad = output[1];
 
     std::cout << "Input" << std::endl;
     std::cout << input << std::endl;
