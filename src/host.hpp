@@ -287,6 +287,47 @@ float * input_grad_img2col(float *in_tensor, int in_batches, int in_channels, in
     }
     return out_tensor;
 }
+
+float * input_grad_weight2col(float *weights, int out_channels, int in_channels, int out_height, int out_width,
+                    int *out_height_shape, int *out_width_shape){
+
+    *out_height_shape = in_channels;
+    *out_width_shape = out_height * out_width * out_channels;
+
+    float * out_tensor = new float[*out_height_shape * (*out_width_shape)];
+
+    for(int o=0; o<out_channels; o++){
+        for(int i=0; i<in_channels; i++){
+            for(int h=0;h<out_height; h++){
+                for(int w=0; w<out_width; w++){
+                    out_tensor[(*out_width_shape)*(i) + (out_width*out_height*o+ out_width*h+ w)] =
+                    weights[(out_height * out_width * in_channels* o) + (out_width*out_height*i) + (out_width*h) + (w)];
+                }
+            }
+        }
+    }
+
+    return out_tensor;
+}
+
+float * input_grad_col2img(float *in_tensor, int out_batches, int in_channels, int out_height, int out_width){
+
+    float* out_tensor= new float[out_batches*in_channels*out_height*out_width];
+
+    for(int b=0; b<out_batches; b++){
+        for(int c=0; c<in_channels; c++){
+            for(int h=0; h<out_height; h++){
+                for(int w=0; w<out_width; w++){
+                    out_tensor[(out_width*out_height*in_channels*b)+(out_width*out_height*c)+(out_width*h)+w]
+                        = in_tensor[(out_width*out_height*out_batches*c)+((out_width*out_height*b)+(out_width*h) +(w))];
+                }
+            }
+        }
+    }
+
+    return out_tensor;
+}
+
 float * tensor2arr_4d(torch::Tensor tensor, int *batches, int *in_channels, int *in_height, int *in_width){
     // int batches = tensor.size(0);
     // int channels = tensor.size(1);

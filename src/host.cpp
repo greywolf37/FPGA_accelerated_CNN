@@ -83,7 +83,6 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
             stride, pad, /*pad and stride are identical to what is used in forward*/
             &weight_img2col_height, &weight_img2col_width, &weight_grad_height, &weight_grad_width);
 
-    std::cout<< "Test1:" << weight_img2col_width<< std::endl;
     // weight2col for weight update (using output grad)
     int weight_weight2col_height, weight_weight2col_width; /*Shape of output col*/
     float * weight_update_weight2col_arr = weight_update_weight2col(output_grad_arr, out_batches, out_channels_output, out_height, out_width,
@@ -117,10 +116,10 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
 
     // INPUT GRAD
     // padding output grad
-    int og_pad_in_channels, og_pad_out_channels, og_pad_height, og_pad_width;
+    int og_pad_batches, og_pad_out_channels, og_pad_height, og_pad_width;
     float * og_pad_arr = pad_array(output_grad_arr, out_batches, out_channels_output, out_height, out_width,
                                     in_height - out_height, in_width-out_width, /*padding required*/
-                                    &og_pad_in_channels, &og_pad_out_channels, &og_pad_height, &og_pad_width);
+                                    &og_pad_batches, &og_pad_out_channels, &og_pad_height, &og_pad_width);
 
     // Tranposing weights
     int w, x, y, z;
@@ -129,17 +128,47 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
     // img2col for input grad (using output grad)
     int ig_i2c_height, ig_i2c_width;
     int input_grad_height, input_grad_width;
-    float * ig_i2c_arr = input_grad_img2col(og_pad_arr, og_pad_in_channels, og_pad_out_channels, og_pad_height, og_pad_width, 
+    float * ig_i2c_arr = input_grad_img2col(og_pad_arr, og_pad_batches, og_pad_out_channels, og_pad_height, og_pad_width, 
             kernel_height, kernel_width, stride, pad, 
             &ig_i2c_height, &ig_i2c_width, &input_grad_height, &input_grad_width);
+
+    // weight2col for weight update (for input grad)
+    int ig_w2c_height, ig_w2c_width; /*Shape of output col*/
+    float * ig_w2c_arr = input_grad_weight2col(weights_T_arr, w, x, y, z,
+                    &ig_w2c_height, &ig_w2c_width);
+
+    // Matrix Multiplication
+    float * input_grad_col_arr = matmul_sw(ig_w2c_arr, ig_w2c_height, ig_w2c_width, /*weighs*/
+                                            ig_i2c_arr, ig_i2c_height, ig_i2c_width); /*output gradient*/
+    int input_grad_col_height = ig_w2c_height;
+    int input_grad_col_width = ig_i2c_width;
+
+    // col2img for weight update
+    float * input_grad_arr = input_grad_col2img(input_grad_col_arr, og_pad_batches, in_channels_input, input_grad_height, input_grad_width);
+
+    // Converting to tensor
+    torch::Tensor input_grad = arr2tensor_4d(input_grad_arr, og_pad_batches, in_channels_input, input_grad_height, input_grad_width);
 
     // Printing
     std::cout<< "weights_T_arr" <<std::endl;
     print_tensor(weights_T_arr, w, x, y, z);
     std::cout<< "og_pad_arr" <<std::endl;
-    print_tensor(og_pad_arr, og_pad_in_channels, og_pad_out_channels, og_pad_height, og_pad_width);
+    print_tensor(og_pad_arr, og_pad_batches, og_pad_out_channels, og_pad_height, og_pad_width);
     std::cout<< "ig_i2c_arr" <<std::endl;
     print_tensor(ig_i2c_arr, 1, 1, ig_i2c_height, ig_i2c_width);
+    std::cout<< "ig_w2c_arr" <<std::endl;
+    print_tensor(ig_w2c_arr, 1, 1, ig_w2c_height, ig_w2c_width);
+    std::cout<< "input_grad_col_arr" <<std::endl;
+    print_tensor(input_grad_col_arr, 1, 1, input_grad_col_height, input_grad_col_width);
+    std::cout<< "input_grad_arr" <<std::endl;
+    print_tensor(input_grad_arr, og_pad_batches, in_channels_input, input_grad_height, input_grad_width);
+
+    // Deleting intermediate arrays
+    delete[] og_pad_arr, weights_T_arr, ig_i2c_arr, ig_w2c_arr,
+                input_grad_col_arr;
+
+
+    // std::cout<< "Test1:" << weight_img2col_width<< std::endl;
     // std::cout<< "Test2:" << ig_i2c_width<< std::endl;
     //  std::cout<< "Test3:" << weight_img2col_width<< std::endl;
     //  std::cout<< "Test4:" << in_channels<< std::endl;
