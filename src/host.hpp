@@ -1,7 +1,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-#include <tuple>
 
 #include <torch/torch.h>
 

@@ -174,7 +174,7 @@ std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
     //  std::cout<< "Test4:" << in_channels<< std::endl;
     std::cout << "------------*******************-----------------" << std::endl;
 
-    return {input, weight_grad};
+    return {input_grad, weight_grad};
 }
 
 void forward_sw_test(){
@@ -238,9 +238,9 @@ void backward_sw_test() {
     torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
     torch::Tensor output_grad = arr2tensor_4d(output_grad_array, batches, out_channels, out_height, out_width);
 
-    std::vector<torch::Tensor> output = backward_sw(output_grad, input, weights);
-    torch::Tensor input_grad = output[0];
-    torch::Tensor weights_grad = output[1];
+    std::vector<torch::Tensor> output_vec = backward_sw(output_grad, input, weights);
+    torch::Tensor input_grad = output_vec[0];
+    torch::Tensor weights_grad = output_vec[1];
 
     std::cout << "Input" << std::endl;
     std::cout << input << std::endl;
