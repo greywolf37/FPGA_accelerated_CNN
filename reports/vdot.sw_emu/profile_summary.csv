@@ -1,0 +1,118 @@
+Profile Summary
+Generated on: 2021-04-27 23:24:38
+Msec since Epoch: 1619565878184
+Profiled application: host
+Target platform: 
+Tool version: 2020.1
+XRT build version: 2.6.0
+Build version branch: 2020.1
+Build version hash: 12115fd4054cb46a5ade62fafa74c523f59116e6
+Build version date: 2020-07-09 15:20:59 
+Target devices: xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0
+Flow mode: Software Emulation
+
+OpenCL API Calls
+API Name,Number Of Calls,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),
+clReleaseContext,1,5260.29,5260.29,5260.29,5260.29,
+clCreateProgramWithBinary,1,969.951,969.951,969.951,969.951,
+clSetKernelArg,4,82.7455,0.003604,20.6864,82.6393,
+clCreateKernel,1,0.873606,0.873606,0.873606,0.873606,
+clEnqueueMigrateMemObjects,2,0.63294,0.018636,0.31647,0.614304,
+clFinish,2,0.629899,0.044474,0.31495,0.585425,
+clEnqueueTask,1,0.092639,0.092639,0.092639,0.092639,
+clReleaseKernel,1,0.060088,0.060088,0.060088,0.060088,
+clGetExtensionFunctionAddress,2,0.056541,0.009883,0.0282705,0.046658,
+clReleaseMemObject,9,0.05566,0.003118,0.00618444,0.021147,
+clGetPlatformInfo,14,0.045528,0.002896,0.003252,0.005028,
+clReleaseProgram,1,0.038936,0.038936,0.038936,0.038936,
+clRetainMemObject,6,0.022393,0.00312,0.00373217,0.005163,
+clReleaseEvent,5,0.020618,0.003153,0.0041236,0.00623,
+clCreateBuffer,3,0.016522,0.003471,0.00550733,0.009128,
+clRetainEvent,2,0.016202,0.004158,0.008101,0.012044,
+clCreateContext,1,0.012779,0.012779,0.012779,0.012779,
+clReleaseDevice,2,0.010549,0.003861,0.0052745,0.006688,
+clGetExtensionFunctionAddressForPlatform,2,0.010473,0.003477,0.0052365,0.006996,
+clGetDeviceIDs,2,0.009624,0.003427,0.004812,0.006197,
+clCreateCommandQueue,1,0.008576,0.008576,0.008576,0.008576,
+clRetainDevice,2,0.006944,0.003218,0.003472,0.003726,
+clReleaseCommandQueue,1,0.004417,0.004417,0.004417,0.004417,
+
+
+Kernel Execution
+Kernel,Number Of Enqueues,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),
+vdot,1,0.558981,0.558981,0.558981,0.558981,
+
+
+Compute Unit Utilization
+Device,Compute Unit,Kernel,Global Work Size,Local Work Size,Number Of Calls,Dataflow Execution,Max Overlapping Executions,Dataflow Acceleration,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),Clock Frequency (MHz),
+xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,vdot_1,vdot,1:1:1,1:1:1,1,No,0,1.000000x,0.149316,0.149316,0.149316,0.149316,300,
+
+
+Data Transfer: Host to Global Memory
+Context:Number of Devices,Transfer Type,Number Of Buffer Transfers,Transfer Rate (MB/s),Average Bandwidth Utilization (%),Average Buffer Size (KB),Total Time (ms),Average Time (ms),
+
+
+Data Transfer: Kernels to Global Memory
+Device,Compute Unit/Port Name,Kernel Arguments,Memory Resources,Transfer Type,Number Of Transfers,Transfer Rate (MB/s),Average Bandwidth Utilization (%),Average Size (KB),Average Latency (ns),
+
+
+Top Data Transfer: Kernels to Global Memory
+Device,Compute Unit,Number of Transfers,Average Bytes per Transfer,Transfer Efficiency (%),Total Data Transfer (MB),Total Write (MB),Total Read (MB),Total Transfer Rate (MB/s),
+
+
+Top Kernel Execution
+Kernel Instance Address,Kernel,Context ID,Command Queue ID,Device,Start Time (ms),Duration (ms),Global Work Size,Local Work Size,
+8318720,vdot,0,0,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,1922.9,0.558981,1:1:1,1:1:1,
+
+
+Top Memory Writes: Host to Global Memory
+Buffer Address,Context ID,Command Queue ID,Start Time (ms),Duration (ms),Buffer Size (KB),Writing Rate(MB/s),
+0,0,0,1922.72,N/A,2.048,N/A,
+
+
+Top Memory Reads: Host to Global Memory
+Buffer Address,Context ID,Command Queue ID,Start Time (ms),Duration (ms),Buffer Size (KB),Reading Rate(MB/s),
+8192,0,0,1923.55,N/A,1.024,N/A,
+
+
+Guidance Parameters
+Parameter,Element,Value,
+DEVICE_EXEC_TIME,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,0.558981,
+CU_CALLS,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|vdot_1,1,
+MIGRATE_MEM,host,2,
+PLRAM_DEVICE,all,1,
+HBM_DEVICE,all,0,
+KDMA_DEVICE,all,0,
+P2P_DEVICE,all,0,
+P2P_HOST_TRANSFERS,host,0,
+PORT_BIT_WIDTH,vdot_1/m_axi_gmem,32,
+KERNEL_COUNT,vdot,1,
+OBJECTS_RELEASED,all,1,
+TRACE_MEMORY,all,NA,
+CU_CONTEXT_EN,all,0,
+MAX_PARALLEL_KERNEL_ENQUEUES,vdot,1,
+COMMAND_QUEUE_OOO,8351008,0,
+KERNEL_BUFFER_INFO,vdot|input1||1,1024,
+KERNEL_BUFFER_INFO,vdot|input2||1,1024,
+KERNEL_BUFFER_INFO,vdot|output_r||1,1024,
+MEMORY_TYPE_BIT_WIDTH,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|DDR,512,
+MEMORY_TYPE_BIT_WIDTH,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|HBM,256,
+MEMORY_TYPE_BIT_WIDTH,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|PLRAM,512,
+XRT_INI_SETTING,continuous_trace,0,
+XRT_INI_SETTING,continuous_trace_interval_ms,10,
+XRT_INI_SETTING,data_transfer_trace,fine,
+XRT_INI_SETTING,launch_waveform,batch,
+XRT_INI_SETTING,lop_trace,0,
+XRT_INI_SETTING,power_profile,0,
+XRT_INI_SETTING,profile,1,
+XRT_INI_SETTING,stall_trace,off,
+XRT_INI_SETTING,timeline_trace,1,
+XRT_INI_SETTING,trace_buffer_size,1M,
+XRT_INI_SETTING,verbosity,4,
+BUFFER_RD_ACTIVE_TIME_MS,all,0.0593,
+BUFFER_WR_ACTIVE_TIME_MS,all,0.251983,
+BUFFER_TX_ACTIVE_TIME_MS,all,0.890038,
+APPLICATION_RUN_TIME_MS,all,7184.23,
+TOTAL_KERNEL_RUN_TIME_MS,all,0.558981,
+
+
