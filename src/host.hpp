@@ -4,7 +4,7 @@
 #include <tuple>
 
 #include <torch/torch.h>
-
+#include <torch/extension.h>
 
 // Link for tutorials
 // https://www.xilinx.com/support/documentation/sw_manuals/vitis_ai/1_2/ug1414-vitis-ai.pdf

@@ -1,19 +1,8 @@
 #include "host.hpp"
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
-std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
+std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
             torch::Tensor input, torch::Tensor weights);
-
-void forward_sw_test();
-void backward_sw_test();
-void backward_sw();
-void pad_array_test();
-void test_Matrix();
-
-int main(int argc, char** argv){
-    backward_sw_test();
-    return 0;
-}
 
 
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights){
@@ -55,7 +44,7 @@ torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights){
     return output;
 }
 
-std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
+std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
             torch::Tensor input, torch::Tensor weights) {
     
     int stride = 1;
@@ -88,8 +77,8 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
     float * weight_update_weight2col_arr = weight_update_weight2col(output_grad_arr, out_batches, out_channels_output, out_height, out_width,
                     &weight_weight2col_height, &weight_weight2col_width);
     // Matrix multiplication
-    std::cout<< weight_weight2col_width <<std::endl;
-    std::cout<< weight_grad_height <<std::endl;
+    // std::cout<< weight_weight2col_width <<std::endl;
+    // std::cout<< weight_grad_height <<std::endl;
     float * weight_grad_col_arr = matmul_sw(weight_update_weight2col_arr, weight_weight2col_height, weight_weight2col_width,
                     weight_update_img2col_arr, weight_img2col_height, weight_img2col_width);
     int weight_grad_col_height = weight_weight2col_height;
@@ -100,16 +89,6 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
 
     // Converting to tensor
     torch::Tensor weight_grad = arr2tensor_4d(weight_grad_arr, out_channels_output, in_channels_input, weight_grad_height, weight_grad_width);
-
-    // Printing
-    std::cout<< "weight_update_img2col_arr" <<std::endl;
-    print_tensor(weight_update_img2col_arr, 1, 1, weight_img2col_height, weight_img2col_width);
-    std::cout<< "weight_update_weight2col_arr" <<std::endl;
-    print_tensor(weight_update_weight2col_arr, 1, 1, weight_weight2col_height, weight_weight2col_width);
-    std::cout<< "weight_grad_col" <<std::endl;
-    print_tensor(weight_grad_col_arr, 1, 1, weight_grad_col_height, weight_grad_col_width);
-    std::cout<< "weight_grad_col_arr" <<std::endl;
-    print_tensor(weight_grad_arr, out_channels_output, in_channels_input, weight_grad_height, weight_grad_width);
     
     // Deleting intermediate arrays
     delete[] weight_update_img2col_arr, weight_update_weight2col_arr, weight_grad_col_arr;
@@ -149,152 +128,18 @@ std::tuple<torch::Tensor, torch::Tensor> backward_sw(torch::Tensor output_grad,
     // Converting to tensor
     torch::Tensor input_grad = arr2tensor_4d(input_grad_arr, og_pad_batches, in_channels_input, input_grad_height, input_grad_width);
 
-    // Printing
-    std::cout<< "weights_T_arr" <<std::endl;
-    print_tensor(weights_T_arr, w, x, y, z);
-    std::cout<< "og_pad_arr" <<std::endl;
-    print_tensor(og_pad_arr, og_pad_batches, og_pad_out_channels, og_pad_height, og_pad_width);
-    std::cout<< "ig_i2c_arr" <<std::endl;
-    print_tensor(ig_i2c_arr, 1, 1, ig_i2c_height, ig_i2c_width);
-    std::cout<< "ig_w2c_arr" <<std::endl;
-    print_tensor(ig_w2c_arr, 1, 1, ig_w2c_height, ig_w2c_width);
-    std::cout<< "input_grad_col_arr" <<std::endl;
-    print_tensor(input_grad_col_arr, 1, 1, input_grad_col_height, input_grad_col_width);
-    std::cout<< "input_grad_arr" <<std::endl;
-    print_tensor(input_grad_arr, og_pad_batches, in_channels_input, input_grad_height, input_grad_width);
 
     // Deleting intermediate arrays
     delete[] og_pad_arr, weights_T_arr, ig_i2c_arr, ig_w2c_arr,
                 input_grad_col_arr;
 
-
-    // std::cout<< "Test1:" << weight_img2col_width<< std::endl;
-    // std::cout<< "Test2:" << ig_i2c_width<< std::endl;
-    //  std::cout<< "Test3:" << weight_img2col_width<< std::endl;
-    //  std::cout<< "Test4:" << in_channels<< std::endl;
     std::cout << "------------*******************-----------------" << std::endl;
 
-    return {input, weight_grad};
+    return {input_grad, weight_grad};
 }
 
-void forward_sw_test(){
 
-    int batches=1;
-    int in_channels=2;
-    int in_height=3;
-    int in_width=3;
-
-    int kernel_height=2;
-    int kernel_width=2;
-
-    int out_channels=2;
-
-    float in_array[batches*in_channels*in_height*in_width];
-    init_tensor(in_array, batches, in_channels, in_height, in_width);
-
-    float kernel_array[out_channels*in_channels*kernel_height*kernel_width];
-    init_tensor(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-
-    torch::Tensor input = arr2tensor_4d(in_array, batches, in_channels, in_height, in_width);
-    torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-
-    torch::Tensor output = forward_sw(input, weights);
-
-    std::cout << "Input" << std::endl;
-    std::cout << input << std::endl;
-    std::cout << "Kernel" << std::endl;
-    std::cout << weights << std::endl;
-    std::cout << "Output" << std::endl;
-    std::cout << output << std::endl;
-}
-
-void backward_sw_test() {
-
-    int pad = 0;
-    int stride = 1;
-    int batches=2;
-    int in_channels=2;
-    int in_height=3;
-    int in_width=3;
-
-    int kernel_height=2;
-    int kernel_width=2;
-
-    int out_channels=1;
-
-    int out_height = ((in_height - kernel_height + 2*pad)/stride) + 1;
-    int out_width = ((in_width - kernel_width + 2*pad)/stride) + 1;
-
-    float in_array[batches*in_channels*in_height*in_width];
-    init_tensor(in_array, batches, in_channels, in_height, in_width);
-
-    float kernel_array[out_channels*in_channels*kernel_height*kernel_width];
-    init_tensor(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-
-    float output_grad_array[batches*out_channels*out_height*out_width];
-    init_tensor(output_grad_array, batches, out_channels, out_height, out_width);
-
-    torch::Tensor input = arr2tensor_4d(in_array, batches, in_channels, in_height, in_width);
-    torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-    torch::Tensor output_grad = arr2tensor_4d(output_grad_array, batches, out_channels, out_height, out_width);
-
-    auto [input_grad, weights_grad] = backward_sw(output_grad, input, weights);
-
-    std::cout << "Input" << std::endl;
-    std::cout << input << std::endl;
-    std::cout << "Kernel" << std::endl;
-    std::cout << weights << std::endl;
-    std::cout << "Output Grad" << std::endl;
-    std::cout << output_grad << std::endl;
-    std::cout << "Weight Grad" << std::endl;
-    std::cout << weights_grad << std::endl;
-    std::cout << "Input Grad" << std::endl;
-    std::cout << input_grad << std::endl;
-}
-
-void pad_array_test(){
-
-    int batches=2;
-    int in_channels=2;
-    int in_height=3;
-    int in_width=3;
-
-    int pad_height = 1;
-    int pad_width = 1;
-
-    int kernel_height=2;
-    int kernel_width=2;
-
-    int out_channels=2;
-
-    float in_array[batches*in_channels*in_height*in_width];
-    init_tensor(in_array, batches, in_channels, in_height, in_width);
-
-    int x_batches, x_channels, x_height, x_width;
-    float * output = pad_array(in_array, batches, in_channels, in_height, in_width,
-                                pad_height, pad_width, 
-                                &x_batches, &x_channels, &x_height, &x_width);
-
-    std::cout << "Input" << std::endl;
-    print_tensor(in_array, batches, in_channels, in_height, in_width);
-
-    std::cout << "Output" << std::endl;
-    print_tensor(output, x_batches, x_channels, x_height, x_width);
-
-}
-
-void test_Matrix() {
-    Matrix mat1 (3, 3, 2, 2);
-
-    init_tensor(mat1.data_ptr(), mat1.dim1, mat1.dim2, mat1.dim3, mat1.dim4);
-
-    std::cout << "Input" << std::endl;
-    mat1.print();
-
-    std::cout << "Value" << std::endl;
-    std::cout << mat1.get(1, 1, 1, 1) << std::endl;
-    
-    mat1.set(1000, 1, 1, 1, 1);
-    std::cout << "Altered" << std::endl;
-    mat1.print();
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+  m.def("forward_sw", &forward_sw, "Forward");
+  m.def("backward_sw", &backward_sw, "Backward");
 }
