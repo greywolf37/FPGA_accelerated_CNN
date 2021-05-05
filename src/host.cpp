@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "host.hpp"
 #define BLOCK_MATRIX_SIZE 16
-#define DEBUG 0
+#define DEBUG 1
 
 using namespace std;
 
@@ -122,9 +122,12 @@ int main(int argc, char** argv)
             vector_size_bytes, block_out.data(), &err));
 
     OCL_CHECK(err, err = krnl_vector_add.setArg(0, buffer_in1));
-    OCL_CHECK(err, err = krnl_vector_add.setArg(1, buffer_in2));
-    OCL_CHECK(err, err = krnl_vector_add.setArg(2, buffer_output));
-    OCL_CHECK(err, err = krnl_vector_add.setArg(3, BLOCK_MATRIX_SIZE));
+    OCL_CHECK(err, err = krnl_vector_add.setArg(1, BLOCK_MATRIX_SIZE));
+    OCL_CHECK(err, err = krnl_vector_add.setArg(2, BLOCK_MATRIX_SIZE));
+    OCL_CHECK(err, err = krnl_vector_add.setArg(3, buffer_in2));
+    OCL_CHECK(err, err = krnl_vector_add.setArg(4, BLOCK_MATRIX_SIZE));
+    OCL_CHECK(err, err = krnl_vector_add.setArg(5, BLOCK_MATRIX_SIZE));
+    OCL_CHECK(err, err = krnl_vector_add.setArg(6, buffer_output));
 
     // print_test(2);
     // print_test(3);

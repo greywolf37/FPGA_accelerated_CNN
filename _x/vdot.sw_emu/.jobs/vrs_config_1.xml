@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="vdot" LaunchDir="/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot" FlowId="Build_IP" FromStepId="vitis_hls" ToStepId="vitis_hls"/>
+</Runs>
+

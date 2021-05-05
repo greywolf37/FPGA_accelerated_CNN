@@ -14,8 +14,9 @@
 #define MAX_SIZE 16
 
 extern "C" {
-void vdot (const float *input1, const float *input2, 
-            float *output, const int size) {
+void vdot (const float *input1, const int input1_h, const int input1_w, 
+            const float *input2, const int input2_h, const int input2_w,
+            float *output) {
 
     #pragma HLS INTERFACE m_axi     port=input1 offset=slave bundle=gmem
     #pragma HLS INTERFACE m_axi     port=input2 offset=slave bundle=gmem
@@ -24,7 +25,10 @@ void vdot (const float *input1, const float *input2,
     #pragma HLS INTERFACE s_axilite port=input1              bundle=control
     #pragma HLS INTERFACE s_axilite port=input2              bundle=control
     #pragma HLS INTERFACE s_axilite port=output              bundle=control
-    #pragma HLS INTERFACE s_axilite port=size             bundle=control
+    #pragma HLS INTERFACE s_axilite port=input1_h             bundle=control
+    #pragma HLS INTERFACE s_axilite port=input1_w             bundle=control
+    #pragma HLS INTERFACE s_axilite port=input2_h             bundle=control
+    #pragma HLS INTERFACE s_axilite port=input2_w             bundle=control
     #pragma HLS INTERFACE s_axilite port=return           bundle=control
     
 
@@ -35,37 +39,37 @@ void vdot (const float *input1, const float *input2,
     #pragma HLS ARRAY_PARTITION variable=buffer2 dim=1 complete
     #pragma HLS ARRAY_PARTITION variable=outbuffer dim=0 complete
 
-    for (int i=0; i<size; i++){
+    for (int i=0; i<input1_h; i++){
         #pragma HLS unroll
         #pragma HLS PIPELINE
-        for (int j=0; j<size; j++){
-            buffer1[i][j] = input1[size * i + j];
+        for (int j=0; j<input1_w; j++){
+            buffer1[i][j] = input1[input1_w * i + j];
         }
     }
 
-    for (int j=0; j<size; j++){
+    for (int j=0; j<input2_w; j++){
         #pragma HLS unroll
         #pragma HLS PIPELINE
-        for (int i=0; i<size; i++){
-            buffer2[i][j] = input2[size * i + j];
+        for (int i=0; i<input2_h; i++){
+            buffer2[i][j] = input2[input2_w * i + j];
         }
     }
 
-    for (int i=0; i<size; i++){
+    for (int i=0; i<input1_h; i++){
         #pragma HLS unroll
         #pragma HLS PIPELINE II=1
-        for (int j=0; j<size; j++){
-            for (int k=0; k<size; k++){
+        for (int j=0; j<input2_w; j++){
+            for (int k=0; k<input1_w; k++){
                 outbuffer[i][j] += buffer1[i][k] * buffer2[k][j];
             }
         }
     }
 
-    for (int j=0; j<size; j++){
+    for (int j=0; j<input2_w; j++){
         #pragma HLS unroll
         #pragma HLS PIPELINE
-        for (int i=0; i<size; i++){
-            output[size * i + j] = outbuffer[i][j];
+        for (int i=0; i<input1_h; i++){
+            output[input2_w * i + j] = outbuffer[i][j];
         }
     }
 }

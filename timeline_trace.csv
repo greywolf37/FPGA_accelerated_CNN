@@ -1,0 +1,93 @@
+Timeline Trace
+Generated on: 2021-04-28 02:19:36
+Msec since Epoch: 1619576376556
+Profiled application: host
+Target platform: Xilinx
+Tool version: 2020.1
+XRT build version: 2.6.0
+Build version branch: 2020.1
+Build version hash: 12115fd4054cb46a5ade62fafa74c523f59116e6
+Build version date: 2020-07-09 15:20:59 
+
+
+Time_msec,Name,Event,Address_Port,Size,Latency_cycles,Start_cycles,End_cycles,Latency_usec,Start_msec,End_msec,
+756.484095,clGetExtensionFunctionAddress|General,START,,,,,,,,,,,0,
+756.521335,clGetExtensionFunctionAddressForPlatform|General,START,,,,,,,,,,,1,
+756.528137,clGetExtensionFunctionAddressForPlatform|General,END,,,,,,,,,,,1,
+756.531658,clGetExtensionFunctionAddress|General,END,,,,,,,,,,,0,
+756.537749,clGetExtensionFunctionAddress|General,START,,,,,,,,,,,2,
+756.541096,clGetExtensionFunctionAddressForPlatform|General,START,,,,,,,,,,,3,
+756.544407,clGetExtensionFunctionAddressForPlatform|General,END,,,,,,,,,,,3,
+756.547378,clGetExtensionFunctionAddress|General,END,,,,,,,,,,,2,
+756.552845,clGetPlatformInfo|General,START,,,,,,,,,,,4,
+756.556361,clGetPlatformInfo|General,END,,,,,,,,,,,4,
+756.559368,clGetPlatformInfo|General,START,,,,,,,,,,,5,
+756.562492,clGetPlatformInfo|General,END,,,,,,,,,,,5,
+756.572606,clGetPlatformInfo|General,START,,,,,,,,,,,6,
+756.575759,clGetPlatformInfo|General,END,,,,,,,,,,,6,
+756.578655,clGetPlatformInfo|General,START,,,,,,,,,,,7,
+756.581592,clGetPlatformInfo|General,END,,,,,,,,,,,7,
+756.584442,clGetPlatformInfo|General,START,,,,,,,,,,,8,
+756.587491,clGetPlatformInfo|General,END,,,,,,,,,,,8,
+756.590434,clGetPlatformInfo|General,START,,,,,,,,,,,9,
+756.593472,clGetPlatformInfo|General,END,,,,,,,,,,,9,
+756.596293,clGetPlatformInfo|General,START,,,,,,,,,,,10,
+756.601153,clGetPlatformInfo|General,END,,,,,,,,,,,10,
+756.60413,clGetPlatformInfo|General,START,,,,,,,,,,,11,
+756.607089,clGetPlatformInfo|General,END,,,,,,,,,,,11,
+756.609971,clGetPlatformInfo|General,START,,,,,,,,,,,12,
+756.612986,clGetPlatformInfo|General,END,,,,,,,,,,,12,
+756.615869,clGetPlatformInfo|General,START,,,,,,,,,,,13,
+756.618753,clGetPlatformInfo|General,END,,,,,,,,,,,13,
+756.621643,clGetPlatformInfo|General,START,,,,,,,,,,,14,
+756.624567,clGetPlatformInfo|General,END,,,,,,,,,,,14,
+756.627453,clGetPlatformInfo|General,START,,,,,,,,,,,15,
+756.63032,clGetPlatformInfo|General,END,,,,,,,,,,,15,
+756.658534,clGetPlatformInfo|General,START,,,,,,,,,,,16,
+756.66202,clGetPlatformInfo|General,END,,,,,,,,,,,16,
+756.6678,clGetPlatformInfo|General,START,,,,,,,,,,,17,
+756.670854,clGetPlatformInfo|General,END,,,,,,,,,,,17,
+756.718505,clGetDeviceIDs|General,START,,,,,,,,,,,18,
+756.724369,clGetDeviceIDs|General,END,,,,,,,,,,,18,
+756.728148,clGetDeviceIDs|General,START,,,,,,,,,,,19,
+756.731404,clGetDeviceIDs|General,END,,,,,,,,,,,19,
+756.73835,clRetainDevice|General,START,,,,,,,,,,,20,
+756.741921,clRetainDevice|General,END,,,,,,,,,,,20,
+756.745697,clRetainDevice|General,START,,,,,,,,,,,21,
+756.748898,clRetainDevice|General,END,,,,,,,,,,,21,
+756.754012,clCreateContext|General,START,,,,,,,,,,,22,
+756.76271,clCreateContext|General,END,,,,,,,,,,,22,
+756.769011,clCreateCommandQueue|General,START,,,,,,,,,,,23,
+756.777256,clCreateCommandQueue|General,END,,,,,,,,,,,23,
+756.922602,clCreateProgramWithBinary|General,START,,,,,,,,,,,24,
+3107.418139,clCreateProgramWithBinary|General,END,,,,,,,,,,,24,
+3107.459232,clCreateKernel|General,START,,,,,,,,,,,25,
+3108.335877,clCreateKernel|General,END,,,,,,,,,,,25,
+3108.344093,clCreateBuffer|General,START,,,,,,,,,,,26,
+3108.353626,clCreateBuffer|General,END,,,,,,,,,,,26,
+3108.357015,clCreateBuffer|General,START,,,,,,,,,,,27,
+3108.360578,clCreateBuffer|General,END,,,,,,,,,,,27,
+3108.363724,clCreateBuffer|General,START,,,,,,,,,,,28,
+3108.367046,clCreateBuffer|General,END,,,,,,,,,,,28,
+3108.373519,clSetKernelArg|General,START,,,,,,,,,,,29,
+3108.44659,clSetKernelArg|General,END,,,,,,,,,,,29,
+3108.451102,clSetKernelArg|General,START,,,,,,,,,,,30,
+3108.454577,clSetKernelArg|General,END,,,,,,,,,,,30,
+3108.457687,clSetKernelArg|General,START,,,,,,,,,,,31,
+3108.53042,clSetKernelArg|General,END,,,,,,,,,,,31,
+Footer,begin
+Project,,
+Stall profiling,false,
+Target,Software Emulation,
+Platform,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,
+Device,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,begin
+DDR Banks,begin
+Bank,0,0X000000000
+Bank,1,0X400000000
+Bank,2,0X800000000
+Bank,3,0Xc00000000
+DDR Banks,end
+Device,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,end
+UnusedComputeUnit,vdot_1,
+Footer,end
+

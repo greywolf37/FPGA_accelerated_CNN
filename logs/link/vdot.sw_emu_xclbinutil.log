@@ -4,7 +4,7 @@ XRT Build Version: 2.6.0 (2020.1)
 Creating a default 'in-memory' xclbin image.
 
 Section: 'BITSTREAM'(0) was successfully added.
-Size   : 190088 bytes
+Size   : 190216 bytes
 Format : RAW
 File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.sw_emu.so'
 WARNING: Skipping CLOCK_FREQ_TOPOLOGY section for count size is zero.
@@ -15,12 +15,12 @@ Format : JSON
 File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.sw_emu_xml.rtd'
 
 Section: 'BUILD_METADATA'(14) was successfully added.
-Size   : 2233 bytes
+Size   : 2732 bytes
 Format : JSON
 File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.sw_emu_build.rtd'
 
 Section: 'EMBEDDED_METADATA'(2) was successfully added.
-Size   : 2428 bytes
+Size   : 2909 bytes
 Format : RAW
 File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.sw_emu.xml'
 
@@ -28,5 +28,5 @@ Section: 'DEBUG_DATA'(4) was successfully added.
 Size   : 0 bytes
 Format : RAW
 File   : '/dev/null'
-Successfully wrote (198877 bytes) to the output file: /home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xclbin
+Successfully wrote (200480 bytes) to the output file: /home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xclbin
 Leaving xclbinutil.

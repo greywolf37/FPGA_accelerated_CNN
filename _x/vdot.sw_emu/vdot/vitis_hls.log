@@ -1,0 +1,37 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.1 (64-bit)
+  **** SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+  **** IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source /opt/Xilinx/Vitis/2020.1/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/opt/Xilinx/Vitis/2020.1/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'centos' on host 'ip-172-31-10-65.ec2.internal' (Linux_x86_64 version 3.10.0-1127.10.1.el7.x86_64) on Tue Apr 27 23:55:38 UTC 2021
+INFO: [HLS 200-10] On os "CentOS Linux release 7.7.1908 (Core)"
+INFO: [HLS 200-10] In directory '/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot'
+Sourcing Tcl script 'vdot.tcl'
+INFO: [HLS 200-10] Creating and opening project '/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vdot'.
+INFO: [HLS 200-10] Adding design file '/home/centos/FPGA_accelerated_CNN/src/vdot.cpp' to the project
+INFO: [HLS 200-10] Creating and opening solution '/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vdot/solution'.
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-1505.html
+INFO: [HLS 200-435] Setting 'config_flow -target' configuration: config_interface -m_axi_latency=64
+INFO: [HLS 200-435] Setting 'config_flow -target' configuration: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-435] Setting 'config_flow -target' configuration: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-435] Setting 'config_flow -target' configuration: config_interface -default_slave_interface=s_axilite
+INFO: [HLS 200-435] Setting 'config_flow -target' configuration: config_rtl -register_reset_num=3
+INFO: [HLS 200-10] Setting target device to 'xcvu9p-flgb2104-2-i'
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+INFO: [SYN 201-201] Setting up clock 'default' with an uncertainty of 1.08ns.
+INFO: [HLS 200-10] Analyzing design file '/home/centos/FPGA_accelerated_CNN/src/vdot.cpp' ... 
+ERROR: [HLS 207-3850] variable-sized object may not be initialized: /home/centos/FPGA_accelerated_CNN/src/vdot.cpp:37:21
+WARNING: [HLS 207-1548] invalid variable expr : /home/centos/FPGA_accelerated_CNN/src/vdot.cpp:40:38
+WARNING: [HLS 207-1548] invalid variable expr : /home/centos/FPGA_accelerated_CNN/src/vdot.cpp:40:48
+Compilation of the preprocessed source 'vdot' failed
+    while executing
+"source vdot.tcl"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel \#0 [list source $arg] "
+
+INFO: [Common 17-206] Exiting vitis_hls at Tue Apr 27 23:56:11 2021...

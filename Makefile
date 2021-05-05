@@ -90,7 +90,7 @@ emulate_hw: ${HOST} ${XCLBIN} ${EMCONFIG_FILE}
 	mv timeline_trace.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv *.run_summary ${PROJECT_DIR}/reports/vdot.${TARGET}/
 
-# launch_fpga
+# launch fpga_build
 # start_job fpga_build -d FPGA_accelerated_CNN -c 'export TARGET=sw_emu; export LC_ALL="C"; source aws-fpga/vitis_setup.sh; cd FPGA_accelerated_CNN; make emulate' -s
 
 # BRAM

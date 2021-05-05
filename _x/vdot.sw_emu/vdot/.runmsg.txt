@@ -1,0 +1,2 @@
+performing high-level synthesis for kernel: vdot
+Log file: /home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vitis_hls.log
