@@ -1,3 +1,33 @@
+# Skip to content
+# Search or jump to…
+
+# Pull requests
+# Issues
+# Marketplace
+# Explore
+ 
+# @jhanv 
+# greywolf37
+# /
+# FPGA_accelerated_CNN
+# 2
+# 00
+# Code
+# Issues
+# Pull requests
+# Actions
+# Projects
+# Wiki
+# Security
+# Insights
+# FPGA_accelerated_CNN/src/cnn.py /
+# @jhanv
+# jhanv Done VGG integration
+# Latest commit e089917 7 hours ago
+#  History
+#  1 contributor
+# 223 lines (167 sloc)  7.23 KB
+  
 # IN CPP
 # include <torch/extension.h>
 # PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
@@ -64,68 +94,30 @@ batch32_loader = torch.utils.data.DataLoader(dataset, num_workers=4, batch_size=
 vgg16 = models.vgg16(pretrained=True)
 
 
-class fpga_cnn_function(torch.autograd.Function):
+class CNN_function(torch.autograd.Function):
     @staticmethod
-    def forward(ctx, input_tensor, weights, bias):
-        input_tensor = F.pad(input_tensor, (1,1,1,1))
-        # print(lltm_cpp.forward_sw(input_tensor, weights).shape , bias.shape)
-        bias = bias.reshape((input_tensor.shape[0],bias.shape[0],1,1))
-        return lltm_cpp.forward_sw(input_tensor, weights) + bias
+    def forward(ctx, input_tensor, weights):
+        return lltm_cpp.forward_sw(input_tensor, weights)
 
         
-class fpga_conv2d(torch.nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, padding, stride, bias = True):
-        super(fpga_conv2d, self).__init__( )
-        self.in_channels = in_channels
-        self.out_channels = out_channels
-        self.kernel_size = kernel_size
-        self.padding = padding
-        self.stride = stride
-        self.weights = torch.nn.Parameter(torch.empty(out_channels, in_channels, self.kernel_size[0], self.kernel_size[1]))
-        if bias:
-            self.bias = torch.empty(out_channels)
+class CNN_cpp(torch.nn.Module):
+    def __init__(self):
+        super(CNN_cpp, self).__init__()
+        self.inputs_size = 4
 
-    def forward(self, input_tensor):
-        return fpga_cnn_function.apply(input_tensor, self.weights, self.bias)
+    def forward(self, input_tensor, weights, bias):
+        input_tensor = F.pad(input_tensor, (1,1,1,1))
+        bias = bias.reshape((1, bias.shape[0], 1,1))
+        return CNN_function.apply(input_tensor, weights) + bias
 
 
 class VGG16_custom(nn.Module):
-    def __init__(self):
+    def __init__(self, pretrained_features):
         super(VGG16_custom, self).__init__()
+        self.features = pretrained_features
+        self.fpga_conv2d = CNN_cpp()
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-        self.features = nn.Sequential(
-        fpga_conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False),
-        fpga_conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False),
-        fpga_conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False),
-        fpga_conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False),
-        fpga_conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        fpga_conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-        nn.ReLU(inplace=True),
-        nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False))
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(7, 7))
         
         self.classifier = nn.Sequential(
@@ -139,26 +131,35 @@ class VGG16_custom(nn.Module):
         )
 
     def forward(self, x):
-        x = self.features(x)
+        x = self.relu(self.fpga_conv2d(x, self.features[0].weight, self.features[0].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[2].weight, self.features[2].bias))
+        x = self.maxpool(x)
+        x = self.relu(self.fpga_conv2d(x, self.features[5].weight, self.features[5].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[7].weight, self.features[7].bias))
+        x = self.maxpool(x)
+        x = self.relu(self.fpga_conv2d(x, self.features[10].weight, self.features[10].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[12].weight, self.features[12].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[14].weight, self.features[14].bias))
+        x = self.maxpool(x)
+        x = self.relu(self.fpga_conv2d(x, self.features[17].weight, self.features[17].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[19].weight, self.features[19].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[21].weight, self.features[21].bias))
+        x = self.maxpool(x)
+        x = self.relu(self.fpga_conv2d(x, self.features[24].weight, self.features[24].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[26].weight, self.features[26].bias))
+        x = self.relu(self.fpga_conv2d(x, self.features[28].weight, self.features[28].bias))
+        x = self.maxpool(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         return self.classifier(x)
 
-
 for param in vgg16.parameters():
     param.requires_grad = False
 
-model = VGG16_custom()
-stars = '*' * 100
-print(stars)
-print(model)
+pretrained_features = vgg16.features
+model = VGG16_custom(pretrained_features)
 
 with torch.no_grad():
-    for i in range(len(vgg16.features)):
-        if str(vgg16.features[i]).startswith("Conv2d"):
-            model.features[i].weight = vgg16.features[i].weight
-            model.features[i].bias = vgg16.features[i].bias
-
     for j in range(len(vgg16.classifier)):
         if str(vgg16.classifier[j]).startswith("Linear"):
             model.classifier[j].weight = vgg16.classifier[j].weight
@@ -166,77 +167,86 @@ with torch.no_grad():
 
 model.eval()
 
-#######################################################################
-# Batch size 1 benchmarking
-# Get a single (input, label) tuple of batch size 1 from your dataloader
-# TODO
-
-stars = "*" *100
-input, label = next(iter(batch1_loader))
-# print(input)
-# Run inference on the single (input, label) tuple
-# TODO
-print(stars, "\n"," BATCH 1 inference")
-
-with torch.no_grad():
-  output = model(input)
-  output_vgg = vgg16(input)
-  print(output)
+# ########################################################################
+# # Batch size 1 benchmarking
+# # Get a single (input, label) tuple of batch size 1 from your dataloader
+# # TODO
 
 
-print(stars, "\n"," BACH 1")
+# input, label = next(iter(batch1_loader))
+# # print(input)
+# # Run inference on the single (input, label) tuple
+# # TODO
+# with torch.no_grad():
+#   output = model(input)
+#   output_vgg = vgg16(input)
 
 
-# Start timer
-tic = time.perf_counter()
+# print("*"*100)
+# # Start timer
+# tic = time.perf_counter()
 
-# Run loop that performs 1024 inferences of batch size 1
-labels, outputs = [], []
-for i, data in zip(range(10), batch1_loader):
-    # TODO
-    input, label = data
-    start = time.perf_counter()
-    output = model(input)
-    stop = time.perf_counter()
-    labels.append(label.item())
-    outputs.append(torch.argmax(output).item())
-# end timer
-toc = time.perf_counter()
+# # Run loop that performs 1024 inferences of batch size 1
+# labels, outputs = [], []
+# ti = 0
+# for i, data in zip(range(10), batch1_loader):
+#     # TODO
+#     input, label = data
+#     start = time.perf_counter()
+#     output = model(input)
+#     end = time.perf_counter()
+#     ti += end - start
 
-# Print results
-runtime_1 = toc - tic
+#     print(f'Runtime(1) = {ti:0.4f} seconds for {i} instances')
+#     # print(output)
+#     labels.append(label.item())
+#     outputs.append(torch.argmax(output).item())
+# # end timer
+# toc = time.perf_counter()
 
-print(f'Runtime(1) = {runtime_1:0.4f} seconds')
-# TODO Print accuracy of network
+# # Print results
+# runtime_1 = toc - tic
+
+# print(f'Runtime(1) = {runtime_1:0.4f} seconds')
+# # TODO Print accuracy of network
 # print(labels, outputs)
-print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
+# print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 
-print(outputs)
-stars = "*" *100
-print(stars, "\n"," BACH 31")
-
-
+print("*"*100)
 ########################################################################
 # Batch size 32 benchmarking
 # Get a single (input, label) tuple of batch size 32 from your dataloader
 # TODO
 # input, label = load_item(1, batch1_loader) 
-model.eval()
 
 # Run inference on the single (input, label) tuple
 # TODO
+
+
+input, label = next(iter(batch32_loader))
+# print(input)
+# Run inference on the single (input, label) tuple
+# TODO
+with torch.no_grad():
+  output = model(input)
+print(output)
+
+print("*"*100)
 
 # Start timer
 tic = time.perf_counter()
 outputs = []
 labels = []
+ti = 0
 # Run loop that performs 1024 inferences of batch size 32
 for i, data in zip(range(10), batch32_loader):
     # TODO
     input, label = data
     start = time.perf_counter()
     output = model(input)
-    stop = time.perf_counter()
+    end = time.perf_counter()
+    ti += end - start
+    print(f'Runtime(32) = {ti:0.4f} seconds for {i} inferences')
     for lab, out in zip(label,output):
       outputs.append(torch.argmax(out).item())
       labels.append(lab.item())
@@ -299,3 +309,15 @@ print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 # print(stars, "\n Input Grad of cpp Forward", stars, "\n", input_grad_cpp)
 # print(stars, "\n Weight Check ", stars, "\n", torch.isclose(input_grad, input_grad_cpp ))
 # 
+# © 2021 GitHub, Inc.
+# Terms
+# Privacy
+# Security
+# Status
+# Docs
+# Contact GitHub
+# Pricing
+# API
+# Training
+# Blog
+# About
