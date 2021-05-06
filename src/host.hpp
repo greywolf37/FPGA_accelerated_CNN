@@ -22,6 +22,8 @@
 #include <time.h>
 #include <string>
 #include <stdlib.h>
+// #include <torch/extension.h>
+// #include <torch/script.h>
 #include <torch/torch.h>
 #include "hls_stream.h" /*For hls*/
 

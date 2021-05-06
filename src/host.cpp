@@ -27,8 +27,8 @@ int main(int argc, char** argv)
     int kernel_width=2;
 
     int out_channels=1; 
-    int fileLoc = argv[1]  
-    char res = "Pass"
+    int fileLoc = argv[1];  
+    char res = "Pass";
 
     float in_array[batches*in_channels*in_height*in_width];
     init_tensor(float *tensor, int batches, int channels, int height, int width);
@@ -46,7 +46,8 @@ int main(int argc, char** argv)
     clock_t start = clock();
     torch::Tensor output = forward(input, weights, fileLoc);
     clock_t end = clock();
-
+    std::cout << "input" << input << std::endl;
+    std::cout << "weights" << Weights << std::endl;
     std::cout << "output_sw" << output_sw << std::endl;
     std::cout << "output" << output << std::endl;
 
@@ -56,8 +57,8 @@ int main(int argc, char** argv)
                 for(int h=0; h<output.size(2); h++){
                     for(int w=0; w<output.size(3); w++){
                         if output_sw[b][c][h][w] != output[b][c][h][w]{
-                            std::cout << "Error: Result mismatch" << std::endl;
-                            res = "fail"
+                            std::cout << "Error: Result mismatch at" << b << c << h << w << std::endl;
+                            res = "fail";
                             break;
 
                         }
@@ -67,12 +68,12 @@ int main(int argc, char** argv)
         }
     }
 
-    double elapsed_time =(double)(end - start)
-    double elapsed_time_sw =(double)(end_sw - start_sw)
+    double elapsed_time =(double)(end - start);
+    double elapsed_time_sw =(double)(end_sw - start_sw);
     std::cout << "results" << res << std::endl;
     std::cout << "time_sw" << elapsed_time_sw << std::endl;
     std::cout << "time" << elapsed_time << std::endl;
-
+    return 0;
 }
 
 torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc){
