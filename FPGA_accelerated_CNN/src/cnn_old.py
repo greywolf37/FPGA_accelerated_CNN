@@ -222,9 +222,9 @@ print("*"*100)
 # Run inference on the single (input, label) tuple
 # TODO
 
-print("a")
+
 input, label = next(iter(batch32_loader))
-print("b")
+# print(input)
 # Run inference on the single (input, label) tuple
 # TODO
 with torch.no_grad():
@@ -234,38 +234,38 @@ print(output)
 print("*"*100)
 
 # Start timer
-# tic = time.perf_counter()
-# outputs = []
-# labels = []
-# ti = 0
-# # Run loop that performs 1024 inferences of batch size 32
-# for i, data in zip(range(10), batch32_loader):
-#     # TODO
-#     input, label = data
-#     start = time.perf_counter()
-#     output = model(input)
-#     end = time.perf_counter()
-#     ti += end - start
-#     print(f'Runtime(32) = {ti:0.4f} seconds for {i} inferences')
-#     for lab, out in zip(label,output):
-#       outputs.append(torch.argmax(out).item())
-#       labels.append(lab.item())
-#       # print(len(outputs), "************", len(labels))
+tic = time.perf_counter()
+outputs = []
+labels = []
+ti = 0
+# Run loop that performs 1024 inferences of batch size 32
+for i, data in zip(range(10), batch32_loader):
+    # TODO
+    input, label = data
+    start = time.perf_counter()
+    output = model(input)
+    end = time.perf_counter()
+    ti += end - start
+    print(f'Runtime(32) = {ti:0.4f} seconds for {i} inferences')
+    for lab, out in zip(label,output):
+      outputs.append(torch.argmax(out).item())
+      labels.append(lab.item())
+      # print(len(outputs), "************", len(labels))
     
-# # end timer
-# toc = time.perf_counter()
+# end timer
+toc = time.perf_counter()
 
-# # Print results
-# runtime_32 = toc - tic
-# print(f'Runtime(32) = {runtime_32:0.4f} seconds')
-# # TODO Print accuracy of network
+# Print results
+runtime_32 = toc - tic
+print(f'Runtime(32) = {runtime_32:0.4f} seconds')
+# TODO Print accuracy of network
 
-# ########################################################################
+########################################################################
 
-# # Print score
-# print(f'FOM = {((runtime_1 + runtime_32) / 2):0.4f}')
-# # print(len(labels), len(outputs))
-# print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
+# Print score
+print(f'FOM = {((runtime_1 + runtime_32) / 2):0.4f}')
+# print(len(labels), len(outputs))
+print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 
 
 
