@@ -8,77 +8,10 @@
 
 using namespace std;
 
-torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc);
+torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileLoc);
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
 
-int main(int argc, char** argv)
-{
-    if (argc !=2)
-    {
-        std::cout << "Usage: " << argv[0] << " <XCLBIN File>" << std::endl;
-		return EXIT_FAILURE;
-	}
-
-    int batches=1;
-    int in_channels=1;
-    int in_height=3;
-    int in_width=3;
-
-    int kernel_height=2;
-    int kernel_width=2;
-
-    int out_channels=1; 
-    int fileLoc = argv[1];  
-    char res = "Pass";
-
-    float in_array[batches*in_channels*in_height*in_width];
-    init_tensor(float *tensor, int batches, int channels, int height, int width);
-
-    float kernel_array[out_channels*in_channels*kernel_height*kernel_width];
-    init_tensor(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-
-    torch::Tensor input = arr2tensor_4d(in_array, batches, in_channels, in_height, in_width);
-    torch::Tensor weights = arr2tensor_4d(kernel_array, out_channels, in_channels, kernel_height, kernel_width);
-    
-    clock_t start_sw = clock();
-    torch::Tensor output_sw = forward_sw(input, weights);
-    clock_t end_sw = clock();
-    
-    clock_t start = clock();
-    torch::Tensor output = forward(input, weights, fileLoc);
-    clock_t end = clock();
-    std::cout << "input" << input << std::endl;
-    std::cout << "weights" << Weights << std::endl;
-    std::cout << "output_sw" << output_sw << std::endl;
-    std::cout << "output" << output << std::endl;
-
-    if (DEBUG){
-        for(int b=0; b<output.size(0); b++){
-            for(int c=0; c<output.size(1); c++){
-                for(int h=0; h<output.size(2); h++){
-                    for(int w=0; w<output.size(3); w++){
-                        if output_sw[b][c][h][w] != output[b][c][h][w]{
-                            std::cout << "Error: Result mismatch at" << b << c << h << w << std::endl;
-                            res = "fail";
-                            break;
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    double elapsed_time =(double)(end - start);
-    double elapsed_time_sw =(double)(end_sw - start_sw);
-    std::cout << "results" << res << std::endl;
-    std::cout << "time_sw" << elapsed_time_sw << std::endl;
-    std::cout << "time" << elapsed_time << std::endl;
-    return 0;
-}
-
-torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc){
-
+torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileLoc){
     int stride =1;
     int pad =0;
 
@@ -100,10 +33,10 @@ torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc
     float * kernel_array_col = weight2col(kernel_array, out_channels, kernel_in_channels, kernel_height, kernel_width,
                     &kernel_array_col_height, &kernel_array_col_width);
     
-    float * output_col = new float[out_height * out_width];
+    float * output_col = new float[kernel_array_col_height * in_array_col_width];
 
     // Binary files and Devices
-    std::string_binaryFile = fileLoc;
+    std::string binaryFile = fileLoc;
     unsigned fileBufSize;
 
     std::vector<cl::Device> devices = get_devices("Xilinx");
@@ -114,7 +47,10 @@ torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc
     cl::Program::Binaries bins{{fileBuf, fileBufSize}};
 
     cl_int err;  /*error variable*/
-
+    std::cout<< "in_array_col" <<std::endl;
+    print_tensor(in_array_col, 1, 1, in_array_col_height, in_array_col_width);
+    std::cout<< "kernel_array_col" <<std::endl;
+    print_tensor(kernel_array_col, 1, 1, kernel_array_col_height, kernel_array_col_width);
     // ------------------------------------------------------------------------------------------------------
     // START KERNEL CODE
     // ------------------------------------------------------------------------------------------------------
@@ -122,7 +58,7 @@ torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc
     // Matrix buffer size allocation
     size_t in_size_bytes = sizeof(float) * in_array_col_height * in_array_col_width;
     size_t kernel_size_bytes = sizeof(float) * kernel_array_col_height * kernel_array_col_width;
-    size_t out_size_bytes = sizeof(float) * out_height * out_width;
+    size_t out_size_bytes = sizeof(float) * kernel_array_col_height * in_array_col_width;
 
     // Setting up queues
     OCL_CHECK(err, cl::Context context(device, NULL, NULL, NULL, &err));
@@ -131,20 +67,20 @@ torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc
 
     // Setting up  buffers
     OCL_CHECK(err, cl::Buffer buffer_in1   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-            in_size_bytes, in_array_col, &err));
-    OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
             kernel_size_bytes, kernel_array_col, &err));
+    OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+            in_size_bytes, in_array_col, &err));
     OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
             out_size_bytes, output_col, &err));
 
     // Kernel setup
     OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
     OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1));
-    OCL_CHECK(err, err = krnl_matmul.setArg(1, in_array_col_height));
-    OCL_CHECK(err, err = krnl_matmul.setArg(2, in_array_col_width));
+    OCL_CHECK(err, err = krnl_matmul.setArg(1, kernel_array_col_height));
+    OCL_CHECK(err, err = krnl_matmul.setArg(2, kernel_array_col_width));
     OCL_CHECK(err, err = krnl_matmul.setArg(3, buffer_in2));
-    OCL_CHECK(err, err = krnl_matmul.setArg(4, kernel_array_col_height));
-    OCL_CHECK(err, err = krnl_matmul.setArg(5, kernel_array_col_width));
+    OCL_CHECK(err, err = krnl_matmul.setArg(4, in_array_col_height));
+    OCL_CHECK(err, err = krnl_matmul.setArg(5, in_array_col_width));
     OCL_CHECK(err, err = krnl_matmul.setArg(6, buffer_output));
 
     // Running
@@ -164,7 +100,8 @@ torch::Tensor forward(torch::Tensor input, torch::Tensor weights, char** fileLoc
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, NULL, &read_event));
 
     q.finish();
-
+    std::cout<< "output_col" <<std::endl;
+    print_tensor(output_col, 1, 1, kernel_array_col_height, in_array_col_width);
     // -----------------------------------------------------------------------------------------------------------------------------
     // END KERNEL CODE
     // -----------------------------------------------------------------------------------------------------------------------------
@@ -343,8 +280,7 @@ std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
     return {input_grad, weight_grad};
 }
 
-
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-   m.def("forward", &forward, "Forward");
-   m.def("forward_sw", &forward_sw, "Forward_sw");
+    m.def("forward_hw", &forward_hw, "forward_hw");
+    m.def("forward_sw", &forward_sw, "forward_sw");
 }

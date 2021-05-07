@@ -22,10 +22,10 @@
 #include <time.h>
 #include <string>
 #include <stdlib.h>
-// #include <torch/extension.h>
+#include <torch/extension.h>
 // #include <torch/script.h>
 #include <torch/torch.h>
-#include "hls_stream.h" /*For hls*/
+// #include "hls_stream.h" /*For hls*/
 
 
 template <typename T>
@@ -406,25 +406,25 @@ torch::Tensor arr2tensor_4d(float *array, int batches, int channels, int height,
     return torch::from_blob(array, {batches, channels, height, width});
 }
 
-Matrix tensor2matrix(torch::Tensor tensor) {
-    // float * data_p = new float[tensor.numel()];
-    // std::memcpy(data_p, tensor.data_ptr<float>(), sizeof(float)*tensor.numel());
-    // return Matrix (data_p, tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3))
+// Matrix tensor2matrix(torch::Tensor tensor) {
+//     // float * data_p = new float[tensor.numel()];
+//     // std::memcpy(data_p, tensor.data_ptr<float>(), sizeof(float)*tensor.numel());
+//     // return Matrix (data_p, tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3))
 
-    Matrix matrix = Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
-    return Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
-}
+//     Matrix matrix = Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
+//     return Matrix (tensor.data_ptr<float>(), tensor.size(0),tensor.size(1),tensor.size(2),tensor.size(3));
+// }
 
-torch::Tensor matrix2tensor(Matrix matrix) {
-    // float * data_p = new float[matrix.dim1 * matrix.dim2 * matrix.dim3 *matrix.dim4];
-    // std::memcpy(data_p, matrix.data_ptr(), sizeof(float)*matrix.dim1 * matrix.dim2 * matrix.dim3 *matrix.dim4);
+// torch::Tensor matrix2tensor(Matrix matrix) {
+//     // float * data_p = new float[matrix.dim1 * matrix.dim2 * matrix.dim3 *matrix.dim4];
+//     // std::memcpy(data_p, matrix.data_ptr(), sizeof(float)*matrix.dim1 * matrix.dim2 * matrix.dim3 *matrix.dim4);
 
-    // auto options = torch::TensorOptions().dtype(torch::kFloat64);
-    //  return torch::from_blob(data_p, {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
+//     // auto options = torch::TensorOptions().dtype(torch::kFloat64);
+//     //  return torch::from_blob(data_p, {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
 
-    auto options = torch::TensorOptions().dtype(torch::kFloat64);
-     return torch::from_blob(matrix.data_ptr(), {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
-}
+//     auto options = torch::TensorOptions().dtype(torch::kFloat64);
+//      return torch::from_blob(matrix.data_ptr(), {matrix.dim1, matrix.dim2, matrix.dim3, matrix.dim4});
+// }
 
 float * transpose_weights(torch::Tensor weights, int *w, int *x, int *y, int *z){
 

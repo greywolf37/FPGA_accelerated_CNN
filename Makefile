@@ -50,6 +50,7 @@ ifndef TARGET
 endif
 
 ${HOST}: ${HOST_SRC}
+
 	g++ ${GCC_OPTS} -o $@ $+
 	@echo 'Compiled Host Executable: ${HOST_EXE}'
 
@@ -82,14 +83,19 @@ emulate: ${HOST} ${XCLBIN} ${EMCONFIG_FILE}
 	mv timeline_trace.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv *.run_summary ${PROJECT_DIR}/reports/vdot.${TARGET}/
 
-emulate_hw: ${HOST} ${XCLBIN} ${EMCONFIG_FILE}
+test: ${XCLBIN} ${EMCONFIG_FILE}
 	echo Running host code with kernel...
-	# XCL_EMULATION_MODE=${TARGET} ./${HOST} ${XCLBIN}
-	echo Finished run
+
+	XCL_EMULATION_MODE=${TARGET} python3 ${PROJECT_DIR}/src/test.py
+
 	mv profile_summary.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv timeline_trace.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv *.run_summary ${PROJECT_DIR}/reports/vdot.${TARGET}/
+	echo ${XILINX_XRT}
+	echo ${XILINX_VIVADO}
 
+# {XILINX_XRT} = /opt/xilinx/xrt
+# {XILINX_VIVADO} = /opt/Xilinx/Vivado/2020.1
 # launch fpga_build
 # start_job fpga_build -d FPGA_accelerated_CNN -c 'export TARGET=sw_emu; export LC_ALL="C"; source aws-fpga/vitis_setup.sh; cd FPGA_accelerated_CNN; make emulate' -s
 

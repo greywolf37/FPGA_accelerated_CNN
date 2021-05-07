@@ -6,7 +6,7 @@
 
 source /opt/Xilinx/Vitis/2020.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/opt/Xilinx/Vitis/2020.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'centos' on host 'ip-172-31-10-65.ec2.internal' (Linux_x86_64 version 3.10.0-1127.10.1.el7.x86_64) on Wed Apr 28 00:50:23 UTC 2021
+INFO: [HLS 200-10] For user 'centos' on host 'ip-172-31-79-183.ec2.internal' (Linux_x86_64 version 3.10.0-1127.10.1.el7.x86_64) on Fri May 07 03:51:16 UTC 2021
 INFO: [HLS 200-10] On os "CentOS Linux release 7.7.1908 (Core)"
 INFO: [HLS 200-10] In directory '/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot'
 Sourcing Tcl script 'vdot.tcl'
@@ -25,8 +25,8 @@ INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
 INFO: [SYN 201-201] Setting up clock 'default' with an uncertainty of 1.08ns.
 INFO: [HLS 200-10] Analyzing design file '/home/centos/FPGA_accelerated_CNN/src/vdot.cpp' ... 
 INFO: [HLS 200-777] Using interface defaults for 'Vitis' target.
-INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1553.816 ; gain = 1171.938 ; free physical = 61644 ; free virtual = 83179
-INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1553.816 ; gain = 1171.938 ; free physical = 61644 ; free virtual = 83179
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1553.816 ; gain = 1171.938 ; free physical = 61452 ; free virtual = 83161
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 1553.816 ; gain = 1171.938 ; free physical = 61452 ; free virtual = 83161
 INFO: [HLS 200-1493] Running only source code synthesis checks, skipping scheduling and RTL generation.
 HLS completed successfully
-INFO: [Common 17-206] Exiting vitis_hls at Wed Apr 28 00:50:29 2021...
+INFO: [Common 17-206] Exiting vitis_hls at Fri May  7 03:51:22 2021...
