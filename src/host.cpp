@@ -64,9 +64,9 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
 
     // Setting up  buffers
     OCL_CHECK(err, cl::Buffer buffer_in1   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-            in_size_bytes, in_array_col, &err));
-    OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
             kernel_size_bytes, kernel_array_col, &err));
+    OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+            in_size_bytes, in_array_col, &err));
     OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
             out_size_bytes, output_col, &err));
 
