@@ -32,7 +32,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     float * kernel_array_col = weight2col(kernel_array, out_channels, kernel_in_channels, kernel_height, kernel_width,
                     &kernel_array_col_height, &kernel_array_col_width);
     
-    float * output_col = new float[kernel_array_col_height * in_array_col_width];
+    float * output_col[kernel_array_col_height * in_array_col_width] = { 0 };
 
     // Binary files and Devices
     std::string binaryFile = fileLoc;
@@ -54,53 +54,111 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     // START KERNEL CODE
     // ------------------------------------------------------------------------------------------------------
 
-    // Matrix buffer size allocation
-    size_t in_size_bytes = sizeof(float) * in_array_col_height * in_array_col_width;
-    size_t kernel_size_bytes = sizeof(float) * kernel_array_col_height * kernel_array_col_width;
-    size_t out_size_bytes = sizeof(float) * kernel_array_col_height * in_array_col_width;
+    // Byte size initialization
+    size_t blk_1_bytes;
+    size_t blk_2_bytes;
+    size_t blk_o_bytes;
 
     // Setting up queues
     OCL_CHECK(err, cl::Context context(device, NULL, NULL, NULL, &err));
     OCL_CHECK(err, cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE , &err));
     OCL_CHECK(err, cl::Program program(context, devices, bins, NULL, &err));
 
-    // Setting up  buffers
-    OCL_CHECK(err, cl::Buffer buffer_in1   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-            kernel_size_bytes, kernel_array_col, &err));
-    OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-            in_size_bytes, in_array_col, &err));
-    OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
-            out_size_bytes, output_col, &err));
+    int mat_h_1 = kernel_array_col_height;
+    int mat_w_1 = kernel_array_col_width;
+    int mat_h_2 = in_array_col_height;
+    int mat_w_2 = in_array_col_width;
 
-    // Kernel setup
-    OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
-    OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1));
-    OCL_CHECK(err, err = krnl_matmul.setArg(1, kernel_array_col_height));
-    OCL_CHECK(err, err = krnl_matmul.setArg(2, kernel_array_col_width));
-    OCL_CHECK(err, err = krnl_matmul.setArg(3, buffer_in2));
-    OCL_CHECK(err, err = krnl_matmul.setArg(4, in_array_col_height));
-    OCL_CHECK(err, err = krnl_matmul.setArg(5, in_array_col_width));
-    OCL_CHECK(err, err = krnl_matmul.setArg(6, buffer_output));
+    float blk_1[BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE];
+    float blk_2[BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE];
+    float blk_o[BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE];
 
-    // Running
-    std::vector<cl::Event> events;
+    for(int b_j_1=0; b_j_1 < mat_h_1; b_j_1+=BLOCK_MATRIX_SIZE){
+            for(int b_i_2=0; b_i_2 < mat_w_2; b_i_2+=BLOCK_MATRIX_SIZE){
+                    for(int b_k_1=0; b_k_1 < mat_w_1; b_k_1+=BLOCK_MATRIX_SIZE){
+                        
+                        int blk_h_1 = std::min(BLOCK_MATRIX_SIZE, mat_h_1-b_j_1);
+                        int blk_w_1 = std::min(BLOCK_MATRIX_SIZE, mat_w_1-b_k_1);
+                        int blk_h_2 = blk_w_1;
+                        int blk_w_2 = std::min(BLOCK_MATRIX_SIZE, mat_w_2-b_i_2);
+                        int blk_h_o = blk_h_1;
+                        int blk_w_o = blk_w_2;
+                        
+                        // Matrix buffer size allocation
+                        blk_1_bytes = sizeof(float) * blk_h_1 * blk_w_1;
+                        blk_2_bytes = sizeof(float) * blk_h_2 * blk_w_2;
+                        blk_o_bytes = sizeof(float) * blk_h_o * blk_w_o;
 
-    cl::Event write_event;
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_in1, buffer_in2},0/* 0 means from host*/, NULL, &write_event));	
-    events.push_back(write_event);
+                        for(int i=0; i<BLOCK_MATRIX_SIZE; i++){
+                                for(int j=0; j<BLOCK_MATRIX_SIZE; j++){
 
-    cl::Event kernel_event;
-    OCL_CHECK(err, err = q.enqueueTask(krnl_matmul, NULL, &kernel_event));
-    events.push_back(kernel_event);
+                                        // input block 1
+                                        if(i<blk_w_1 && j<blk_h_1){
+                                                blk_1[(blk_w_1*j)+(i)] = kernel_array_col[(mat_w_1*(b_j_1+j))+(b_k_1+i)];
+                                        }
+                                        // input block 2
+                                        if(i<blk_w_2 && j<blk_h_2){
+                                                blk_2[(blk_w_2*j)+(i)] = in_array_col[(mat_w_2*(b_k_1+j))+(b_i_2+i)];
+                                        }
+                                }
+                        }
 
-    q.finish();
+                        // Setting up  buffers
+                        OCL_CHECK(err, cl::Buffer buffer_in1   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                                blk_2_bytes, blk_1, &err));
+                        OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                                blk_1_bytes, blk_2, &err));
+                        OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
+                                blk_o_bytes, blk_o, &err));
 
-    cl::Event read_event;
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, NULL, &read_event));
+                        // Kernel setup
+                        OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(1, blk_h_1));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(2, blk_w_1));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(3, buffer_in2));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(4, blk_h_2));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(5, blk_w_2));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(6, buffer_output));
 
-    q.finish();
-    std::cout<< "output_col" <<std::endl;
-    print_tensor(output_col, 1, 1, kernel_array_col_height, in_array_col_width);
+                        // Running
+                        std::vector<cl::Event> events;
+
+                        cl::Event write_event;
+                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_in1, buffer_in2},0/* 0 means from host*/, NULL, &write_event));	
+                        events.push_back(write_event);
+
+                        cl::Event kernel_event;
+                        OCL_CHECK(err, err = q.enqueueTask(krnl_matmul, NULL, &kernel_event));
+                        events.push_back(kernel_event);
+
+                        q.finish();
+
+                        cl::Event read_event;
+                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, NULL, &read_event));
+
+                        q.finish();
+                        std::cout<< "output_col" <<std::endl;
+                        print_tensor(output_col, 1, 1, kernel_array_col_height, in_array_col_width);
+
+
+
+                        for(int i=0; i<BLOCK_MATRIX_SIZE; i++){
+                                for(int j=0; j<BLOCK_MATRIX_SIZE; j++){
+                                        // output block
+                                        if(i<blk_w_o && j<blk_h_o){
+                                                output_col[(mat_w_2*j)+(i)] += blk_o[(blk_w_o*(b_j_1+j))+(b_i_2+i)];
+                                }
+                        }
+
+
+                    }
+            }
+    }
+    
+
+
+
     // -----------------------------------------------------------------------------------------------------------------------------
     // END KERNEL CODE
     // -----------------------------------------------------------------------------------------------------------------------------

@@ -16,6 +16,7 @@
 #include <vector>
 #include <unistd.h>
 #include <iostream>
+#include <algorithm> 
 #include <stdexcept>
 #include <fstream>
 #include <CL/cl2.hpp>
