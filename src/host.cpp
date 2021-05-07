@@ -2,7 +2,6 @@
 #include <chrono>
 #include <stdio.h>
 #include "host.hpp"
-#include <torch/extension.h>
 #define BLOCK_MATRIX_SIZE 16
 #define DEBUG 1
 
@@ -283,4 +282,5 @@ std::vector<torch::Tensor> backward_sw(torch::Tensor output_grad,
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
     m.def("forward_hw", &forward_hw, "forward_hw");
     m.def("forward_sw", &forward_sw, "forward_sw");
+
 }
