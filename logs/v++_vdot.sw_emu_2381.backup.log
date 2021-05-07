@@ -15,3 +15,4 @@ INFO: [v++ 60-586] Created build/vdot.sw_emu.xo
 INFO: [v++ 60-2343] Use the vitis_analyzer tool to visualize and navigate the relevant reports. Run the following command. 
     vitis_analyzer /home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xo.compile_summary 
 INFO: [v++ 60-791] Total elapsed time: 0h 2m 9s
+INFO: [v++ 60-1653] Closing dispatch client.

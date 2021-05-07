@@ -2,6 +2,7 @@
 #include <chrono>
 #include <stdio.h>
 #include "host.hpp"
+#include <torch/extension.h>
 #define BLOCK_MATRIX_SIZE 16
 #define DEBUG 1
 
@@ -11,7 +12,6 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
 torch::Tensor forward_sw(torch::Tensor input, torch::Tensor weights);
 
 torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileLoc){
-
     int stride =1;
     int pad =0;
 
@@ -33,7 +33,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     float * kernel_array_col = weight2col(kernel_array, out_channels, kernel_in_channels, kernel_height, kernel_width,
                     &kernel_array_col_height, &kernel_array_col_width);
     
-    float * output_col = new float[out_height * out_width];
+    float * output_col = new float[kernel_array_col_height * in_array_col_width];
 
     // Binary files and Devices
     std::string binaryFile = fileLoc;
@@ -47,7 +47,10 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     cl::Program::Binaries bins{{fileBuf, fileBufSize}};
 
     cl_int err;  /*error variable*/
-
+    std::cout<< "in_array_col" <<std::endl;
+    print_tensor(in_array_col, 1, 1, in_array_col_height, in_array_col_width);
+    std::cout<< "kernel_array_col" <<std::endl;
+    print_tensor(kernel_array_col, 1, 1, kernel_array_col_height, kernel_array_col_width);
     // ------------------------------------------------------------------------------------------------------
     // START KERNEL CODE
     // ------------------------------------------------------------------------------------------------------
@@ -55,7 +58,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     // Matrix buffer size allocation
     size_t in_size_bytes = sizeof(float) * in_array_col_height * in_array_col_width;
     size_t kernel_size_bytes = sizeof(float) * kernel_array_col_height * kernel_array_col_width;
-    size_t out_size_bytes = sizeof(float) * out_height * out_width;
+    size_t out_size_bytes = sizeof(float) * kernel_array_col_height * in_array_col_width;
 
     // Setting up queues
     OCL_CHECK(err, cl::Context context(device, NULL, NULL, NULL, &err));
@@ -73,11 +76,11 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     // Kernel setup
     OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
     OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1));
-    OCL_CHECK(err, err = krnl_matmul.setArg(1, in_array_col_height));
-    OCL_CHECK(err, err = krnl_matmul.setArg(2, in_array_col_width));
+    OCL_CHECK(err, err = krnl_matmul.setArg(1, kernel_array_col_height));
+    OCL_CHECK(err, err = krnl_matmul.setArg(2, kernel_array_col_width));
     OCL_CHECK(err, err = krnl_matmul.setArg(3, buffer_in2));
-    OCL_CHECK(err, err = krnl_matmul.setArg(4, kernel_array_col_height));
-    OCL_CHECK(err, err = krnl_matmul.setArg(5, kernel_array_col_width));
+    OCL_CHECK(err, err = krnl_matmul.setArg(4, in_array_col_height));
+    OCL_CHECK(err, err = krnl_matmul.setArg(5, in_array_col_width));
     OCL_CHECK(err, err = krnl_matmul.setArg(6, buffer_output));
 
     // Running
@@ -97,7 +100,8 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, NULL, &read_event));
 
     q.finish();
-
+    std::cout<< "output_col" <<std::endl;
+    print_tensor(output_col, 1, 1, kernel_array_col_height, in_array_col_width);
     // -----------------------------------------------------------------------------------------------------------------------------
     // END KERNEL CODE
     // -----------------------------------------------------------------------------------------------------------------------------
