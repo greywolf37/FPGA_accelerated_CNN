@@ -10,7 +10,7 @@ cnn = load(name="host", sources=["src/host.cpp"],
             extra_cflags=["-Wall", "-O0", "-g", "-std=c++14"],
             extra_ldflags=["-lOpenCL", "-lpthread", "-lrt", "-lstdc++"],
             extra_include_paths=["-I${XILINX_XRT}/include/", "-I${XILINX_VIVADO}/include/"
-                                "-L${XILINX_XRT}/lib/"]
+                                "-L${XILINX_XRT}/lib/"]            
             )
 
 # cnn = load(name="host", sources=["host.cpp"],
@@ -23,7 +23,7 @@ print("begin")
 
 input_tensor = torch.rand((1,1,3,3))
 weights_tensor = torch.rand((1,1, 2,2))
-output = cnn.forward_hw(input_tensor, weights_tensor, "../build/vdot.sw_emu.xclbin")
+output = cnn.forward_hw(input_tensor, weights_tensor, "build/vdot.sw_emu.xclbin")
 # output = cnn.forward_sw(input_tensor, weights_tensor)
 
 print(output)

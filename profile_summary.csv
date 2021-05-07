@@ -1,29 +1,23 @@
 Profile Summary
-Generated on: 2021-04-28 02:19:36
-Msec since Epoch: 1619576376556
-Profiled application: host
+Generated on: 2021-05-07 02:24:17
+Msec since Epoch: 1620354257578
+Profiled application: python3.6
 Target platform: 
 Tool version: 2020.1
 XRT build version: 2.6.0
 Build version branch: 2020.1
 Build version hash: 12115fd4054cb46a5ade62fafa74c523f59116e6
 Build version date: 2020-07-09 15:20:59 
-Target devices: xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0
+Target devices: 
 Flow mode: Software Emulation
 
 OpenCL API Calls
 API Name,Number Of Calls,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),
-clCreateProgramWithBinary,1,2350.5,2350.5,2350.5,2350.5,
-clCreateKernel,1,0.876645,0.876645,0.876645,0.876645,
-clSetKernelArg,3,0.149279,0.003475,0.0497597,0.073071,
-clGetExtensionFunctionAddress,2,0.057192,0.009629,0.028596,0.047563,
-clGetPlatformInfo,14,0.044866,0.002867,0.00320471,0.00486,
-clCreateBuffer,3,0.016418,0.003322,0.00547267,0.009533,
-clGetExtensionFunctionAddressForPlatform,2,0.010113,0.003311,0.0050565,0.006802,
-clGetDeviceIDs,2,0.00912,0.003256,0.00456,0.005864,
-clCreateContext,1,0.008698,0.008698,0.008698,0.008698,
-clCreateCommandQueue,1,0.008245,0.008245,0.008245,0.008245,
-clRetainDevice,2,0.006772,0.003201,0.003386,0.003571,
+clGetExtensionFunctionAddress,2,0.045662,0.008706,0.022831,0.036956,
+clGetPlatformInfo,14,0.038372,0.002594,0.00274086,0.003267,
+clGetExtensionFunctionAddressForPlatform,2,0.009033,0.003119,0.0045165,0.005914,
+clGetDeviceIDs,2,0.008414,0.003031,0.004207,0.005383,
+clRetainDevice,2,0.006148,0.002778,0.003074,0.00337,
 
 
 Kernel Execution
@@ -60,23 +54,16 @@ Buffer Address,Context ID,Command Queue ID,Start Time (ms),Duration (ms),Buffer 
 
 Guidance Parameters
 Parameter,Element,Value,
-DEVICE_EXEC_TIME,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0,0.000000,
-CU_CALLS,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|vdot_1,0,
+DEVICE_EXEC_TIME,xilinx:pcie-hw-em:7v3:1.0-0,0.000000,
 MIGRATE_MEM,host,0,
 PLRAM_DEVICE,all,1,
 HBM_DEVICE,all,0,
 KDMA_DEVICE,all,0,
 P2P_DEVICE,all,0,
 P2P_HOST_TRANSFERS,host,0,
-PORT_BIT_WIDTH,vdot_1/m_axi_gmem,32,
-KERNEL_COUNT,vdot,1,
 OBJECTS_RELEASED,all,0,
 TRACE_MEMORY,all,NA,
 CU_CONTEXT_EN,all,0,
-COMMAND_QUEUE_OOO,20598048,0,
-MEMORY_TYPE_BIT_WIDTH,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|DDR,512,
-MEMORY_TYPE_BIT_WIDTH,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|HBM,256,
-MEMORY_TYPE_BIT_WIDTH,xilinx_aws-vu9p-f1_shell-v04261818_201920_2-0|PLRAM,512,
 XRT_INI_SETTING,continuous_trace,0,
 XRT_INI_SETTING,continuous_trace_interval_ms,10,
 XRT_INI_SETTING,data_transfer_trace,fine,
@@ -91,7 +78,7 @@ XRT_INI_SETTING,verbosity,4,
 BUFFER_RD_ACTIVE_TIME_MS,all,0,
 BUFFER_WR_ACTIVE_TIME_MS,all,0,
 BUFFER_TX_ACTIVE_TIME_MS,all,0,
-APPLICATION_RUN_TIME_MS,all,3108.93,
+APPLICATION_RUN_TIME_MS,all,4.18853,
 TOTAL_KERNEL_RUN_TIME_MS,all,0,
 
 

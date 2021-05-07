@@ -1,11 +1,11 @@
-Wed Apr 28 00:50:32 2021: Server was asked to start on port: '43842'
-Wed Apr 28 00:50:32 2021: Server is using token UUID: 'e0f99566-bfb4-4c45-b299-ff405f8e58d1'
-Wed Apr 28 00:50:32 2021: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Wed Apr 28 00:50:32 2021: Attempting to start server on port '43842'
-Wed Apr 28 00:50:32 2021: XCD main fifo: created main fifo '/tmp/xcdmaine0f99566-bfb4-4c45-b299-ff405f8e58d1', fd read = 13
-Wed Apr 28 00:50:32 2021: Running Dispatch Server
-Wed Apr 28 00:50:32 2021: Version 2.0.0
-Wed Apr 28 00:50:41 2021: Dispatch Server: Accepted socket connection from client
-Wed Apr 28 00:50:41 2021: EXCHANGE_TOKEN received, server token: e0f99566-bfb4-4c45-b299-ff405f8e58d1, passed token: e0f99566-bfb4-4c45-b299-ff405f8e58d1
-Wed Apr 28 00:50:41 2021: SESSION_MGR: creating session with session uuid: 'f0ca1907-1f6d-4640-b456-863e378d8198' and name 'v++_link_vdot.sw_emu'
-Wed Apr 28 00:50:47 2021: SESSION_MGR: closing session for UUID 'f0ca1907-1f6d-4640-b456-863e378d8198' with name 'v++_link_vdot.sw_emu'
+Thu May  6 21:34:48 2021: Server was asked to start on port: '44848'
+Thu May  6 21:34:48 2021: Server is using token UUID: '3a34a72a-b51f-4db3-bcef-cdb4173754f2'
+Thu May  6 21:34:48 2021: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Thu May  6 21:34:48 2021: Attempting to start server on port '44848'
+Thu May  6 21:34:48 2021: XCD main fifo: created main fifo '/tmp/xcdmain3a34a72a-b51f-4db3-bcef-cdb4173754f2', fd read = 13
+Thu May  6 21:34:48 2021: Running Dispatch Server
+Thu May  6 21:34:48 2021: Version 2.0.0
+Thu May  6 21:34:57 2021: Dispatch Server: Accepted socket connection from client
+Thu May  6 21:34:57 2021: EXCHANGE_TOKEN received, server token: 3a34a72a-b51f-4db3-bcef-cdb4173754f2, passed token: 3a34a72a-b51f-4db3-bcef-cdb4173754f2
+Thu May  6 21:34:57 2021: SESSION_MGR: creating session with session uuid: 'cbfe1617-b5e0-4114-9b66-f7dc6a3de2dc' and name 'v++_link_vdot.sw_emu'
+Thu May  6 21:35:23 2021: SESSION_MGR: closing session for UUID 'cbfe1617-b5e0-4114-9b66-f7dc6a3de2dc' with name 'v++_link_vdot.sw_emu'

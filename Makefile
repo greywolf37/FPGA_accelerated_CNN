@@ -86,8 +86,7 @@ emulate: ${HOST} ${XCLBIN} ${EMCONFIG_FILE}
 test: ${XCLBIN} ${EMCONFIG_FILE}
 	echo Running host code with kernel...
 
-	XCL_EMULATION_MODE=${TARGET}
-	python3 ${PROJECT_DIR}/src/test.py
+	XCL_EMULATION_MODE=${TARGET} python3 ${PROJECT_DIR}/src/test.py
 
 	mv profile_summary.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv timeline_trace.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
