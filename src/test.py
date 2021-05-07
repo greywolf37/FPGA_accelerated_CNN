@@ -52,7 +52,7 @@ class CNN_cpp_hw(torch.nn.Module):
 
 
 model = CNN()
-input_tensor = torch.ones((1,1,3,3))
+input_tensor = torch.ones((2,1,3,3))
 ouput_torch = model.forward(input_tensor)[0]
 kernel = model.get_kernel(1)
 

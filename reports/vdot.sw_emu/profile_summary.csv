@@ -1,6 +1,6 @@
 Profile Summary
-Generated on: 2021-05-07 04:02:52
-Msec since Epoch: 1620360172466
+Generated on: 2021-05-07 20:04:38
+Msec since Epoch: 1620417878127
 Profiled application: python3.6
 Target platform: 
 Tool version: 2020.1
@@ -13,39 +13,39 @@ Flow mode: Software Emulation
 
 OpenCL API Calls
 API Name,Number Of Calls,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),
-clReleaseContext,1,5001.9,5001.9,5001.9,5001.9,
-clCreateProgramWithBinary,1,1036.8,1036.8,1036.8,1036.8,
-clCreateKernel,1,0.868877,0.868877,0.868877,0.868877,
-clEnqueueMigrateMemObjects,2,0.64643,0.022679,0.323215,0.623751,
-clFinish,2,0.536134,0.04558,0.268067,0.490554,
-clSetKernelArg,7,0.27234,0.003326,0.0389057,0.164049,
-clReleaseMemObject,9,0.165686,0.003336,0.0184096,0.062147,
-clEnqueueTask,1,0.156164,0.156164,0.156164,0.156164,
-clCreateContext,1,0.053512,0.053512,0.053512,0.053512,
-clGetExtensionFunctionAddress,2,0.048614,0.009926,0.024307,0.038688,
-clGetPlatformInfo,14,0.042976,0.002798,0.00306971,0.003916,
-clReleaseProgram,1,0.040042,0.040042,0.040042,0.040042,
-clRetainMemObject,6,0.022045,0.003062,0.00367417,0.004556,
-clCreateBuffer,3,0.021361,0.003356,0.00712033,0.01411,
-clReleaseEvent,5,0.021192,0.003173,0.0042384,0.006808,
-clReleaseDevice,2,0.010441,0.003876,0.0052205,0.006565,
-clCreateCommandQueue,1,0.010103,0.010103,0.010103,0.010103,
-clGetExtensionFunctionAddressForPlatform,2,0.00996,0.003651,0.00498,0.006309,
-clRetainEvent,2,0.0086,0.004221,0.0043,0.004379,
-clGetDeviceIDs,2,0.008573,0.003308,0.0042865,0.005265,
-clRetainDevice,2,0.006748,0.003207,0.003374,0.003541,
-clReleaseKernel,1,0.005368,0.005368,0.005368,0.005368,
-clReleaseCommandQueue,1,0.004928,0.004928,0.004928,0.004928,
+clReleaseContext,1,5000.69,5000.69,5000.69,5000.69,
+clCreateProgramWithBinary,1,12.7203,12.7203,12.7203,12.7203,
+clCreateKernel,1,0.855483,0.855483,0.855483,0.855483,
+clSetKernelArg,7,0.256805,0.00334,0.0366864,0.139765,
+clFinish,2,0.247563,0.041719,0.123781,0.205844,
+clEnqueueMigrateMemObjects,2,0.238908,0.024002,0.119454,0.214906,
+clReleaseMemObject,9,0.197768,0.003242,0.0219742,0.063293,
+clEnqueueTask,1,0.156344,0.156344,0.156344,0.156344,
+clCreateContext,1,0.058562,0.058562,0.058562,0.058562,
+clGetExtensionFunctionAddress,2,0.048727,0.010037,0.0243635,0.03869,
+clGetPlatformInfo,14,0.042432,0.002855,0.00303086,0.003481,
+clReleaseProgram,1,0.039312,0.039312,0.039312,0.039312,
+clRetainMemObject,6,0.021348,0.003045,0.003558,0.00412,
+clReleaseEvent,5,0.021136,0.003357,0.0042272,0.006445,
+clCreateBuffer,3,0.018232,0.003493,0.00607733,0.011019,
+clReleaseDevice,2,0.010951,0.003392,0.0054755,0.007559,
+clRetainEvent,2,0.010895,0.004266,0.0054475,0.006629,
+clCreateCommandQueue,1,0.010441,0.010441,0.010441,0.010441,
+clGetExtensionFunctionAddressForPlatform,2,0.010262,0.003723,0.005131,0.006539,
+clGetDeviceIDs,2,0.009081,0.003283,0.0045405,0.005798,
+clRetainDevice,2,0.006724,0.003188,0.003362,0.003536,
+clReleaseCommandQueue,1,0.004889,0.004889,0.004889,0.004889,
+clReleaseKernel,1,0.004773,0.004773,0.004773,0.004773,
 
 
 Kernel Execution
 Kernel,Number Of Enqueues,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),
-vdot,1,0.546235,0.546235,0.546235,0.546235,
+vdot,1,0.271288,0.271288,0.271288,0.271288,
 
 
 Compute Unit Utilization
 Device,Compute Unit,Kernel,Global Work Size,Local Work Size,Number Of Calls,Dataflow Execution,Max Overlapping Executions,Dataflow Acceleration,Total Time (ms),Minimum Time (ms),Average Time (ms),Maximum Time (ms),Clock Frequency (MHz),
-xilinx:pcie-hw-em:7v3:1.0-0,vdot_1,vdot,1:1:1,1:1:1,1,No,0,1.000000x,0.13082,0.13082,0.13082,0.13082,300,
+xilinx:pcie-hw-em:7v3:1.0-0,vdot_1,vdot,1:1:1,1:1:1,1,No,0,1.000000x,0.121233,0.121233,0.121233,0.121233,300,
 
 
 Data Transfer: Host to Global Memory
@@ -62,22 +62,22 @@ Device,Compute Unit,Number of Transfers,Average Bytes per Transfer,Transfer Effi
 
 Top Kernel Execution
 Kernel Instance Address,Kernel,Context ID,Command Queue ID,Device,Start Time (ms),Duration (ms),Global Work Size,Local Work Size,
-60267776,vdot,0,0,xilinx:pcie-hw-em:7v3:1.0-0,1845.18,0.546235,1:1:1,1:1:1,
+64640560,vdot,0,0,xilinx:pcie-hw-em:7v3:1.0-0,19.0281,0.271288,1:1:1,1:1:1,
 
 
 Top Memory Writes: Host to Global Memory
 Buffer Address,Context ID,Command Queue ID,Start Time (ms),Duration (ms),Buffer Size (KB),Writing Rate(MB/s),
-0,0,0,1845.01,N/A,0.08,N/A,
+0,0,0,18.8702,N/A,0.144,N/A,
 
 
 Top Memory Reads: Host to Global Memory
 Buffer Address,Context ID,Command Queue ID,Start Time (ms),Duration (ms),Buffer Size (KB),Reading Rate(MB/s),
-8192,0,0,1845.81,N/A,0.016,N/A,
+8192,0,0,19.3805,N/A,0.032,N/A,
 
 
 Guidance Parameters
 Parameter,Element,Value,
-DEVICE_EXEC_TIME,xilinx:pcie-hw-em:7v3:1.0-0,0.546235,
+DEVICE_EXEC_TIME,xilinx:pcie-hw-em:7v3:1.0-0,0.271288,
 CU_CALLS,xilinx:pcie-hw-em:7v3:1.0-0|vdot_1,1,
 MIGRATE_MEM,host,2,
 PLRAM_DEVICE,all,1,
@@ -91,10 +91,10 @@ OBJECTS_RELEASED,all,1,
 TRACE_MEMORY,all,NA,
 CU_CONTEXT_EN,all,0,
 MAX_PARALLEL_KERNEL_ENQUEUES,vdot,1,
-COMMAND_QUEUE_OOO,60329680,0,
+COMMAND_QUEUE_OOO,61576336,0,
 KERNEL_BUFFER_INFO,vdot|input1||0,16,
-KERNEL_BUFFER_INFO,vdot|input2||0,64,
-KERNEL_BUFFER_INFO,vdot|output_r||0,16,
+KERNEL_BUFFER_INFO,vdot|input2||0,128,
+KERNEL_BUFFER_INFO,vdot|output_r||0,32,
 MEMORY_TYPE_BIT_WIDTH,xilinx:pcie-hw-em:7v3:1.0-0|DDR,512,
 MEMORY_TYPE_BIT_WIDTH,xilinx:pcie-hw-em:7v3:1.0-0|HBM,256,
 MEMORY_TYPE_BIT_WIDTH,xilinx:pcie-hw-em:7v3:1.0-0|PLRAM,512,
@@ -109,10 +109,10 @@ XRT_INI_SETTING,stall_trace,off,
 XRT_INI_SETTING,timeline_trace,1,
 XRT_INI_SETTING,trace_buffer_size,1M,
 XRT_INI_SETTING,verbosity,4,
-BUFFER_RD_ACTIVE_TIME_MS,all,0.065769,
-BUFFER_WR_ACTIVE_TIME_MS,all,0.070454,
-BUFFER_TX_ACTIVE_TIME_MS,all,0.866843,
-APPLICATION_RUN_TIME_MS,all,7534.81,
-TOTAL_KERNEL_RUN_TIME_MS,all,0.546235,
+BUFFER_RD_ACTIVE_TIME_MS,all,0.060637,
+BUFFER_WR_ACTIVE_TIME_MS,all,0.073602,
+BUFFER_TX_ACTIVE_TIME_MS,all,0.570902,
+APPLICATION_RUN_TIME_MS,all,5105.21,
+TOTAL_KERNEL_RUN_TIME_MS,all,0.271288,
 
 
