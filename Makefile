@@ -29,7 +29,7 @@ XCLBIN := ${BUILD_DIR}/${NAME}.${TARGET}.xclbin
 EMCONFIG_FILE := ${BUILD_DIR}/emconfig.json
 
 # Host options
-GCC_OPTS := -I${XILINX_XRT}/include/ -I${XILINX_VIVADO}/include/ -Wall -O0 -g -std=c++11 -L${XILINX_XRT}/lib/ -lOpenCL -lpthread -lrt -lstdc++ 
+GCC_OPTS := -I${XILINX_XRT}/include/ -I${XILINX_VIVADO}/include/ -Wall -O0 -g -std=c++11 -L${XILINX_XRT}/lib/ -lOpenCL -lpthread -lrt -lstdc++
 
 # VPP Linker options
 VPP_INCLUDE_OPTS := -I ${PROJECT_DIR}/src 
