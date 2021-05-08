@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "host.hpp"
 #define BLOCK_MATRIX_SIZE 16
-#define DEBUG 1
+#define DEBUG 0
 
 using namespace std;
 
@@ -14,7 +14,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int stride =1;
     int pad =0;
     
-    if(DEBUG){
+    if(1){
             std::cout << "Turning tensors to arrays..." << std::endl;
     }
     // Turning tensors to arrays
@@ -24,7 +24,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int out_channels, kernel_in_channels, kernel_height, kernel_width;
     float * kernel_array = tensor2arr_4d(weights, &out_channels, &kernel_in_channels, &kernel_height, &kernel_width);
 
-    if(DEBUG){
+    if(1){
             std::cout << "Converting Images to col..." << std::endl;
     }
     // Image to Col Functions
@@ -34,7 +34,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
             kernel_height, kernel_width, stride, pad, 
             &in_array_col_height, &in_array_col_width, &out_height, &out_width);
 
-    if(DEBUG){
+    if(1){
             std::cout << "Converting Weights to col..." << std::endl;
     }
     int kernel_array_col_height, kernel_array_col_width;
@@ -43,9 +43,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     
     float output_col[kernel_array_col_height * in_array_col_width] = { 0 };
 
-    delete[] in_array, kernel_array;
-
-    if(DEBUG){
+    if(1){
             std::cout << "Setting up binary file..." << std::endl;
     }
     // Binary files and Devices
@@ -84,13 +82,11 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int mat_w_1 = kernel_array_col_width;
     int mat_h_2 = in_array_col_height;
     int mat_w_2 = in_array_col_width;
-
-    float blk_1[BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE];
-    float blk_2[BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE];
-    float blk_o[BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE];
-
+        
+    std::vector<float, aligned_allocator<float>> blk_1(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
+    std::vector<float, aligned_allocator<float>> blk_2(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
+    std::vector<float, aligned_allocator<float>> blk_o(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
     
-
     for(int b_j_1=0; b_j_1 < mat_h_1; b_j_1+=BLOCK_MATRIX_SIZE){
             for(int b_i_2=0; b_i_2 < mat_w_2; b_i_2+=BLOCK_MATRIX_SIZE){
                     for(int b_k_1=0; b_k_1 < mat_w_1; b_k_1+=BLOCK_MATRIX_SIZE){
@@ -123,19 +119,19 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
                         
                         if(DEBUG){
                                 std::cout<< "block 1 : " << blk_h_1 << ", "<< blk_w_1 << std::endl;
-                                print_tensor(blk_1, 1, 1, blk_h_1, blk_w_1);
+                                print_tensor(blk_1.data(), 1, 1, blk_h_1, blk_w_1);
                                 std::cout<< "block 2 : " << blk_h_2 << ", "<< blk_w_2 <<std::endl;
-                                print_tensor(blk_2, 1, 1, blk_h_2, blk_w_2);
+                                print_tensor(blk_2.data(), 1, 1, blk_h_2, blk_w_2);
                         }
 
 
                         // Setting up  buffers
                         OCL_CHECK(err, cl::Buffer buffer_in1   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-                                blk_1_bytes, blk_1, &err));
+                                blk_1_bytes, blk_1.data(), &err));
                         OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-                                blk_2_bytes, blk_2, &err));
+                                blk_2_bytes, blk_2.data(), &err));
                         OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
-                                blk_o_bytes, blk_o, &err));
+                                blk_o_bytes, blk_o.data(), &err));
 
                         // Kernel setup
                         OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
@@ -178,7 +174,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
 
                         if(DEBUG){
                                 std::cout<< "block out : " << blk_h_o << ", "<< blk_w_o <<std::endl;
-                                print_tensor(blk_o, 1, 1, blk_h_o, blk_w_o);
+                                print_tensor(blk_o.data(), 1, 1, blk_h_o, blk_w_o);
                         }
                     }
             }

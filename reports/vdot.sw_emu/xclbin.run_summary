@@ -21,8 +21,8 @@
         "header":
         {
             "name": "Profile Summary",
-            "generated": "2021-05-07 23:40:22",
-            "epochTime": "1620430822247",
+            "generated": "2021-05-08 00:46:52",
+            "epochTime": "1620434812395",
             "application": "python3.6",
             "platform": "Xilinx",
             "toolVersion": "2020.1",
@@ -35,193 +35,193 @@
             [
                 "xilinx:pcie-hw-em:7v3:1.0-0"
             ],
-            "totalTime": "5206.638531"
+            "totalTime": "7841.798285"
         },
         "apiCalls":
         {
             "clReleaseContext":
             {
                 "numCalls": "1",
-                "totalTime": "5004.334061",
-                "minTime": "5004.334061",
-                "avgTime": "5004.334061",
-                "maxTime": "5004.334061"
+                "totalTime": "5001.416362",
+                "minTime": "5001.416362",
+                "avgTime": "5001.416362",
+                "maxTime": "5001.416362"
+            },
+            "clCreateKernel":
+            {
+                "numCalls": "1800",
+                "totalTime": "1451.105147999992",
+                "minTime": "0.797146999999768",
+                "avgTime": "0.8061695266666616",
+                "maxTime": "0.8681510000001254"
+            },
+            "clFinish":
+            {
+                "numCalls": "3600",
+                "totalTime": "294.6093759999913",
+                "minTime": "0.003260999999952219",
+                "avgTime": "0.08183593777777556",
+                "maxTime": "0.2946939999999998"
+            },
+            "clReleaseMemObject":
+            {
+                "numCalls": "16200",
+                "totalTime": "163.1932300000186",
+                "minTime": "0.00292699999999968",
+                "avgTime": "0.01007365617284063",
+                "maxTime": "0.1369729999996707"
+            },
+            "clSetKernelArg":
+            {
+                "numCalls": "12600",
+                "totalTime": "136.189625000008",
+                "minTime": "0.002924999999990519",
+                "avgTime": "0.01080870039682602",
+                "maxTime": "1.130572000000001"
+            },
+            "clEnqueueTask":
+            {
+                "numCalls": "1800",
+                "totalTime": "87.33948700000417",
+                "minTime": "0.02942400000000589",
+                "avgTime": "0.04852193722222453",
+                "maxTime": "0.08382600000004459"
+            },
+            "clEnqueueMigrateMemObjects":
+            {
+                "numCalls": "3600",
+                "totalTime": "71.36537900000209",
+                "minTime": "0.0163960000000003",
+                "avgTime": "0.01982371638888948",
+                "maxTime": "0.9579279999999954"
+            },
+            "clRetainMemObject":
+            {
+                "numCalls": "10800",
+                "totalTime": "36.50892499998139",
+                "minTime": "0.002942000000018652",
+                "avgTime": "0.003380456018516798",
+                "maxTime": "0.08647999999993772"
+            },
+            "clReleaseEvent":
+            {
+                "numCalls": "9000",
+                "totalTime": "31.72268200000798",
+                "minTime": "0.002863000000004945",
+                "avgTime": "0.003524742444445336",
+                "maxTime": "0.07874800000035975"
+            },
+            "clCreateBuffer":
+            {
+                "numCalls": "5400",
+                "totalTime": "19.12752900000196",
+                "minTime": "0.003000000000000114",
+                "avgTime": "0.003542135000000365",
+                "maxTime": "0.01967000000013286"
+            },
+            "clRetainEvent":
+            {
+                "numCalls": "3600",
+                "totalTime": "18.80165700000092",
+                "minTime": "0.003224999999929423",
+                "avgTime": "0.005222682500000252",
+                "maxTime": "0.03329399999999794"
             },
             "clCreateProgramWithBinary":
             {
                 "numCalls": "1",
-                "totalTime": "45.488001",
-                "minTime": "45.488001",
-                "avgTime": "45.488001",
-                "maxTime": "45.488001"
+                "totalTime": "16.247672",
+                "minTime": "16.247672",
+                "avgTime": "16.247672",
+                "maxTime": "16.247672"
             },
-            "clCreateKernel":
+            "clReleaseKernel":
             {
-                "numCalls": "3",
-                "totalTime": "2.474522000000007",
-                "minTime": "0.8005519999999962",
-                "avgTime": "0.8248406666666691",
-                "maxTime": "0.856851000000006"
-            },
-            "clFinish":
-            {
-                "numCalls": "6",
-                "totalTime": "1.246337000000011",
-                "minTime": "0.02455600000000402",
-                "avgTime": "0.2077228333333352",
-                "maxTime": "0.851428999999996"
-            },
-            "clSetKernelArg":
-            {
-                "numCalls": "21",
-                "totalTime": "0.5629339999999843",
-                "minTime": "0.002864999999999895",
-                "avgTime": "0.0268063809523802",
-                "maxTime": "0.1668800000000061"
-            },
-            "clReleaseMemObject":
-            {
-                "numCalls": "27",
-                "totalTime": "0.4114490000000615",
-                "minTime": "0.003004000000004226",
-                "avgTime": "0.01523885185185413",
-                "maxTime": "0.05501200000000495"
-            },
-            "clEnqueueMigrateMemObjects":
-            {
-                "numCalls": "6",
-                "totalTime": "0.3013940000000019",
-                "minTime": "0.01739200000000096",
-                "avgTime": "0.05023233333333366",
-                "maxTime": "0.1948979999999949"
-            },
-            "clEnqueueTask":
-            {
-                "numCalls": "3",
-                "totalTime": "0.2178239999999931",
-                "minTime": "0.05434400000000039",
-                "avgTime": "0.07260799999999772",
-                "maxTime": "0.1005260000000021"
-            },
-            "clRetainMemObject":
-            {
-                "numCalls": "18",
-                "totalTime": "0.06148599999998794",
-                "minTime": "0.002959000000004153",
-                "avgTime": "0.003415888888888219",
-                "maxTime": "0.004545999999990613"
-            },
-            "clCreateContext":
-            {
-                "numCalls": "1",
-                "totalTime": "0.05857699999999966",
-                "minTime": "0.05857699999999966",
-                "avgTime": "0.05857699999999966",
-                "maxTime": "0.05857699999999966"
-            },
-            "clReleaseEvent":
-            {
-                "numCalls": "15",
-                "totalTime": "0.05847299999997801",
-                "minTime": "0.002967999999995641",
-                "avgTime": "0.003898199999998535",
-                "maxTime": "0.008487999999999829"
-            },
-            "clGetExtensionFunctionAddress":
-            {
-                "numCalls": "2",
-                "totalTime": "0.04706900000000047",
-                "minTime": "0.009875000000000966",
-                "avgTime": "0.02353450000000024",
-                "maxTime": "0.03719399999999951"
-            },
-            "clGetPlatformInfo":
-            {
-                "numCalls": "14",
-                "totalTime": "0.04316900000000601",
-                "minTime": "0.00282500000000141",
-                "avgTime": "0.003083500000000429",
-                "maxTime": "0.003793999999999187"
-            },
-            "clCreateBuffer":
-            {
-                "numCalls": "9",
-                "totalTime": "0.04240899999997794",
-                "minTime": "0.003236999999998602",
-                "avgTime": "0.004712111111108659",
-                "maxTime": "0.01226799999999173"
+                "numCalls": "1800",
+                "totalTime": "7.150844999999556",
+                "minTime": "0.003605999999990672",
+                "avgTime": "0.003972691666666425",
+                "maxTime": "0.01335600000004433"
             },
             "clReleaseProgram":
             {
                 "numCalls": "1",
-                "totalTime": "0.0410930000000036",
-                "minTime": "0.0410930000000036",
-                "avgTime": "0.0410930000000036",
-                "maxTime": "0.0410930000000036"
+                "totalTime": "0.06797499999993306",
+                "minTime": "0.06797499999993306",
+                "avgTime": "0.06797499999993306",
+                "maxTime": "0.06797499999993306"
             },
-            "clRetainEvent":
+            "clCreateContext":
             {
-                "numCalls": "6",
-                "totalTime": "0.02636099999999431",
-                "minTime": "0.003411999999997306",
-                "avgTime": "0.004393499999999051",
-                "maxTime": "0.006422999999998069"
+                "numCalls": "1",
+                "totalTime": "0.06422799999999995",
+                "minTime": "0.06422799999999995",
+                "avgTime": "0.06422799999999995",
+                "maxTime": "0.06422799999999995"
             },
-            "clReleaseKernel":
+            "clGetExtensionFunctionAddress":
             {
-                "numCalls": "3",
-                "totalTime": "0.01393000000001621",
-                "minTime": "0.004333000000002585",
-                "avgTime": "0.004643333333338735",
-                "maxTime": "0.005188000000003967"
+                "numCalls": "2",
+                "totalTime": "0.04912200000000055",
+                "minTime": "0.009826000000000334",
+                "avgTime": "0.02456100000000028",
+                "maxTime": "0.03929600000000022"
+            },
+            "clGetPlatformInfo":
+            {
+                "numCalls": "14",
+                "totalTime": "0.04469199999999063",
+                "minTime": "0.002873999999998489",
+                "avgTime": "0.003192285714285045",
+                "maxTime": "0.005277999999997007"
             },
             "clReleaseDevice":
             {
                 "numCalls": "2",
-                "totalTime": "0.01135700000031648",
-                "minTime": "0.003760999999940395",
-                "avgTime": "0.005678500000158238",
-                "maxTime": "0.00759600000037608"
-            },
-            "clGetExtensionFunctionAddressForPlatform":
-            {
-                "numCalls": "2",
-                "totalTime": "0.01001999999999725",
-                "minTime": "0.003517000000002213",
-                "avgTime": "0.005009999999998627",
-                "maxTime": "0.006502999999995041"
+                "totalTime": "0.01045699999940553",
+                "minTime": "0.003585999999813794",
+                "avgTime": "0.005228499999702763",
+                "maxTime": "0.006870999999591731"
             },
             "clCreateCommandQueue":
             {
                 "numCalls": "1",
-                "totalTime": "0.009884999999997035",
-                "minTime": "0.009884999999997035",
-                "avgTime": "0.009884999999997035",
-                "maxTime": "0.009884999999997035"
+                "totalTime": "0.01028900000000021",
+                "minTime": "0.01028900000000021",
+                "avgTime": "0.01028900000000021",
+                "maxTime": "0.01028900000000021"
+            },
+            "clGetExtensionFunctionAddressForPlatform":
+            {
+                "numCalls": "2",
+                "totalTime": "0.01001600000000025",
+                "minTime": "0.003515000000000157",
+                "avgTime": "0.005008000000000123",
+                "maxTime": "0.00650100000000009"
             },
             "clGetDeviceIDs":
             {
                 "numCalls": "2",
-                "totalTime": "0.008527999999998315",
-                "minTime": "0.003309999999999036",
-                "avgTime": "0.004263999999999157",
-                "maxTime": "0.005217999999999279"
+                "totalTime": "0.00904700000000247",
+                "minTime": "0.003466000000003078",
+                "avgTime": "0.004523500000001235",
+                "maxTime": "0.005580999999999392"
             },
             "clRetainDevice":
             {
                 "numCalls": "2",
-                "totalTime": "0.006448000000006004",
-                "minTime": "0.003133000000005381",
-                "avgTime": "0.003224000000003002",
-                "maxTime": "0.003315000000000623"
+                "totalTime": "0.007020000000000692",
+                "minTime": "0.003284000000000731",
+                "avgTime": "0.003510000000000346",
+                "maxTime": "0.003735999999999962"
             },
             "clReleaseCommandQueue":
             {
                 "numCalls": "1",
-                "totalTime": "0.004671000000001868",
-                "minTime": "0.004671000000001868",
-                "avgTime": "0.004671000000001868",
-                "maxTime": "0.004671000000001868"
+                "totalTime": "0.005270000000109576",
+                "minTime": "0.005270000000109576",
+                "avgTime": "0.005270000000109576",
+                "maxTime": "0.005270000000109576"
             }
         },
         "kernelEnqueues":
@@ -229,26 +229,594 @@
             "vdot":
             {
                 "numCalls": "1",
-                "totalTime": "0.1601469999999949",
-                "minTime": "0.1601469999999949",
-                "avgTime": "0.1601469999999949",
-                "maxTime": "0.1601469999999949"
+                "totalTime": "0.189038999999994",
+                "minTime": "0.189038999999994",
+                "avgTime": "0.189038999999994",
+                "maxTime": "0.189038999999994"
+            },
+            "vdot":
+            {
+                "numCalls": "138",
+                "totalTime": "19.49062799999975",
+                "minTime": "0.1362880000000359",
+                "avgTime": "0.1412364347826069",
+                "maxTime": "0.1676210000000253"
+            },
+            "vdot":
+            {
+                "numCalls": "2",
+                "totalTime": "0.2834639999998672",
+                "minTime": "0.1398619999999937",
+                "avgTime": "0.1417319999999336",
+                "maxTime": "0.1436019999998734"
             },
             "vdot":
             {
                 "numCalls": "1",
-                "totalTime": "0.831232",
-                "minTime": "0.831232",
-                "avgTime": "0.831232",
-                "maxTime": "0.831232"
+                "totalTime": "0.150654000000003",
+                "minTime": "0.150654000000003",
+                "avgTime": "0.150654000000003",
+                "maxTime": "0.150654000000003"
             },
             "vdot":
             {
                 "numCalls": "1",
-                "totalTime": "0.156361000000004",
-                "minTime": "0.156361000000004",
-                "avgTime": "0.156361000000004",
-                "maxTime": "0.156361000000004"
+                "totalTime": "0.289978000000005",
+                "minTime": "0.289978000000005",
+                "avgTime": "0.289978000000005",
+                "maxTime": "0.289978000000005"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1526509999999988",
+                "minTime": "0.1526509999999988",
+                "avgTime": "0.1526509999999988",
+                "maxTime": "0.1526509999999988"
+            },
+            "vdot":
+            {
+                "numCalls": "3",
+                "totalTime": "0.4299609999999916",
+                "minTime": "0.1403040000000004",
+                "avgTime": "0.1433203333333305",
+                "maxTime": "0.1465949999999978"
+            },
+            "vdot":
+            {
+                "numCalls": "49",
+                "totalTime": "7.062689999999961",
+                "minTime": "0.1370560000000012",
+                "avgTime": "0.1441365306122442",
+                "maxTime": "0.167580000000001"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1465650000000096",
+                "minTime": "0.1465650000000096",
+                "avgTime": "0.1465650000000096",
+                "maxTime": "0.1465650000000096"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1436360000000008",
+                "minTime": "0.1436360000000008",
+                "avgTime": "0.1436360000000008",
+                "maxTime": "0.1436360000000008"
+            },
+            "vdot":
+            {
+                "numCalls": "2",
+                "totalTime": "0.3054079999999999",
+                "minTime": "0.1521389999999769",
+                "avgTime": "0.152704",
+                "maxTime": "0.153269000000023"
+            },
+            "vdot":
+            {
+                "numCalls": "61",
+                "totalTime": "8.736788999999987",
+                "minTime": "0.135688000000016",
+                "avgTime": "0.1432260491803276",
+                "maxTime": "0.163045000000011"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1517570000000319",
+                "minTime": "0.1517570000000319",
+                "avgTime": "0.1517570000000319",
+                "maxTime": "0.1517570000000319"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1481469999999945",
+                "minTime": "0.1481469999999945",
+                "avgTime": "0.1481469999999945",
+                "maxTime": "0.1481469999999945"
+            },
+            "vdot":
+            {
+                "numCalls": "129",
+                "totalTime": "18.63280200000099",
+                "minTime": "0.1396210000000337",
+                "avgTime": "0.144440325581403",
+                "maxTime": "0.1806200000000331"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1450520000000779",
+                "minTime": "0.1450520000000779",
+                "avgTime": "0.1450520000000779",
+                "maxTime": "0.1450520000000779"
+            },
+            "vdot":
+            {
+                "numCalls": "26",
+                "totalTime": "3.751936000000114",
+                "minTime": "0.1402050000001509",
+                "avgTime": "0.1443052307692352",
+                "maxTime": "0.1542560000000321"
+            },
+            "vdot":
+            {
+                "numCalls": "28",
+                "totalTime": "4.064481000000114",
+                "minTime": "0.1415090000000419",
+                "avgTime": "0.1451600357142898",
+                "maxTime": "0.1566800000000512"
+            },
+            "vdot":
+            {
+                "numCalls": "26",
+                "totalTime": "3.811854999999696",
+                "minTime": "0.1408779999999297",
+                "avgTime": "0.146609807692296",
+                "maxTime": "0.1626189999999497"
+            },
+            "vdot":
+            {
+                "numCalls": "16",
+                "totalTime": "2.34012800000005",
+                "minTime": "0.1415770000000975",
+                "avgTime": "0.1462580000000031",
+                "maxTime": "0.1540870000001178"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1493900000000394",
+                "minTime": "0.1493900000000394",
+                "avgTime": "0.1493900000000394",
+                "maxTime": "0.1493900000000394"
+            },
+            "vdot":
+            {
+                "numCalls": "4",
+                "totalTime": "0.5769840000000386",
+                "minTime": "0.1432300000001305",
+                "avgTime": "0.1442460000000096",
+                "maxTime": "0.1455169999999271"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1409260000000359",
+                "minTime": "0.1409260000000359",
+                "avgTime": "0.1409260000000359",
+                "maxTime": "0.1409260000000359"
+            },
+            "vdot":
+            {
+                "numCalls": "76",
+                "totalTime": "10.9800869999998",
+                "minTime": "0.1367669999999634",
+                "avgTime": "0.1444748289473657",
+                "maxTime": "0.1921429999999873"
+            },
+            "vdot":
+            {
+                "numCalls": "13",
+                "totalTime": "1.891623000000095",
+                "minTime": "0.1395009999999957",
+                "avgTime": "0.1455094615384689",
+                "maxTime": "0.1722509999999602"
+            },
+            "vdot":
+            {
+                "numCalls": "12",
+                "totalTime": "1.763645999999994",
+                "minTime": "0.1423499999999649",
+                "avgTime": "0.1469704999999995",
+                "maxTime": "0.1594099999999798"
+            },
+            "vdot":
+            {
+                "numCalls": "165",
+                "totalTime": "23.92921100000081",
+                "minTime": "0.1405419999999822",
+                "avgTime": "0.1450255212121262",
+                "maxTime": "0.1588829999999462"
+            },
+            "vdot":
+            {
+                "numCalls": "13",
+                "totalTime": "1.922773000000007",
+                "minTime": "0.1422099999999773",
+                "avgTime": "0.1479056153846159",
+                "maxTime": "0.1559950000000754"
+            },
+            "vdot":
+            {
+                "numCalls": "9",
+                "totalTime": "1.301705999999967",
+                "minTime": "0.1415620000000217",
+                "avgTime": "0.1446339999999964",
+                "maxTime": "0.1464020000000801"
+            },
+            "vdot":
+            {
+                "numCalls": "37",
+                "totalTime": "5.3637049999993",
+                "minTime": "0.1405889999998635",
+                "avgTime": "0.1449649999999811",
+                "maxTime": "0.1550680000000284"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1521769999999378",
+                "minTime": "0.1521769999999378",
+                "avgTime": "0.1521769999999378",
+                "maxTime": "0.1521769999999378"
+            },
+            "vdot":
+            {
+                "numCalls": "43",
+                "totalTime": "6.749911999997494",
+                "minTime": "0.1414829999998801",
+                "avgTime": "0.1569746976743603",
+                "maxTime": "0.1814760000002025"
+            },
+            "vdot":
+            {
+                "numCalls": "8",
+                "totalTime": "1.270938000000115",
+                "minTime": "0.144315000000006",
+                "avgTime": "0.1588672500000143",
+                "maxTime": "0.1733079999999063"
+            },
+            "vdot":
+            {
+                "numCalls": "3",
+                "totalTime": "0.4299090000001797",
+                "minTime": "0.1419310000001133",
+                "avgTime": "0.1433030000000599",
+                "maxTime": "0.1443560000000161"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1526309999999285",
+                "minTime": "0.1526309999999285",
+                "avgTime": "0.1526309999999285",
+                "maxTime": "0.1526309999999285"
+            },
+            "vdot":
+            {
+                "numCalls": "3",
+                "totalTime": "0.4376890000003186",
+                "minTime": "0.1443460000000414",
+                "avgTime": "0.1458963333334395",
+                "maxTime": "0.1486440000001039"
+            },
+            "vdot":
+            {
+                "numCalls": "11",
+                "totalTime": "1.592865000000074",
+                "minTime": "0.1423870000000989",
+                "avgTime": "0.1448059090909158",
+                "maxTime": "0.1523689999999078"
+            },
+            "vdot":
+            {
+                "numCalls": "9",
+                "totalTime": "1.314444999999751",
+                "minTime": "0.1421829999999318",
+                "avgTime": "0.1460494444444167",
+                "maxTime": "0.152990999999929"
+            },
+            "vdot":
+            {
+                "numCalls": "7",
+                "totalTime": "1.007784000000356",
+                "minTime": "0.1423730000001342",
+                "avgTime": "0.1439691428571937",
+                "maxTime": "0.1455490000000736"
+            },
+            "vdot":
+            {
+                "numCalls": "7",
+                "totalTime": "1.016980000000331",
+                "minTime": "0.142231000000038",
+                "avgTime": "0.1452828571429044",
+                "maxTime": "0.1511399999999412"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1501860000000761",
+                "minTime": "0.1501860000000761",
+                "avgTime": "0.1501860000000761",
+                "maxTime": "0.1501860000000761"
+            },
+            "vdot":
+            {
+                "numCalls": "10",
+                "totalTime": "1.454435000000331",
+                "minTime": "0.1421680000000833",
+                "avgTime": "0.1454435000000331",
+                "maxTime": "0.1518530000000737"
+            },
+            "vdot":
+            {
+                "numCalls": "3",
+                "totalTime": "0.4297760000001745",
+                "minTime": "0.1417860000001383",
+                "avgTime": "0.1432586666667248",
+                "maxTime": "0.1446129999999357"
+            },
+            "vdot":
+            {
+                "numCalls": "55",
+                "totalTime": "7.966605999999729",
+                "minTime": "0.136833999999908",
+                "avgTime": "0.1448473818181769",
+                "maxTime": "0.1595099999999547"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1426570000000993",
+                "minTime": "0.1426570000000993",
+                "avgTime": "0.1426570000000993",
+                "maxTime": "0.1426570000000993"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1480369999999311",
+                "minTime": "0.1480369999999311",
+                "avgTime": "0.1480369999999311",
+                "maxTime": "0.1480369999999311"
+            },
+            "vdot":
+            {
+                "numCalls": "2",
+                "totalTime": "0.2796720000001187",
+                "minTime": "0.1377050000000963",
+                "avgTime": "0.1398360000000594",
+                "maxTime": "0.1419670000000224"
+            },
+            "vdot":
+            {
+                "numCalls": "14",
+                "totalTime": "1.960074999999279",
+                "minTime": "0.1366769999999633",
+                "avgTime": "0.1400053571428056",
+                "maxTime": "0.1475310000000718"
+            },
+            "vdot":
+            {
+                "numCalls": "2",
+                "totalTime": "0.2897980000000189",
+                "minTime": "0.1407639999999901",
+                "avgTime": "0.1448990000000094",
+                "maxTime": "0.1490340000000288"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1499240000000555",
+                "minTime": "0.1499240000000555",
+                "avgTime": "0.1499240000000555",
+                "maxTime": "0.1499240000000555"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1406709999998839",
+                "minTime": "0.1406709999998839",
+                "avgTime": "0.1406709999998839",
+                "maxTime": "0.1406709999998839"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1418289999999161",
+                "minTime": "0.1418289999999161",
+                "avgTime": "0.1418289999999161",
+                "maxTime": "0.1418289999999161"
+            },
+            "vdot":
+            {
+                "numCalls": "44",
+                "totalTime": "6.210066000000097",
+                "minTime": "0.1371440000000348",
+                "avgTime": "0.1411378636363659",
+                "maxTime": "0.1539020000000164"
+            },
+            "vdot":
+            {
+                "numCalls": "7",
+                "totalTime": "0.9863020000000233",
+                "minTime": "0.1379839999999604",
+                "avgTime": "0.1409002857142891",
+                "maxTime": "0.1471000000001368"
+            },
+            "vdot":
+            {
+                "numCalls": "2",
+                "totalTime": "0.2845469999997476",
+                "minTime": "0.1410369999998693",
+                "avgTime": "0.1422734999998738",
+                "maxTime": "0.1435099999998783"
+            },
+            "vdot":
+            {
+                "numCalls": "643",
+                "totalTime": "95.45238199999994",
+                "minTime": "0.1357750000001943",
+                "avgTime": "0.148448494556765",
+                "maxTime": "0.2238780000000133"
+            },
+            "vdot":
+            {
+                "numCalls": "11",
+                "totalTime": "1.701730999999654",
+                "minTime": "0.1443469999999252",
+                "avgTime": "0.1547028181817867",
+                "maxTime": "0.1714860000001863"
+            },
+            "vdot":
+            {
+                "numCalls": "4",
+                "totalTime": "0.6227120000007744",
+                "minTime": "0.1431460000003426",
+                "avgTime": "0.1556780000001936",
+                "maxTime": "0.1715010000002621"
+            },
+            "vdot":
+            {
+                "numCalls": "9",
+                "totalTime": "1.429995999999392",
+                "minTime": "0.1465439999997216",
+                "avgTime": "0.1588884444443769",
+                "maxTime": "0.1703670000001694"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.155522000000019",
+                "minTime": "0.155522000000019",
+                "avgTime": "0.155522000000019",
+                "maxTime": "0.155522000000019"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1530360000001565",
+                "minTime": "0.1530360000001565",
+                "avgTime": "0.1530360000001565",
+                "maxTime": "0.1530360000001565"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1571930000000066",
+                "minTime": "0.1571930000000066",
+                "avgTime": "0.1571930000000066",
+                "maxTime": "0.1571930000000066"
+            },
+            "vdot":
+            {
+                "numCalls": "7",
+                "totalTime": "1.129222999999911",
+                "minTime": "0.1432770000001256",
+                "avgTime": "0.1613175714285587",
+                "maxTime": "0.183940999999777"
+            },
+            "vdot":
+            {
+                "numCalls": "2",
+                "totalTime": "0.3048689999995986",
+                "minTime": "0.1465589999997974",
+                "avgTime": "0.1524344999997993",
+                "maxTime": "0.1583099999998012"
+            },
+            "vdot":
+            {
+                "numCalls": "5",
+                "totalTime": "0.7661959999995815",
+                "minTime": "0.1422889999998915",
+                "avgTime": "0.1532391999999163",
+                "maxTime": "0.1723009999996066"
+            },
+            "vdot":
+            {
+                "numCalls": "10",
+                "totalTime": "1.533287999999629",
+                "minTime": "0.1428529999998318",
+                "avgTime": "0.1533287999999629",
+                "maxTime": "0.1825219999996079"
+            },
+            "vdot":
+            {
+                "numCalls": "12",
+                "totalTime": "1.744964000000891",
+                "minTime": "0.1405429999999797",
+                "avgTime": "0.1454136666667409",
+                "maxTime": "0.1540979999999763"
+            },
+            "vdot":
+            {
+                "numCalls": "10",
+                "totalTime": "1.454293000000689",
+                "minTime": "0.1405329999997775",
+                "avgTime": "0.1454293000000689",
+                "maxTime": "0.1498260000003029"
+            },
+            "vdot":
+            {
+                "numCalls": "7",
+                "totalTime": "1.052770000000237",
+                "minTime": "0.1424100000003818",
+                "avgTime": "0.1503957142857481",
+                "maxTime": "0.1657460000001265"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1460449999999582",
+                "minTime": "0.1460449999999582",
+                "avgTime": "0.1460449999999582",
+                "maxTime": "0.1460449999999582"
+            },
+            "vdot":
+            {
+                "numCalls": "11",
+                "totalTime": "1.607175999999527",
+                "minTime": "0.1414079999999558",
+                "avgTime": "0.146106909090866",
+                "maxTime": "0.1582269999998971"
+            },
+            "vdot":
+            {
+                "numCalls": "5",
+                "totalTime": "0.7232020000001285",
+                "minTime": "0.1418269999999211",
+                "avgTime": "0.1446404000000257",
+                "maxTime": "0.150180999999975"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1444969999997738",
+                "minTime": "0.1444969999997738",
+                "avgTime": "0.1444969999997738",
+                "maxTime": "0.1444969999997738"
+            },
+            "vdot":
+            {
+                "numCalls": "1",
+                "totalTime": "0.1538769999997385",
+                "minTime": "0.1538769999997385",
+                "avgTime": "0.1538769999997385",
+                "maxTime": "0.1538769999997385"
             }
         },
         "computeUnitUtilization":
@@ -259,14 +827,14 @@
                 "kernel": "vdot",
                 "globalWorkSize": "1:1:1",
                 "localWorkSize": "1:1:1",
-                "numberOfCalls": "3",
+                "numberOfCalls": "1800",
                 "dataflow": "No",
                 "maxOverlappingExecutions": "0",
                 "dataflowAcceleration": "1.000000x",
-                "totalTime": "0.3241469999999964",
-                "minTime": "0.09649799999999686",
-                "avgTime": "0.1080489999999988",
-                "maxTime": "0.1309030000000035",
+                "totalTime": "160.4292709999922",
+                "minTime": "0.08121600000004037",
+                "avgTime": "0.08912737277777351",
+                "maxTime": "0.1445779999999957",
                 "frequency": "300"
             }
         ],
@@ -274,34 +842,111 @@
         [
             {
                 "name": "vdot",
-                "instanceAddress": "65389104",
+                "instanceAddress": "54439648",
                 "contextId": "0",
                 "commandQueueID": "0",
                 "device": "xilinx:pcie-hw-em:7v3:1.0-0",
-                "startTime": "84.521137",
-                "duration": "0.831232",
+                "startTime": "42.247609",
+                "duration": "0.289978000000005",
                 "globalWorkSize": "1:1:1",
                 "localWorkSize": "1:1:1"
             },
             {
                 "name": "vdot",
-                "instanceAddress": "64856640",
+                "instanceAddress": "55727904",
                 "contextId": "0",
                 "commandQueueID": "0",
                 "device": "xilinx:pcie-hw-em:7v3:1.0-0",
-                "startTime": "87.087953",
-                "duration": "0.1601469999999949",
+                "startTime": "1895.034836",
+                "duration": "0.2238780000000133",
                 "globalWorkSize": "1:1:1",
                 "localWorkSize": "1:1:1"
             },
             {
                 "name": "vdot",
-                "instanceAddress": "65397120",
+                "instanceAddress": "55727904",
                 "contextId": "0",
                 "commandQueueID": "0",
                 "device": "xilinx:pcie-hw-em:7v3:1.0-0",
-                "startTime": "88.832774",
-                "duration": "0.156361000000004",
+                "startTime": "1905.557942",
+                "duration": "0.1989840000001095",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "55727904",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "1600.926958",
+                "duration": "0.196619999999939",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "55452000",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "681.500483",
+                "duration": "0.1921429999999873",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "55727904",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "1602.537894",
+                "duration": "0.1917739999998958",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "55727904",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "2254.360371",
+                "duration": "0.1893269999995937",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "53928256",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "44.021123",
+                "duration": "0.189038999999994",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "55727904",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "1986.37016",
+                "duration": "0.1872040000000652",
+                "globalWorkSize": "1:1:1",
+                "localWorkSize": "1:1:1"
+            },
+            {
+                "name": "vdot",
+                "instanceAddress": "56101488",
+                "contextId": "0",
+                "commandQueueID": "0",
+                "device": "xilinx:pcie-hw-em:7v3:1.0-0",
+                "startTime": "2579.123821",
+                "duration": "0.183940999999777",
                 "globalWorkSize": "1:1:1",
                 "localWorkSize": "1:1:1"
             }
@@ -311,30 +956,93 @@
             "writes":
             [
                 {
+                    "address": "16384",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "43.856174",
+                    "duration": "N\/A",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
                     "address": "0",
                     "contextID": "0",
                     "cmdQueueID": "0",
-                    "startTime": "84.32410400000001",
+                    "startTime": "42.074931",
                     "duration": "N\/A",
-                    "size": "0.64",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "0",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "2254.200548",
+                    "duration": "N\/A",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "0",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "2330.072405",
+                    "duration": "N\/A",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "4096",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "1953.313147",
+                    "duration": "N\/A",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "0",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "736.292339",
+                    "duration": "N\/A",
+                    "size": "1.152",
                     "rate": "N\/A"
                 },
                 {
                     "address": "16384",
                     "contextID": "0",
                     "cmdQueueID": "0",
-                    "startTime": "86.97071099999999",
+                    "startTime": "131.717141",
                     "duration": "N\/A",
-                    "size": "0.64",
+                    "size": "1.152",
                     "rate": "N\/A"
                 },
                 {
                     "address": "0",
                     "contextID": "0",
                     "cmdQueueID": "0",
-                    "startTime": "88.728486",
+                    "startTime": "2377.017155",
                     "duration": "N\/A",
-                    "size": "0.384",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "0",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "2050.016913",
+                    "duration": "N\/A",
+                    "size": "1.152",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "4096",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "679.8725460000001",
+                    "duration": "N\/A",
+                    "size": "1.152",
                     "rate": "N\/A"
                 }
             ],
@@ -344,27 +1052,90 @@
                     "address": "8192",
                     "contextID": "0",
                     "cmdQueueID": "0",
-                    "startTime": "85.436031",
+                    "startTime": "42.60808",
                     "duration": "N\/A",
-                    "size": "0.256",
+                    "size": "0.512",
                     "rate": "N\/A"
                 },
                 {
                     "address": "8192",
                     "contextID": "0",
                     "cmdQueueID": "0",
-                    "startTime": "89.049677",
+                    "startTime": "2002.907799",
                     "duration": "N\/A",
-                    "size": "0.128",
+                    "size": "0.512",
                     "rate": "N\/A"
                 },
                 {
                     "address": "24576",
                     "contextID": "0",
                     "cmdQueueID": "0",
-                    "startTime": "87.314772",
+                    "startTime": "155.588281",
                     "duration": "N\/A",
-                    "size": "0.256",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "8192",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "369.870295",
+                    "duration": "N\/A",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "24576",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "1325.333235",
+                    "duration": "N\/A",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "8192",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "1807.864992",
+                    "duration": "N\/A",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "8192",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "1385.390412",
+                    "duration": "N\/A",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "16384",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "1965.629905",
+                    "duration": "N\/A",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "24576",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "2378.885086",
+                    "duration": "N\/A",
+                    "size": "0.512",
+                    "rate": "N\/A"
+                },
+                {
+                    "address": "8192",
+                    "contextID": "0",
+                    "cmdQueueID": "0",
+                    "startTime": "2585.311161",
+                    "duration": "N\/A",
+                    "size": "0.512",
                     "rate": "N\/A"
                 }
             ]
@@ -373,15 +1144,15 @@
         {
             "DEVICE_EXEC_TIME":
             {
-                "xilinx:pcie-hw-em:7v3:1.0-0": "4.467998"
+                "xilinx:pcie-hw-em:7v3:1.0-0": "2631.161899"
             },
             "CU_CALLS":
             {
-                "xilinx:pcie-hw-em:7v3:1.0-0|vdot_1": "3"
+                "xilinx:pcie-hw-em:7v3:1.0-0|vdot_1": "1800"
             },
             "MIGRATE_MEM":
             {
-                "host": "6"
+                "host": "3600"
             },
             "MEMORY_USAGE": "1",
             "PLRAM_DEVICE":
