@@ -62,15 +62,13 @@ batch32_loader = torch.utils.data.DataLoader(dataset, num_workers=4, batch_size=
 print("6")
 # Downloading the pretrained model
 vgg16 = models.vgg16(pretrained=True)
-
+stars = "*" * 100
 print("7")
 class fpga_cnn_function(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input_tensor, weights, bias):
         input_tensor = F.pad(input_tensor, (1,1,1,1))
-        print(lltm_cpp.forward_sw(input_tensor, weights).shape , bias.shape)
         bias = bias.reshape((1,bias.shape[0],1,1))
-
         return lltm_cpp.forward_sw(input_tensor, weights) + bias
 
         
@@ -82,12 +80,12 @@ class fpga_conv2d(torch.nn.Module):
         self.kernel_size = kernel_size
         self.padding = padding
         self.stride = stride
-        self.weights = torch.nn.Parameter(torch.empty(out_channels, in_channels, self.kernel_size[0], self.kernel_size[1]))
+        self.weight = torch.nn.Parameter(torch.empty(out_channels, in_channels, self.kernel_size[0], self.kernel_size[1]))
         if bias:
             self.bias = torch.empty(out_channels)
 
     def forward(self, input_tensor):
-        return fpga_cnn_function.apply(input_tensor, self.weights, self.bias)
+        return fpga_cnn_function.apply(input_tensor, self.weight, self.bias)
 
 
 class VGG16_custom(nn.Module):
@@ -175,46 +173,45 @@ model.eval()
 # TODO
 
 
-# input, label = next(iter(batch1_loader))
-# # print(input)
-# # Run inference on the single (input, label) tuple
-# # TODO
-# print(stars, "\n"," BATCH 1 inference")
+input, label = next(iter(batch1_loader))
+# print(input)
+# Run inference on the single (input, label) tuple
+# TODO
+print(stars, "\n"," BATCH 1 inference")
+# print(stars, "\n", vgg16.features[10].weight, stars, "\n", vgg16.features[12].weight, stars, "\n", vgg16.features[14].weight, stars, "\n",)
+with torch.no_grad():
+  output = model(input)
+  output_vgg = vgg16(input)
+  print(output)
 
-# with torch.no_grad():
-#   output = model(input)
-#   output_vgg = vgg16(input)
-#   print(output)
+print(stars, "\n"," BACH 1")
 
 
-# print(stars, "\n"," BACH 1")
+# Start timer
+tic = time.perf_counter()
+
+# Run loop that performs 1024 inferences of batch size 1
+labels, outputs = [], []
+for i, data in zip(range(10), batch1_loader):
+    # TODO
+    input, label = data
+    start = time.perf_counter()
+    output = model(input)
+    stop = time.perf_counter()
+    labels.append(label.item())
+    outputs.append(torch.argmax(output).item())
+# end timer
+toc = time.perf_counter()
+
+# Print results
+runtime_1 = toc - tic
+
+print(f'Runtime(1) = {runtime_1:0.4f} seconds')
+# TODO Print accuracy of network
+# print(labels, outputs)
+print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 
 
-# # Start timer
-# tic = time.perf_counter()
-
-# # Run loop that performs 1024 inferences of batch size 1
-# labels, outputs = [], []
-# for i, data in zip(range(10), batch1_loader):
-#     # TODO
-#     input, label = data
-#     start = time.perf_counter()
-#     output = model(input)
-#     stop = time.perf_counter()
-#     labels.append(label.item())
-#     outputs.append(torch.argmax(output).item())
-# # end timer
-# toc = time.perf_counter()
-
-# # Print results
-# runtime_1 = toc - tic
-
-# print(f'Runtime(1) = {runtime_1:0.4f} seconds')
-# # TODO Print accuracy of network
-# # print(labels, outputs)
-# print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
-
-# print(outputs)
 # stars = "*" *100
 # print(stars, "\n"," BACH 31")
 
@@ -229,38 +226,34 @@ model.eval()
 # Run inference on the single (input, label) tuple
 # TODO
 print("Batch 32")
-# Start timer
-tic = time.perf_counter()
-outputs = []
-labels = []
-# Run loop that performs 1024 inferences of batch size 32
-for i, data in zip(range(2), batch32_loader):
-    # TODO
-    input, label = data
-    output = model(input)
-    for lab, out in zip(label,output):
-      outputs.append(torch.argmax(out).item())
-      labels.append(lab.item())
-      # print(len(outputs), "************", len(labels))
+# # Start timer
+# tic = time.perf_counter()
+# outputs = []
+# labels = []
+# # Run loop that performs 1024 inferences of batch size 32
+# for i, data in zip(range(2), batch32_loader):
+#     # TODO
+#     input, label = data
+#     output = model(input)
+#     for lab, out in zip(label,output):
+#       outputs.append(torch.argmax(out).item())
+#       labels.append(lab.item())
+#       # print(len(outputs), "************", len(labels))
     
-# end timer
-toc = time.perf_counter()
+# # end timer
+# toc = time.perf_counter()
 
-# Print results
-runtime_32 = toc - tic
-print(f'Runtime(32) = {runtime_32:0.4f} seconds')
-# TODO Print accuracy of network
+# # Print results
+# runtime_32 = toc - tic
+# print(f'Runtime(32) = {runtime_32:0.4f} seconds')
+# # TODO Print accuracy of network
 
-########################################################################
+# ########################################################################
 
-# Print score
-print(f'FOM = {((runtime_1 + runtime_32) / 2):0.4f}')
-# print(len(labels), len(outputs))
-print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
-
-
-
-
+# # Print score
+# print(f'FOM = {((runtime_1 + runtime_32) / 2):0.4f}')
+# # print(len(labels), len(outputs))
+# print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 
 
 ##############################################################################################################
