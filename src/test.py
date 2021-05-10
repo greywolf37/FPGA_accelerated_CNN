@@ -3,9 +3,13 @@ import torch
 import time
 from torch import nn
 from torch.utils.cpp_extension import load
+import sys
 
 XILINX_XRT="/opt/xilinx/xrt"
 XILINX_VIVADO="/opt/Xilinx/Vivado/2020.1"
+
+# XCLBIN_LOC="build/vdot.sw_emu.xclbin"
+XCLBIN_LOC=sys.argv[1]
 
 cnn = load(name="host", sources=["src/host.cpp"],
             extra_cflags=["-Wall", "-O0", "-g", "-std=c++14"],
@@ -63,7 +67,7 @@ cpp_end = time.time()
 
 cpp_hw_start = time.time() 
 model_cpp_hw = CNN_cpp_hw()
-ouput_cpp_hw = model_cpp_hw.forward(input_tensor, kernel, "build/vdot.sw_emu.xclbin")
+ouput_cpp_hw = model_cpp_hw.forward(input_tensor, kernel, XCLBIN_LOC)
 cpp_hw_end = time.time() 
 
 stars = '*' * 100

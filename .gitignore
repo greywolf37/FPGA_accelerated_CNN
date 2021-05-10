@@ -4,3 +4,8 @@ logs
 reports
 
 */timeline_trace.csv
+*.xclbin
+
+.run/
+_x/
+.ipcache/

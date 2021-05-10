@@ -1,0 +1,4 @@
+aws_ppi
+run_script ./FPGA_accelerated_CNN/create_afi.ppi
+
+./FPGA_accelerated_CNN/check_status.sh

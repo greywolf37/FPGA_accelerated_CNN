@@ -1,0 +1,3 @@
+launch fpga_deploy
+start_job fpga_deploy -d FPGA_accelerated_CNN -c 'export LC_ALL="C"; export CXX=g++; cd FPGA_accelerated_CNN; source hw_run.sh' -s -a
+quit

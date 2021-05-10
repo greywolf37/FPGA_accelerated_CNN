@@ -28,6 +28,10 @@ XOS := ${BUILD_DIR}/${NAME}.${TARGET}.xo
 XCLBIN := ${BUILD_DIR}/${NAME}.${TARGET}.xclbin
 EMCONFIG_FILE := ${BUILD_DIR}/emconfig.json
 
+# S3 AFI
+XCLBIN_S3 := s3://${BUCKET_NAME}/afi/${NAME}.${TARGET}.xclbin
+AWSXCLBIN := ${BUILD_DIR}/${NAME}.${TARGET}.awsxclbin
+
 # Host options
 GCC_OPTS := -I${XILINX_XRT}/include/ -I${XILINX_VIVADO}/include/ -Wall -O0 -g -std=c++11 -L${XILINX_XRT}/lib/ -lOpenCL -lpthread -lrt -lstdc++
 
@@ -86,13 +90,27 @@ emulate: ${HOST} ${XCLBIN} ${EMCONFIG_FILE}
 test: ${XCLBIN} ${EMCONFIG_FILE}
 	echo Running host code with kernel...
 
-	XCL_EMULATION_MODE=${TARGET} python3 ${PROJECT_DIR}/src/test.py
+	XCL_EMULATION_MODE=${TARGET} python3 ${PROJECT_DIR}/src/test.py ${XCLBIN}
 
 	mv profile_summary.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv timeline_trace.csv ${PROJECT_DIR}/reports/vdot.${TARGET}/
 	mv *.run_summary ${PROJECT_DIR}/reports/vdot.${TARGET}/
-	echo ${XILINX_XRT}
-	echo ${XILINX_VIVADO}
+
+hw_setup: ${XCLBIN} ${EMCONFIG_FILE}
+
+	mv *.run_summary ${PROJECT_DIR}/reports/vdot.${TARGET}/
+
+	aws s3 cp ${XCLBIN} s3://${BUCKET_NAME}/afi/
+
+hw_afi:
+	
+	cd ${AWS_FPGA_REPO_DIR}                                         
+	source vitis_setup.sh
+	${VITIS_DIR}/tools/create_vitis_afi.sh -xclbin=${XCLBIN_S3} \
+			-o=${AWSXCLBIN} -s3_bucket=${BUCKET_NAME} \
+			-s3_dcp_key=dcp -s3_logs_key=logs
+
+	
 
 # {XILINX_XRT} = /opt/xilinx/xrt
 # {XILINX_VIVADO} = /opt/Xilinx/Vivado/2020.1
