@@ -29,7 +29,8 @@ print("begin")
 class CNN(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 8, kernel_size = 2, stride=1, bias = False)
+        self.conv1 = nn.Conv2d(1, 1, kernel_size = 2, stride=1, bias = False)
+        # self.conv1 = nn.Conv2d(3, 8, kernel_size = 2, stride=1, bias = False)
     
     def get_kernel(self, layer):
         if layer == 1:
@@ -56,7 +57,8 @@ class CNN_cpp_hw(torch.nn.Module):
 
 
 model = CNN()
-input_tensor = torch.ones((50,3,25,25))
+# input_tensor = torch.rand((50,3,25,25))
+input_tensor = torch.rand((2,1,3,3))
 ouput_torch = model.forward(input_tensor)[0]
 kernel = model.get_kernel(1)
 

@@ -2,9 +2,8 @@
 #include <chrono>
 #include <stdio.h>
 #include "host.hpp"
-#include <typeinfo>
-#define BLOCK_MATRIX_SIZE 16
-#define DEBUG 0
+#define BLOCK_MATRIX_SIZE 4
+#define DEBUG 1
 
 using namespace std;
 
@@ -83,13 +82,26 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int mat_w_1 = kernel_array_col_width;
     int mat_h_2 = in_array_col_height;
     int mat_w_2 = in_array_col_width;
-        
-    std::vector<float, aligned_allocator<float>> blk_1(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
-    std::vector<float, aligned_allocator<float>> blk_2(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
-    std::vector<float, aligned_allocator<float>> blk_o(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
 
     int i_int_max = int(mat_w_2/ BLOCK_MATRIX_SIZE) + 1;
     int j_int_max = int(mat_h_1/ BLOCK_MATRIX_SIZE) + 1;
+        
+    std::vector<float, aligned_allocator<float>> blk_1(BLOCK_MATRIX_SIZE * mat_w_1);
+    std::vector<float, aligned_allocator<float>> blk_2(mat_h_2 * BLOCK_MATRIX_SIZE);
+//     std::vector<float, aligned_allocator<float>> blk_o(BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE);
+    std::vector<std::vector<std::vector<float, aligned_allocator<float>>>> blk_o_list(
+            j_int_max, std::vector<std::vector<float, aligned_allocator<float>>>(
+                    i_int_max, std::vector<float, aligned_allocator<float>>(
+                            BLOCK_MATRIX_SIZE * BLOCK_MATRIX_SIZE
+                    )
+            )
+    );
+
+    //     Buffer List
+    std::vector<cl::Buffer> buffer_in1_list(j_int_max);
+    std::vector<cl::Buffer> buffer_in2_list(i_int_max);
+    std::vector<cl::Buffer> buffer_output_list(i_int_max * j_int_max);
+
 
     std::vector<std::vector<std::vector<cl::Event>>> iteration_events(
             j_int_max, std::vector<std::vector<cl::Event>>(
@@ -97,7 +109,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
             )
     );
     
-    for(int b_k_1=0; b_k_1 < mat_w_1; b_k_1+=BLOCK_MATRIX_SIZE){
+
         int j_int = -1;
         for(int b_j_1=0; b_j_1 < mat_h_1; b_j_1+=BLOCK_MATRIX_SIZE){
                 j_int++;
@@ -106,7 +118,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
                         i_int++;
                         
                         int blk_h_1 = std::min(BLOCK_MATRIX_SIZE, mat_h_1-b_j_1);
-                        int blk_w_1 = std::min(BLOCK_MATRIX_SIZE, mat_w_1-b_k_1);
+                        int blk_w_1 = mat_w_1;
                         int blk_h_2 = blk_w_1;
                         int blk_w_2 = std::min(BLOCK_MATRIX_SIZE, mat_w_2-b_i_2);
                         int blk_h_o = blk_h_1;
@@ -117,16 +129,18 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
                         blk_2_bytes = sizeof(float) * blk_h_2 * blk_w_2;
                         blk_o_bytes = sizeof(float) * blk_h_o * blk_w_o;
 
-                        for(int i=0; i<BLOCK_MATRIX_SIZE; i++){
-                                for(int j=0; j<BLOCK_MATRIX_SIZE; j++){
+                        for(int b_k_1=0; b_k_1 < mat_w_1; b_k_1+=BLOCK_MATRIX_SIZE){
+                                for(int i=0; i<BLOCK_MATRIX_SIZE; i++){
+                                        for(int j=0; j<BLOCK_MATRIX_SIZE; j++){
 
-                                        // input block 1
-                                        if(i<blk_w_1 && j<blk_h_1){
-                                                blk_1[(blk_w_1*j)+(i)] = kernel_array_col[(mat_w_1*(b_j_1+j))+(b_k_1+i)];
-                                        }
-                                        // input block 2
-                                        if(i<blk_w_2 && j<blk_h_2){
-                                                blk_2[(blk_w_2*j)+(i)] = in_array_col[(mat_w_2*(b_k_1+j))+(b_i_2+i)];
+                                                // input block 1
+                                                if(i<blk_w_1 && j<blk_h_1){
+                                                        blk_1[(blk_w_1*j)+(i)] = kernel_array_col[(mat_w_1*(b_j_1+j))+(b_k_1+i)];
+                                                }
+                                                // input block 2
+                                                if(i<blk_w_2 && j<blk_h_2){
+                                                        blk_2[(blk_w_2*j)+(i)] = in_array_col[(mat_w_2*(b_k_1+j))+(b_i_2+i)];
+                                                }
                                         }
                                 }
                         }
@@ -138,29 +152,34 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
                                 print_tensor(blk_2.data(), 1, 1, blk_h_2, blk_w_2);
                         }
 
-
                         // Setting up  buffers
-                        OCL_CHECK(err, cl::Buffer buffer_in1   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-                                blk_1_bytes, blk_1.data(), &err));
-                        OCL_CHECK(err, cl::Buffer buffer_in2   (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-                                blk_2_bytes, blk_2.data(), &err));
-                        OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
-                                blk_o_bytes, blk_o.data(), &err));
+                        // OCL_CHECK(err, cl::Buffer buffer_in1(context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                        //         blk_1_bytes, blk_1.data(), &err));
+                        // OCL_CHECK(err, cl::Buffer buffer_in2(context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                        //         blk_2_bytes, blk_2.data(), &err));
+                        // OCL_CHECK(err, cl::Buffer buffer_output(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
+                        //         blk_o_bytes, blk_o.data(), &err));
+                        
+                        buffer_in1_list[j_int] = cl::Buffer (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                                blk_1_bytes, blk_1.data(), NULL);
+                        buffer_in2_list[i_int] = cl::Buffer (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                                blk_2_bytes, blk_2.data(), NULL);
+                        buffer_output_list[(j_int*i_int_max)+(i_int)] = cl::Buffer(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
+                                blk_o_bytes, blk_o_list[j_int][i_int].data(), NULL);
 
                         // Kernel setup
                         OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
-                        OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1_list[j_int]));
                         OCL_CHECK(err, err = krnl_matmul.setArg(1, blk_h_1));
                         OCL_CHECK(err, err = krnl_matmul.setArg(2, blk_w_1));
-                        OCL_CHECK(err, err = krnl_matmul.setArg(3, buffer_in2));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(3, buffer_in2_list[i_int]));
                         OCL_CHECK(err, err = krnl_matmul.setArg(4, blk_h_2));
                         OCL_CHECK(err, err = krnl_matmul.setArg(5, blk_w_2));
-                        OCL_CHECK(err, err = krnl_matmul.setArg(6, buffer_output));
+                        OCL_CHECK(err, err = krnl_matmul.setArg(6, buffer_output_list[(j_int*i_int_max)+(i_int)]));
 
-                        
                         // Running
                         cl::Event write_event;
-                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_in1, buffer_in2},0/* 0 means from host*/, NULL, &write_event));	
+                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_in1_list[j_int], buffer_in2_list[i_int]},0/* 0 means from host*/, NULL, &write_event));	
                         iteration_events[j_int][i_int].push_back(write_event);
 
                         cl::Event kernel_event;
@@ -169,30 +188,46 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
 
                         iteration_events[j_int][i_int].push_back(kernel_event);
                         cl::Event read_event;
-                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, &iteration_events[j_int][i_int], &read_event));
+                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output_list[(j_int*i_int_max)+(i_int)]},CL_MIGRATE_MEM_OBJECT_HOST, &iteration_events[j_int][i_int], &read_event));
                         iteration_events[j_int][i_int].push_back(read_event);
 
+                }
+        }
+        
+        j_int = -1;
+        for(int b_j_1=0; b_j_1 < mat_h_1; b_j_1+=BLOCK_MATRIX_SIZE){
+                j_int++;
+                int i_int = -1;
+                for(int b_i_2=0; b_i_2 < mat_w_2; b_i_2+=BLOCK_MATRIX_SIZE){
+                        i_int++;
+
+                        int blk_h_1 = std::min(BLOCK_MATRIX_SIZE, mat_h_1-b_j_1);
+                        int blk_w_1 = mat_w_1;
+                        int blk_h_2 = blk_w_1;
+                        int blk_w_2 = std::min(BLOCK_MATRIX_SIZE, mat_w_2-b_i_2);
+                        int blk_h_o = blk_h_1;
+                        int blk_w_o = blk_w_2;
+
+                        // waiting for queue to finish
+                        iteration_events[j_int][i_int].back().wait();
+    
                         for(int i=0; i<BLOCK_MATRIX_SIZE; i++){
                                 for(int j=0; j<BLOCK_MATRIX_SIZE; j++){
                                         // output block
                                         if(i<blk_w_o && j<blk_h_o){
-                                                output_col[(mat_w_2 * (b_j_1+j))+(b_i_2+i)] += blk_o[(blk_w_o * (j))+(i)];
+                                                output_col[(mat_w_2 * (b_j_1+j))+(b_i_2+i)] += blk_o_list[j_int][i_int][(blk_w_o * (j))+(i)];
                                         }
                                 }
                         }
 
-
                         if(DEBUG){
                                 std::cout<< "block out : " << blk_h_o << ", "<< blk_w_o <<std::endl;
-                                print_tensor(blk_o.data(), 1, 1, blk_h_o, blk_w_o);
+                                print_tensor(blk_o_list[j_int][i_int].data(), 1, 1, blk_h_o, blk_w_o);
                         }
-                    }
-            }
-    }
-        
-    q.finish();
-    
+                }
+        }
 
+     q.finish();
 
 
     // -----------------------------------------------------------------------------------------------------------------------------

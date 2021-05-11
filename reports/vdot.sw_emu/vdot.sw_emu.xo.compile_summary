@@ -9,10 +9,10 @@
 <ENTRY>
 {
  "type": "ET_CmdStep",
- "dateTimestamp": "Mon May 10 23:28:15 2021",
- "timestampMillis": "1620689295199",
+ "dateTimestamp": "Tue May 11 16:16:55 2021",
+ "timestampMillis": "1620749815307",
  "buildStep": {
-  "cmdId": "49b9beb3-ee8c-48e9-b3d8-f395c73c3ef2",
+  "cmdId": "ac204eb7-fd9e-4c8c-8adf-3cb978679f67",
   "name": "v++",
   "logFile": "/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot.sw_emu.steps.log",
   "commandLine": "/opt/Xilinx/Vitis/2020.1/bin/unwrapped/lnx64.o/v++  --xp \"vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -t sw_emu --config ./configs/design.cfg --log_dir ./logs --report_dir ./reports --platform /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm --compile --kernel vdot -I ./src -o build/vdot.sw_emu.xo src/vdot.cpp ",
@@ -49,10 +49,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Mon May 10 23:28:15 2021",
- "timestampMillis": "1620689295200",
+ "dateTimestamp": "Tue May 11 16:16:55 2021",
+ "timestampMillis": "1620749815307",
  "status": {
-  "cmdId": "49b9beb3-ee8c-48e9-b3d8-f395c73c3ef2",
+  "cmdId": "ac204eb7-fd9e-4c8c-8adf-3cb978679f67",
   "state": "CS_RUNNING"
  }
 }
@@ -60,8 +60,8 @@
 <ENTRY>
 {
  "type": "ET_FlowMetaData",
- "dateTimestamp": "Mon May 10 23:28:31 2021",
- "timestampMillis": "1620689311263",
+ "dateTimestamp": "Tue May 11 16:17:11 2021",
+ "timestampMillis": "1620749831848",
  "buildSummary": {
   "hardwarePlatform": "xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm",
   "hardwareDsa": "xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xsa",
@@ -93,10 +93,10 @@
 <ENTRY>
 {
  "type": "ET_SubCmdStep",
- "dateTimestamp": "Mon May 10 23:28:31 2021",
- "timestampMillis": "1620689311266",
+ "dateTimestamp": "Tue May 11 16:17:11 2021",
+ "timestampMillis": "1620749831851",
  "buildStep": {
-  "cmdId": "b78a210b-4e8b-4971-aa5b-e713cdcef69f",
+  "cmdId": "ac93d51c-de68-45f5-a750-542c7535b2b6",
   "name": "vitis_hls",
   "logFile": "/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vitis_hls.log",
   "commandLine": "vitis_hls -f /home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vdot.tcl -messageDb vitis_hls.pb",
@@ -115,10 +115,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Mon May 10 23:28:31 2021",
- "timestampMillis": "1620689311267",
+ "dateTimestamp": "Tue May 11 16:17:11 2021",
+ "timestampMillis": "1620749831851",
  "status": {
-  "cmdId": "b78a210b-4e8b-4971-aa5b-e713cdcef69f",
+  "cmdId": "ac93d51c-de68-45f5-a750-542c7535b2b6",
   "state": "CS_RUNNING"
  }
 }
@@ -126,10 +126,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Mon May 10 23:30:27 2021",
- "timestampMillis": "1620689427105",
+ "dateTimestamp": "Tue May 11 16:19:15 2021",
+ "timestampMillis": "1620749955289",
  "status": {
-  "cmdId": "b78a210b-4e8b-4971-aa5b-e713cdcef69f",
+  "cmdId": "ac93d51c-de68-45f5-a750-542c7535b2b6",
   "state": "CS_PASSED"
  }
 }
@@ -137,8 +137,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Mon May 10 23:30:27 2021",
- "timestampMillis": "1620689427152",
+ "dateTimestamp": "Tue May 11 16:19:15 2021",
+ "timestampMillis": "1620749955336",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/reports/vdot.sw_emu/v++_compile_vdot.sw_emu_guidance.html",
   "name": "",
@@ -150,8 +150,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Mon May 10 23:30:27 2021",
- "timestampMillis": "1620689427153",
+ "dateTimestamp": "Tue May 11 16:19:15 2021",
+ "timestampMillis": "1620749955337",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/_x/v++_compile_vdot.sw_emu_guidance.pb",
   "name": "",
@@ -163,10 +163,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Mon May 10 23:30:27 2021",
- "timestampMillis": "1620689427153",
+ "dateTimestamp": "Tue May 11 16:19:15 2021",
+ "timestampMillis": "1620749955337",
  "status": {
-  "cmdId": "49b9beb3-ee8c-48e9-b3d8-f395c73c3ef2",
+  "cmdId": "ac204eb7-fd9e-4c8c-8adf-3cb978679f67",
   "state": "CS_PASSED"
  }
 }
