@@ -205,6 +205,7 @@ float * weight2col(float *kernel, int out_channels, int in_channels, int kernel_
                 for(int w=0; w<kernel_width; w++){
                     out_tensor[(*out_width)*(o) + (kernel_width*kernel_height*i+ kernel_width*h+ w)] =
                     kernel[(kernel_height * kernel_width * in_channels* o) + (kernel_width*kernel_height*i) + (kernel_width*h) + (w)];
+
                 }
             }
         }

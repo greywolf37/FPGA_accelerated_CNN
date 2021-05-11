@@ -41,8 +41,12 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int kernel_array_col_height, kernel_array_col_width;
     float * kernel_array_col = weight2col(kernel_array, out_channels, kernel_in_channels, kernel_height, kernel_width,
                     &kernel_array_col_height, &kernel_array_col_width);
-    
-    float output_col[kernel_array_col_height * in_array_col_width] = { 0 };
+    if(1){
+            std::cout << "Converted Weights to col" << std::endl;
+    }
+
+//     float output_col[kernel_array_col_height * in_array_col_width] = { 0 };
+    std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
 
     if(1){
             std::cout << "Setting up binary file..." << std::endl;
@@ -203,18 +207,18 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     // -----------------------------------------------------------------------------------------------------------------------------
     if(DEBUG){
         std::cout<< "output_col" <<std::endl;
-        print_tensor(output_col, 1, 1, kernel_array_col_height, in_array_col_width);
+        print_tensor(output_col.data(), 1, 1, kernel_array_col_height, in_array_col_width);
     }
     
 
     // Col to Image Functions
-    float * out_array = col2img(output_col, batches, out_channels, out_height, out_width);
+    float * out_array = col2img(output_col.data(), batches, out_channels, out_height, out_width);
 
     // Converting array to tensor
     torch::Tensor output = arr2tensor_4d(out_array, batches, out_channels, out_height, out_width);
 
     // Delete intermediate arrays
-    delete[] in_array_col, kernel_array_col, output_col;
+    delete[] in_array_col, kernel_array_col;
     delete[] fileBuf;
 
     return output;
