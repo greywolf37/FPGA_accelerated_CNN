@@ -2,14 +2,14 @@ OpenSSH_8.2p1 Ubuntu-4ubuntu0.1, OpenSSL 1.1.1f  31 Mar 2020
 debug1: Reading configuration data /etc/ssh/ssh_config
 debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
 debug1: /etc/ssh/ssh_config line 21: Applying options for *
-debug1: Connecting to 54.89.21.164 [54.89.21.164] port 22.
+debug1: Connecting to 34.239.122.134 [34.239.122.134] port 22.
 debug1: Connection established.
 debug1: identity file /home/jhanv/.aws_ppi/aws_ppi.pem type -1
 debug1: identity file /home/jhanv/.aws_ppi/aws_ppi.pem-cert type -1
 debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.1
 debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4
 debug1: match: OpenSSH_7.4 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
-debug1: Authenticating to 54.89.21.164:22 as 'centos'
+debug1: Authenticating to 34.239.122.134:22 as 'centos'
 debug1: SSH2_MSG_KEXINIT sent
 debug1: SSH2_MSG_KEXINIT received
 debug1: kex: algorithm: curve25519-sha256
@@ -18,8 +18,8 @@ debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit
 debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
 debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
 debug1: Server host key: ecdsa-sha2-nistp256 SHA256:DLjE7ATlOFm7Iurqp93fWTbjQ6CjOZeZuRJGrCwvWgg
-debug1: Host '54.89.21.164' is known and matches the ECDSA host key.
-debug1: Found key in /home/jhanv/.ssh/known_hosts:367
+debug1: Host '34.239.122.134' is known and matches the ECDSA host key.
+debug1: Found key in /home/jhanv/.ssh/known_hosts:375
 debug1: rekey out after 134217728 blocks
 debug1: SSH2_MSG_NEWKEYS sent
 debug1: expecting SSH2_MSG_NEWKEYS
@@ -42,7 +42,7 @@ No Kerberos credentials available (default cache: FILE:/tmp/krb5cc_1000)
 debug1: Next authentication method: publickey
 debug1: Trying private key: /home/jhanv/.aws_ppi/aws_ppi.pem
 debug1: Authentication succeeded (publickey).
-Authenticated to 54.89.21.164 ([54.89.21.164]:22).
+Authenticated to 34.239.122.134 ([34.239.122.134]:22).
 debug1: channel 0: new [client-session]
 debug1: Requesting no-more-sessions@openssh.com
 debug1: Entering interactive session.
@@ -50,13 +50,13 @@ debug1: pledge: network
 debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
 debug1: Sending environment.
 debug1: Sending env LANG = C.UTF-8
-debug1: Sending command: cd ./. ; python3 cnn.py
- python3: can't open file 'cnn.py': [Errno 2] No such file or directory
+debug1: Sending command: python3 cnn.py
 debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
 debug1: client_input_channel_req: channel 0 rtype eow@openssh.com reply 0
+python3: can't open file 'cnn.py': [Errno 2] No such file or directory
 debug1: channel 0: free: client-session, nchannels 1
 debug1: fd 2 clearing O_NONBLOCK
-Connection to 54.89.21.164 closed.
-Transferred: sent 2884, received 2524 bytes, in 4.0 seconds
-Bytes per second: sent 727.9, received 637.0
+Connection to 34.239.122.134 closed.
+Transferred: sent 2856, received 2504 bytes, in 4.1 seconds
+Bytes per second: sent 702.6, received 616.0
 debug1: Exit status 2

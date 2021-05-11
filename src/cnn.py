@@ -187,29 +187,29 @@ with torch.no_grad():
 print(stars, "\n"," BACH 1")
 
 
-# Start timer
-tic = time.perf_counter()
+# # Start timer
+# tic = time.perf_counter()
 
-# Run loop that performs 1024 inferences of batch size 1
-labels, outputs = [], []
-for i, data in zip(range(10), batch1_loader):
-    # TODO
-    input, label = data
-    start = time.perf_counter()
-    output = model(input)
-    stop = time.perf_counter()
-    labels.append(label.item())
-    outputs.append(torch.argmax(output).item())
-# end timer
-toc = time.perf_counter()
+# # Run loop that performs 1024 inferences of batch size 1
+# labels, outputs = [], []
+# for i, data in zip(range(10), batch1_loader):
+#     # TODO
+#     input, label = data
+#     start = time.perf_counter()
+#     output = model(input)
+#     stop = time.perf_counter()
+#     labels.append(label.item())
+#     outputs.append(torch.argmax(output).item())
+# # end timer
+# toc = time.perf_counter()
 
-# Print results
-runtime_1 = toc - tic
+# # Print results
+# runtime_1 = toc - tic
 
-print(f'Runtime(1) = {runtime_1:0.4f} seconds')
-# TODO Print accuracy of network
-# print(labels, outputs)
-print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
+# print(f'Runtime(1) = {runtime_1:0.4f} seconds')
+# # TODO Print accuracy of network
+# # print(labels, outputs)
+# print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 
 
 # stars = "*" *100
@@ -255,41 +255,3 @@ print("Batch 32")
 # # print(len(labels), len(outputs))
 # print("Accuracy", sum([a == b for a, b in zip(labels, outputs)])/ len(labels))
 
-
-##############################################################################################################
-# class CNN(torch.nn.Module):
-#     def __init__(self):
-#         super().__init__()
-#         self.conv1 = nn.Conv2d(3, 5, kernel_size = 2, padding = (1,1), stride=1, bias = True)
-    
-#     def get_bias(self, layer):
-#         if layer == 1:
-#             return self.conv1.bias
-    
-#     def get_kernel(self, layer):
-#         if layer == 1:
-#             return self.conv1.weight
-
-#     def forward(self, input_tensor):
-#         return self.conv1(input_tensor), self.conv1.weight
-
-
-# stars = '*' * 100
-# model = CNN()
-# input_tensor = torch.rand((1,3,3,3), requires_grad=True)
-# output_torch = model.forward(input_tensor)[0]
-# kernel = model.get_kernel(1)
-# bias = model.get_bias(1)
-# model_cpp = CNN_cpp()
-# output_cpp = model_cpp.forward(input_tensor, kernel, bias)
-
-
-
-# print(stars, "\n Weight Check ", stars, "\n", torch.equal(model.forward(input_tensor)[1], kernel ))
-# print(stars, "\n output of Torch Forward", stars ,"\n", output_torch)
-# print(stars, "\n Output of cpp Forward", stars, "\n", output_cpp)
-# print(stars, "\n Output Check ", stars, "\n", torch.isclose(output_torch, output_cpp))
-# print(stars, "\n Input grad of Torch Forward", stars ,"\n", input_grad)
-# print(stars, "\n Input Grad of cpp Forward", stars, "\n", input_grad_cpp)
-# print(stars, "\n Weight Check ", stars, "\n", torch.isclose(input_grad, input_grad_cpp ))
-# 
