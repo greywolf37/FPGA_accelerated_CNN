@@ -1,4 +1,20 @@
+## SOFTWARE
+aws_ppi "run_script FPGA_accelerated_CNN/sw_run.ppi"
+
+## HARDWARE
+
+# Creating the .xclbin
+aws_ppi "run_script FPGA_accelerated_CNN/hw_xclbin.ppi"
+
+#creating the .awsxclbin
 aws_ppi
 run_script ./FPGA_accelerated_CNN/create_afi.ppi
 
+# checking for status
 ./FPGA_accelerated_CNN/check_status.sh
+
+# running harware
+aws_ppi "run_script ./FPGA_accelerated_CNN/hw_run.ppi"
+
+# give access to AFI 
+./FPGA_accelerated_CNN/afi_access.sh

@@ -75,7 +75,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
 
     // Setting up queues
     OCL_CHECK(err, cl::Context context(device, NULL, NULL, NULL, &err));
-    OCL_CHECK(err, cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE , &err));
+    OCL_CHECK(err, cl::CommandQueue q(context, device, cl::QueueProperties::Profiling | cl::QueueProperties::OutOfOrder, &err));
     OCL_CHECK(err, cl::Program program(context, devices, bins, NULL, &err));
 
     int mat_h_1 = kernel_array_col_height;
@@ -150,16 +150,17 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
                         OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_in1, buffer_in2},0/* 0 means from host*/, NULL, &write_event));	
                         events.push_back(write_event);
 
+                        vector<cl::Event> iteration_events{write_event};
                         cl::Event kernel_event;
-                        OCL_CHECK(err, err = q.enqueueTask(krnl_matmul, NULL, &kernel_event));
+                        OCL_CHECK(err, err = q.enqueueTask(krnl_matmul, &iteration_events, &kernel_event));
                         events.push_back(kernel_event);
 
-                        q.finish();
-
+                        iteration_events.push_back(kernel_event);
                         cl::Event read_event;
-                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, NULL, &read_event));
+                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output},CL_MIGRATE_MEM_OBJECT_HOST, &iteration_events, &read_event));
+                        events.push_back(read_event);
 
-                        q.finish();
+                        read_event.wait();
 
 
 

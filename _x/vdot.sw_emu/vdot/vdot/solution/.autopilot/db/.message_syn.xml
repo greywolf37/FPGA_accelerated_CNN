@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Messages>
-	<Message severity="INFO" prefix="[HLS 200-10]" key="HLS_10_1312" tag="" content="Analyzing design file &apos;/home/centos/FPGA_accelerated_CNN/src/vdot.cpp&apos; ..." resolution=""/>
-	<Message severity="ERROR" prefix="[HLS 207-3850]" key="HLS 207-3850" tag="" content="variable-sized object may not be initialized: /home/centos/FPGA_accelerated_CNN/src/vdot.cpp:37:21" resolution=""/>
-	<Message severity="WARNING" prefix="[HLS 207-1548]" key="HLS 207-1548" tag="" content="invalid variable expr : /home/centos/FPGA_accelerated_CNN/src/vdot.cpp:40:38" resolution=""/>
-	<Message severity="WARNING" prefix="[HLS 207-1548]" key="HLS 207-1548" tag="" content="invalid variable expr : /home/centos/FPGA_accelerated_CNN/src/vdot.cpp:40:48" resolution=""/>
-</Messages>

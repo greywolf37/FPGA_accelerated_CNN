@@ -16,7 +16,6 @@ source ~/aws-fpga/vitis_setup.sh
 
 # source ~/aws-fpga/vitis_runtime_setup.sh
 systemctl is-active --quiet mpd || sudo systemctl start mpd
-sleep 20
 
 STATUS=$(systemctl status mpd | grep Active | cut -f2 -d:|cut -f1 -d\()
 
