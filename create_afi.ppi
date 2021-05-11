@@ -1,2 +1,3 @@
 launch fpga_build
 start_job fpga_build -d FPGA_accelerated_CNN -c 'source aws-fpga/vitis_setup.sh; export LC_ALL="C"; export CXX=g++; cd FPGA_accelerated_CNN; source create_afi.sh; ' -s -a
+quit

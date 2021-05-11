@@ -25,11 +25,11 @@ ${VITIS_DIR}/tools/create_vitis_afi.sh -xclbin=${TEMP_XCLBIN} -o=${AWSXCLBIN} -s
 AFI_ID=$(grep FpgaImageId *_afi_id.txt | cut -f4 -d\")
 STATUS=$(aws ec2 describe-fpga-images --fpga-image-ids $AFI_ID --query 'FpgaImages[*].[State.Code]' --output text)
 
-while [ ${STATUS} == "pending" ]; do
-    STATUS=$(aws ec2 describe-fpga-images --fpga-image-ids $AFI_ID --query 'FpgaImages[*].[State.Code]' --output text)
-    echo The status is ${STATUS}
-    sleep 60
-done
+# while [ ${STATUS} == "pending" ]; do
+#     STATUS=$(aws ec2 describe-fpga-images --fpga-image-ids $AFI_ID --query 'FpgaImages[*].[State.Code]' --output text)
+#     echo The status is ${STATUS}
+#     sleep 60
+# done
 
 echo The status is ${STATUS}
 echo Moving awsxclbin files

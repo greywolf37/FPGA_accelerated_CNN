@@ -1,10 +1,13 @@
-Tue May 11 02:41:44 2021: Server was asked to start on port: '45702'
-Tue May 11 02:41:44 2021: Server is using token UUID: '22c2ec9e-cb0c-4f6d-b99f-c0dd42676221'
-Tue May 11 02:41:44 2021: Attempting to start server on port '45702'
-Tue May 11 02:41:44 2021: XRC main fifo: created main fifo '/tmp/xrcmain22c2ec9e-cb0c-4f6d-b99f-c0dd42676221', fd read = 13
-Tue May 11 02:41:44 2021: Running Rule Check Server
-Tue May 11 02:41:44 2021: Version 1.6.1
-Tue May 11 02:41:45 2021: Rule Check Server: Accepted socket connection from client
-Tue May 11 02:41:45 2021: EXCHANGE_TOKEN received, server token: 22c2ec9e-cb0c-4f6d-b99f-c0dd42676221, passed token: 22c2ec9e-cb0c-4f6d-b99f-c0dd42676221
-Tue May 11 02:41:45 2021: SESSION_MGR: creating session with session uuid: '7048226e-d398-4fc4-abaf-22cf05517518' and name 'v++_link_vdot.sw_emu'
-Tue May 11 02:42:14 2021: SESSION_MGR: closing session for UUID '7048226e-d398-4fc4-abaf-22cf05517518' with name 'v++_link_vdot.sw_emu'
+Tue May 11 04:03:33 2021: Server was asked to start on port: '44243'
+Tue May 11 04:03:33 2021: Server is using token UUID: 'e272095b-4455-4125-9119-a90c9e669707'
+Tue May 11 04:03:33 2021: Attempting to start server on port '44243'
+Tue May 11 04:03:33 2021: XRC main fifo: created main fifo '/tmp/xrcmaine272095b-4455-4125-9119-a90c9e669707', fd read = 13
+Tue May 11 04:03:33 2021: Running Rule Check Server
+Tue May 11 04:03:33 2021: Version 1.6.1
+Tue May 11 04:03:33 2021: Rule Check Server: Accepted socket connection from client
+Tue May 11 04:03:33 2021: EXCHANGE_TOKEN received, server token: e272095b-4455-4125-9119-a90c9e669707, passed token: e272095b-4455-4125-9119-a90c9e669707
+Tue May 11 04:03:33 2021: SESSION_MGR: creating session with session uuid: '03f503b7-0b08-4448-ba37-a69e091c5e4c' and name 'v++_link_vdot.hw'
+Tue May 11 04:03:38 2021: Rule Check Server: Accepted socket connection from client
+Tue May 11 04:04:04 2021: Rule Check Server: Accepted socket connection from client
+Tue May 11 05:04:48 2021: Rule Check Server: Accepted socket connection from client
+Tue May 11 06:46:45 2021: SESSION_MGR: closing session for UUID '03f503b7-0b08-4448-ba37-a69e091c5e4c' with name 'v++_link_vdot.hw'

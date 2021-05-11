@@ -1,11 +1,87 @@
-Tue May 11 02:41:34 2021: Server was asked to start on port: '42739'
-Tue May 11 02:41:34 2021: Server is using token UUID: '31c252f1-6349-45f1-97e3-0dc5ef6cf17d'
-Tue May 11 02:41:34 2021: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Tue May 11 02:41:34 2021: Attempting to start server on port '42739'
-Tue May 11 02:41:34 2021: XCD main fifo: created main fifo '/tmp/xcdmain31c252f1-6349-45f1-97e3-0dc5ef6cf17d', fd read = 13
-Tue May 11 02:41:34 2021: Running Dispatch Server
-Tue May 11 02:41:34 2021: Version 2.0.0
-Tue May 11 02:41:43 2021: Dispatch Server: Accepted socket connection from client
-Tue May 11 02:41:43 2021: EXCHANGE_TOKEN received, server token: 31c252f1-6349-45f1-97e3-0dc5ef6cf17d, passed token: 31c252f1-6349-45f1-97e3-0dc5ef6cf17d
-Tue May 11 02:41:43 2021: SESSION_MGR: creating session with session uuid: 'c21c8980-f115-4fe4-afc7-9bb9f7ddb52e' and name 'v++_link_vdot.sw_emu'
-Tue May 11 02:42:14 2021: SESSION_MGR: closing session for UUID 'c21c8980-f115-4fe4-afc7-9bb9f7ddb52e' with name 'v++_link_vdot.sw_emu'
+Tue May 11 04:03:23 2021: Server was asked to start on port: '38365'
+Tue May 11 04:03:23 2021: Server is using token UUID: '4e8fdfa8-5330-43ef-9e91-2f88dfc86a0b'
+Tue May 11 04:03:23 2021: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue May 11 04:03:23 2021: Attempting to start server on port '38365'
+Tue May 11 04:03:23 2021: XCD main fifo: created main fifo '/tmp/xcdmain4e8fdfa8-5330-43ef-9e91-2f88dfc86a0b', fd read = 13
+Tue May 11 04:03:23 2021: Running Dispatch Server
+Tue May 11 04:03:23 2021: Version 2.0.0
+Tue May 11 04:03:32 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:03:32 2021: EXCHANGE_TOKEN received, server token: 4e8fdfa8-5330-43ef-9e91-2f88dfc86a0b, passed token: 4e8fdfa8-5330-43ef-9e91-2f88dfc86a0b
+Tue May 11 04:03:32 2021: SESSION_MGR: creating session with session uuid: '78f13061-4cea-4bed-bba6-be0eef42f32b' and name 'v++_link_vdot.hw'
+Tue May 11 04:03:48 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:03:51 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:04:04 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:10:45 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:10:45 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:10:46 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:10:46 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:13:31 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:13:31 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:13:32 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:13:33 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:13:49 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:16:09 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:16:15 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:16:59 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:18:52 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:18:58 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:19:03 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:19:42 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:21:37 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:24:06 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:24:41 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:24:53 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:26:50 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:27:08 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:27:24 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:27:36 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:27:49 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:30:08 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:30:27 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:32:17 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:32:52 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:33:10 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:33:15 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:33:28 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:36:01 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:36:08 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:37:06 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:39:00 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:39:41 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:39:54 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:41:53 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:42:33 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:44:53 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:44:59 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:45:18 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:45:35 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:47:55 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:47:58 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:48:17 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:48:20 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:50:40 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:51:06 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:51:43 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:52:00 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:53:25 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:54:32 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:54:43 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:54:51 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:55:07 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:56:51 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:57:26 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:57:34 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:57:52 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:58:34 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 04:58:53 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 05:02:01 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 05:04:48 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 05:16:52 2021: Entering handleUtilizationDuringVivadoRunRequest
+Tue May 11 05:16:52 2021: Leaving handleUtilizationDuringVivadoRunRequest
+Tue May 11 05:26:34 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 06:11:24 2021: Entering handleUtilizationDuringVivadoRunRequest
+Tue May 11 06:11:24 2021: Leaving handleUtilizationDuringVivadoRunRequest
+Tue May 11 06:41:54 2021: Entering handleUtilizationDuringVivadoRunRequest
+Tue May 11 06:41:54 2021: Leaving handleUtilizationDuringVivadoRunRequest
+Tue May 11 06:46:42 2021: Dispatch Server: Accepted socket connection from client
+Tue May 11 06:46:45 2021: SESSION_MGR: closing session for UUID '78f13061-4cea-4bed-bba6-be0eef42f32b' with name 'v++_link_vdot.hw'

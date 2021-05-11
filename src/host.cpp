@@ -91,9 +91,6 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int i_int_max = int(mat_w_2/ BLOCK_MATRIX_SIZE) + 1;
     int j_int_max = int(mat_h_1/ BLOCK_MATRIX_SIZE) + 1;
 
-//     std::vector<cl::Event> events;
-//     std::vector<std::vector<cl::Event>> iteration_events_row(i_int_max, events);
-//     std::vector<std::vector<std::vector<cl::Event>>> iteration_events(j_int_max, iteration_events_row);
     std::vector<std::vector<std::vector<cl::Event>>> iteration_events(
             j_int_max, std::vector<std::vector<cl::Event>>(
                     i_int_max
