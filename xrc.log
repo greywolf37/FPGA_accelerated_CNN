@@ -1,10 +1,10 @@
-Tue May 11 16:19:27 2021: Server was asked to start on port: '38056'
-Tue May 11 16:19:27 2021: Server is using token UUID: 'd386efa1-d6fa-4577-ad33-084c38cf02c5'
-Tue May 11 16:19:27 2021: Attempting to start server on port '38056'
-Tue May 11 16:19:27 2021: XRC main fifo: created main fifo '/tmp/xrcmaind386efa1-d6fa-4577-ad33-084c38cf02c5', fd read = 13
-Tue May 11 16:19:27 2021: Running Rule Check Server
-Tue May 11 16:19:27 2021: Version 1.6.1
-Tue May 11 16:19:27 2021: Rule Check Server: Accepted socket connection from client
-Tue May 11 16:19:27 2021: EXCHANGE_TOKEN received, server token: d386efa1-d6fa-4577-ad33-084c38cf02c5, passed token: d386efa1-d6fa-4577-ad33-084c38cf02c5
-Tue May 11 16:19:27 2021: SESSION_MGR: creating session with session uuid: '3a76ef2a-1e8e-468e-aabc-3b05b39c724a' and name 'v++_link_vdot.sw_emu'
-Tue May 11 16:19:53 2021: SESSION_MGR: closing session for UUID '3a76ef2a-1e8e-468e-aabc-3b05b39c724a' with name 'v++_link_vdot.sw_emu'
+Tue May 11 22:41:01 2021: Server was asked to start on port: '41996'
+Tue May 11 22:41:01 2021: Server is using token UUID: '2148c92f-b7e7-4531-b87f-d10f1cb166a7'
+Tue May 11 22:41:01 2021: Attempting to start server on port '41996'
+Tue May 11 22:41:01 2021: XRC main fifo: created main fifo '/tmp/xrcmain2148c92f-b7e7-4531-b87f-d10f1cb166a7', fd read = 13
+Tue May 11 22:41:01 2021: Running Rule Check Server
+Tue May 11 22:41:01 2021: Version 1.6.1
+Tue May 11 22:41:02 2021: Rule Check Server: Accepted socket connection from client
+Tue May 11 22:41:02 2021: EXCHANGE_TOKEN received, server token: 2148c92f-b7e7-4531-b87f-d10f1cb166a7, passed token: 2148c92f-b7e7-4531-b87f-d10f1cb166a7
+Tue May 11 22:41:02 2021: SESSION_MGR: creating session with session uuid: 'b865609d-4fbe-4bdb-b4d3-1b317a246aed' and name 'v++_link_vdot.sw_emu'
+Tue May 11 22:41:07 2021: SESSION_MGR: closing session for UUID 'b865609d-4fbe-4bdb-b4d3-1b317a246aed' with name 'v++_link_vdot.sw_emu'

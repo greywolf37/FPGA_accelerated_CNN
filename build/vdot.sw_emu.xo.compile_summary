@@ -1,0 +1,173 @@
+<ENTRY>
+{
+ "thisFile": "/home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xo.compile_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue May 11 22:24:58 2021",
+ "timestampMillis": "1620771898462",
+ "buildStep": {
+  "cmdId": "28279fd5-ff87-485f-8bdc-41e5fe36866f",
+  "name": "v++",
+  "logFile": "/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot.sw_emu.steps.log",
+  "commandLine": "/opt/Xilinx/Vitis/2020.1/bin/unwrapped/lnx64.o/v++  --xp \"vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -t sw_emu --config ./configs/design.cfg --log_dir ./logs --report_dir ./reports --platform /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm --compile --kernel vdot -I ./src -o build/vdot.sw_emu.xo src/vdot.cpp ",
+  "args": [
+   "-t",
+   "sw_emu",
+   "--config",
+   "./configs/design.cfg",
+   "--log_dir",
+   "./logs",
+   "--report_dir",
+   "./reports",
+   "--platform",
+   "/home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm",
+   "--compile",
+   "--kernel",
+   "vdot",
+   "-I",
+   "./src",
+   "-o",
+   "build/vdot.sw_emu.xo",
+   "src/vdot.cpp"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/centos/FPGA_accelerated_CNN/configs/design.cfg",
+    "content": "debug=1\nprofile_kernel=data:all:all:all\n\n[connectivity]\nnk=vdot:2:vdot_1.vdot_2\n\nsp = vdot_1.input1:DDR[0]\nsp = vdot_1.input2:DDR[1]\nsp = vdot_1.output:DDR[2]\n\nsp = vdot_2.input1:DDR[2]\nsp = vdot_2.input2:DDR[3]\nsp = vdot_2.output:DDR[1]"
+   }
+  ],
+  "cwd": "/home/centos/FPGA_accelerated_CNN"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue May 11 22:24:58 2021",
+ "timestampMillis": "1620771898462",
+ "status": {
+  "cmdId": "28279fd5-ff87-485f-8bdc-41e5fe36866f",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Tue May 11 22:25:12 2021",
+ "timestampMillis": "1620771912320",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm",
+  "hardwareDsa": "xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xsa",
+  "platformDirectory": "/home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_COMPILE",
+  "target": "TT_SW_EMU",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "vdot",
+     "file": "/home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xo",
+     "reports": []
+    },
+    "sources": [
+     "/home/centos/FPGA_accelerated_CNN/src/vdot.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS"
+   }
+  ],
+  "toolVersion": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue May 11 22:25:12 2021",
+ "timestampMillis": "1620771912323",
+ "buildStep": {
+  "cmdId": "794d50c2-da99-410d-8bfb-f14794b94388",
+  "name": "vitis_hls",
+  "logFile": "/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vitis_hls.log",
+  "commandLine": "vitis_hls -f /home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vdot.tcl -messageDb vitis_hls.pb",
+  "args": [
+   "vitis_hls",
+   "-f",
+   "/home/centos/FPGA_accelerated_CNN/_x/vdot.sw_emu/vdot/vdot.tcl",
+   "-messageDb",
+   "vitis_hls.pb"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/centos/FPGA_accelerated_CNN"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue May 11 22:25:12 2021",
+ "timestampMillis": "1620771912323",
+ "status": {
+  "cmdId": "794d50c2-da99-410d-8bfb-f14794b94388",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue May 11 22:25:16 2021",
+ "timestampMillis": "1620771916034",
+ "status": {
+  "cmdId": "794d50c2-da99-410d-8bfb-f14794b94388",
+  "state": "CS_FAILED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue May 11 22:25:16 2021",
+ "timestampMillis": "1620771916072",
+ "report": {
+  "path": "/home/centos/FPGA_accelerated_CNN/reports/vdot.sw_emu/v++_compile_vdot.sw_emu_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue May 11 22:25:16 2021",
+ "timestampMillis": "1620771916072",
+ "report": {
+  "path": "/home/centos/FPGA_accelerated_CNN/_x/v++_compile_vdot.sw_emu_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue May 11 22:25:16 2021",
+ "timestampMillis": "1620771916073",
+ "status": {
+  "cmdId": "28279fd5-ff87-485f-8bdc-41e5fe36866f",
+  "state": "CS_FAILED"
+ }
+}
+</ENTRY>

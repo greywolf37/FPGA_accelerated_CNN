@@ -11,7 +11,7 @@ xclbin Information
    Kernels:                vdot
    Signature:              
    Content:                SW Emulation Binary
-   UUID (xclbin):          6c6130c1-eb29-4ee0-a4fb-7ae5f0c96876
+   UUID (xclbin):          bedbabf9-b256-4489-91c3-827bfdf3c062
    Sections:               BITSTREAM, BUILD_METADATA, EMBEDDED_METADATA, 
                            DEBUG_DATA
 ==============================================================================
@@ -61,6 +61,45 @@ Ports
 
 --------------------------
 Instance:        vdot_1
+   Base Address: --
+
+   Argument:          input1
+   Register Offset:   0x10
+   Port:              M_AXI_GMEM
+   Memory:            <not applicable>
+
+   Argument:          input1_h
+   Register Offset:   0x1C
+   Port:              S_AXI_CONTROL
+   Memory:            <not applicable>
+
+   Argument:          input1_w
+   Register Offset:   0x24
+   Port:              S_AXI_CONTROL
+   Memory:            <not applicable>
+
+   Argument:          input2
+   Register Offset:   0x2C
+   Port:              M_AXI_GMEM
+   Memory:            <not applicable>
+
+   Argument:          input2_h
+   Register Offset:   0x38
+   Port:              S_AXI_CONTROL
+   Memory:            <not applicable>
+
+   Argument:          input2_w
+   Register Offset:   0x40
+   Port:              S_AXI_CONTROL
+   Memory:            <not applicable>
+
+   Argument:          output
+   Register Offset:   0x48
+   Port:              M_AXI_GMEM
+   Memory:            <not applicable>
+
+--------------------------
+Instance:        vdot_2
    Base Address: --
 
    Argument:          input1
