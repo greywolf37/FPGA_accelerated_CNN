@@ -2,8 +2,8 @@
 #include <chrono>
 #include <stdio.h>
 #include "host.hpp"
-#define BLOCK_MATRIX_SIZE 4
-#define DEBUG 1
+#define BLOCK_MATRIX_SIZE 16
+#define DEBUG 0
 
 using namespace std;
 
