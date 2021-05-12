@@ -33,7 +33,7 @@ XCLBIN_S3 := s3://${BUCKET_NAME}/afi/${NAME}.${TARGET}.xclbin
 AWSXCLBIN := ${BUILD_DIR}/${NAME}.${TARGET}.awsxclbin
 
 # Host options
-GCC_OPTS := -I${XILINX_XRT}/include/ -I${XILINX_VIVADO}/include/ -Wall -O0 -g -std=c++11 -L${XILINX_XRT}/lib/ -lOpenCL -lpthread -lrt -lstdc++
+GCC_OPTS := -I${XILINX_XRT}/include/ -I${XILINX_VIVADO}/include/ -Wall -O3 -g -std=c++11 -L${XILINX_XRT}/lib/ -lOpenCL -lpthread -lrt -lstdc++
 
 # VPP Linker options
 VPP_INCLUDE_OPTS := -I ${PROJECT_DIR}/src 

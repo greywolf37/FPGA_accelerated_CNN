@@ -3407,8 +3407,8 @@ window.onload = function () { addSorting(); }
 <center><h1>Design Guidance Report</h1></center><center><table class="header" border="0">
 <tr><td><b>Copyright</b></td><td>Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.</td></tr>
 <tr><td><b>Tool Version</b></td><td>xrcserver v.2020.1 (lin64) Build 0 </td></tr>
-<tr><td><b>Date</b></td><td>Tue May 11 04:03:21 2021</td></tr>
-<tr><td><b>Host</b></td><td>ip-172-31-1-76.ec2.internal running 64-bit CentOS Linux release 7.7.1908 (Core)</td></tr>
+<tr><td><b>Date</b></td><td>Tue May 11 23:35:15 2021</td></tr>
+<tr><td><b>Host</b></td><td>ip-172-31-8-175.ec2.internal running 64-bit CentOS Linux release 7.7.1908 (Core)</td></tr>
 <tr><td><b>Command</b></td><td>v++  -t hw --config ./configs/design.cfg --log_dir ./logs --report_dir ./reports --platform /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm --compile --kernel vdot -I ./src -o build/vdot.hw.xo src/vdot.cpp </td></tr>
 </table></center><br>
 <table class="toc" border="1"><tr><td><b>Table of Contents</b></td></tr>
@@ -3417,7 +3417,7 @@ window.onload = function () { addSorting(); }
 <tr><td><a href="#CONFIG FILE DETAILS">3 CONFIG FILE DETAILS</a></tr></td>
 </table>
 <a name="REPORT SUMMARY"></a><h1>1 REPORT SUMMARY</h1>
-<pre>Violations found: 11
+<pre>Violations found: 12
 </pre>
 <pre>Rule Specs Violated: 4
 </pre>
@@ -3441,7 +3441,7 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">HLS Interface Related</td>
 <td align="left">Accelerator.vdot.Interface</td>
-<td align="left">Burst read of variable length and bit width 32 has been inferred on port 'gmem' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=45">vdot.cpp</a>)
+<td align="left">Burst read of variable length and bit width 32 has been inferred on port 'gmem' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=57">vdot.cpp</a>)
 </td>
 <td align="left"></td>
 </tr>
@@ -3452,7 +3452,7 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">HLS Latency Related</td>
 <td align="left">Accelerator.vdot.Latency</td>
-<td align="left">Cannot unroll loop 'VITIS_LOOP_42_1' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=42">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
+<td align="left">Cannot unroll loop 'VITIS_LOOP_54_2' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=54">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
 </td>
 <td align="left"><a href="http://www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-936.html">See here for more help on vitis_hls 200-936 guidance.</a></td>
 </tr>
@@ -3463,7 +3463,7 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">HLS Latency Related</td>
 <td align="left">Accelerator.vdot.Latency</td>
-<td align="left">Cannot unroll loop 'VITIS_LOOP_50_3' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=50">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
+<td align="left">Cannot unroll loop 'VITIS_LOOP_62_4' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=62">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
 </td>
 <td align="left"><a href="http://www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-936.html">See here for more help on vitis_hls 200-936 guidance.</a></td>
 </tr>
@@ -3474,7 +3474,7 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">HLS Latency Related</td>
 <td align="left">Accelerator.vdot.Latency</td>
-<td align="left">Cannot unroll loop 'VITIS_LOOP_58_5' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=58">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
+<td align="left">Cannot unroll loop 'VITIS_LOOP_70_6' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=70">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
 </td>
 <td align="left"><a href="http://www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-936.html">See here for more help on vitis_hls 200-936 guidance.</a></td>
 </tr>
@@ -3485,7 +3485,7 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">HLS Latency Related</td>
 <td align="left">Accelerator.vdot.Latency</td>
-<td align="left">Cannot unroll loop 'VITIS_LOOP_68_8' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=68">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
+<td align="left">Cannot unroll loop 'VITIS_LOOP_81_9' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=81">vdot.cpp</a>) in function 'vdot': cannot completely unroll a loop with a variable trip count.
 </td>
 <td align="left"><a href="http://www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-936.html">See here for more help on vitis_hls 200-936 guidance.</a></td>
 </tr>
@@ -3496,12 +3496,23 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">HLS Latency Related</td>
 <td align="left">Accelerator.vdot.Latency</td>
-<td align="left">Cannot flatten loop 'VITIS_LOOP_42_1' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=42">vdot.cpp</a>) in function 'vdot' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
+<td align="left">Cannot flatten loop 'VITIS_LOOP_54_2' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=54">vdot.cpp</a>) in function 'vdot' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
 </td>
 <td align="left"><a href="http://www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-960.html">See here for more help on vitis_hls 200-960 guidance.</a></td>
 </tr>
 <tr>
 <td align="left">7</td>
+<td align="left">Latency</td>
+<td align="left">warning</td>
+<td align="left">Medium</td>
+<td align="left">HLS Latency Related</td>
+<td align="left">Accelerator.vdot.Latency</td>
+<td align="left">Cannot flatten loop 'VITIS_LOOP_45_1' (<a href="file:///home/centos/FPGA_accelerated_CNN/src/vdot.cpp#line=45">vdot.cpp</a>) in function 'vdot' more than one sub loop.
+</td>
+<td align="left"><a href="http://www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-960.html">See here for more help on vitis_hls 200-960 guidance.</a></td>
+</tr>
+<tr>
+<td align="left">8</td>
 <td align="left">Throughput</td>
 <td align="left">advisory</td>
 <td align="left">Medium</td>
@@ -3512,18 +3523,18 @@ window.onload = function () { addSorting(); }
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left">8</td>
+<td align="left">9</td>
 <td align="left">Throughput</td>
 <td align="left">advisory</td>
 <td align="left">Medium</td>
 <td align="left">HLS Throughput Related</td>
 <td align="left">Accelerator.vdot.Throughput</td>
-<td align="left">Pipelining result : Target II = 1, Final II = 1, Depth = 76.
+<td align="left">Pipelining result : Target II = 1, Final II = 1, Depth = 79.
 </td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left">9</td>
+<td align="left">10</td>
 <td align="left">Throughput</td>
 <td align="left">advisory</td>
 <td align="left">Medium</td>
@@ -3534,7 +3545,7 @@ window.onload = function () { addSorting(); }
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left">10</td>
+<td align="left">11</td>
 <td align="left">Kernel</td>
 <td align="left">advisory</td>
 <td align="left">Medium</td>
@@ -3545,7 +3556,7 @@ window.onload = function () { addSorting(); }
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left">11</td>
+<td align="left">12</td>
 <td align="left">Kernel</td>
 <td align="left">advisory</td>
 <td align="left">Medium</td>
@@ -3573,10 +3584,15 @@ window.onload = function () { addSorting(); }
 profile_kernel=data:all:all:all
 
 [connectivity]
-nk=vdot:1:vdot_1
+nk=vdot:2:vdot_1.vdot_2
+
 sp = vdot_1.input1:DDR[0]
 sp = vdot_1.input2:DDR[1]
 sp = vdot_1.output:DDR[2]
+
+sp = vdot_2.input1:DDR[2]
+sp = vdot_2.input2:DDR[3]
+sp = vdot_2.output:DDR[1]
 </td>
 </tr>
 </table>

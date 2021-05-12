@@ -14,7 +14,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int stride =1;
     int pad =0;
     
-    if(1){
+    if(DEBUG){
             std::cout << "Turning tensors to arrays..." << std::endl;
     }
     // Turning tensors to arrays
@@ -24,7 +24,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
     int out_channels, kernel_in_channels, kernel_height, kernel_width;
     float * kernel_array = tensor2arr_4d(weights, &out_channels, &kernel_in_channels, &kernel_height, &kernel_width);
 
-    if(1){
+    if(DEBUG){
             std::cout << "Converting Images to col..." << std::endl;
     }
     // Image to Col Functions
@@ -34,7 +34,7 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
             kernel_height, kernel_width, stride, pad, 
             &in_array_col_height, &in_array_col_width, &out_height, &out_width);
 
-    if(1){
+    if(DEBUG){
             std::cout << "Converting Weights to col..." << std::endl;
     }
     int kernel_array_col_height, kernel_array_col_width;
@@ -42,9 +42,9 @@ torch::Tensor forward_hw(torch::Tensor input, torch::Tensor weights, char* fileL
                     &kernel_array_col_height, &kernel_array_col_width);
     
 //     float output_col[kernel_array_col_height * in_array_col_width] = { 0 };
-std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
+    std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
 
-    if(1){
+    if(DEBUG){
             std::cout << "Setting up binary file..." << std::endl;
     }
     // Binary files and Devices
@@ -102,6 +102,8 @@ std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
     std::vector<cl::Buffer> buffer_in1_list(j_int_max);
     std::vector<cl::Buffer> buffer_in2_list(i_int_max);
     std::vector<cl::Buffer> buffer_output_list(i_int_max * j_int_max);
+
+    OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
 
 
     std::vector<std::vector<std::vector<cl::Event>>> iteration_events(
@@ -163,13 +165,14 @@ std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
                         
                         buffer_in1_list[j_int] = cl::Buffer (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
                                 blk_1_bytes, blk_1.data(), NULL);
-                        buffer_in2_list[i_int] = cl::Buffer (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
+                        if(j_int == 0){
+                                buffer_in2_list[i_int] = cl::Buffer (context,CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
                                 blk_2_bytes, blk_2.data(), NULL);
+                        }
                         buffer_output_list[(j_int*i_int_max)+(i_int)] = cl::Buffer(context,CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
                                 blk_o_bytes, blk_o_list[j_int][i_int].data(), NULL);
 
                         // Kernel setup
-                        OCL_CHECK(err, cl::Kernel krnl_matmul(program,"vdot", &err));
                         OCL_CHECK(err, err = krnl_matmul.setArg(0, buffer_in1_list[j_int]));
                         OCL_CHECK(err, err = krnl_matmul.setArg(1, blk_h_1));
                         OCL_CHECK(err, err = krnl_matmul.setArg(2, blk_w_1));
@@ -186,11 +189,6 @@ std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
                         cl::Event kernel_event;
                         OCL_CHECK(err, err = q.enqueueTask(krnl_matmul, &iteration_events[j_int][i_int], &kernel_event));
                         iteration_events[j_int][i_int].push_back(kernel_event);
-
-                        iteration_events[j_int][i_int].push_back(kernel_event);
-                        cl::Event read_event;
-                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output_list[(j_int*i_int_max)+(i_int)]},CL_MIGRATE_MEM_OBJECT_HOST, &iteration_events[j_int][i_int], &read_event));
-                        iteration_events[j_int][i_int].push_back(read_event);
 
                 }
         }
@@ -209,8 +207,12 @@ std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
                         int blk_h_o = blk_h_1;
                         int blk_w_o = blk_w_2;
 
+                        cl::Event read_event;
+                        OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_output_list[(j_int*i_int_max)+(i_int)]},CL_MIGRATE_MEM_OBJECT_HOST, &iteration_events[j_int][i_int], &read_event));
+
                         // waiting for queue to finish
-                        iteration_events[j_int][i_int].back().wait();
+                        // read_event.wait();
+                        q.finish();
     
                         for(int i=0; i<BLOCK_MATRIX_SIZE; i++){
                                 for(int j=0; j<BLOCK_MATRIX_SIZE; j++){
@@ -228,7 +230,7 @@ std::vector<float> output_col(kernel_array_col_height * in_array_col_width, 0);
                 }
         }
 
-     q.finish();
+//      q.finish();
 
 
     // -----------------------------------------------------------------------------------------------------------------------------

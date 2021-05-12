@@ -10,19 +10,411 @@ INFO: [v++ 60-1306] Additional information associated with this v++ link can be 
 	Reports: /home/centos/FPGA_accelerated_CNN/reports/link
 	Log files: /home/centos/FPGA_accelerated_CNN/logs/link
 INFO: [v++ 60-1657] Initializing dispatch client.
-INFO: [v++ 60-1548] Creating build summary session with primary output /home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xclbin.link_summary, at Tue May 11 22:41:01 2021
-INFO: [v++ 60-1316] Initiating connection to rulecheck server, at Tue May 11 22:41:01 2021
-INFO: [v++ 60-1315] Creating rulecheck session with output '/home/centos/FPGA_accelerated_CNN/reports/link/v++_link_vdot.sw_emu_guidance.html', at Tue May 11 22:41:02 2021
+INFO: [v++ 60-1548] Creating build summary session with primary output /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xclbin.link_summary, at Wed May 12 09:02:26 2021
+INFO: [v++ 60-1316] Initiating connection to rulecheck server, at Wed May 12 09:02:27 2021
+INFO: [v++ 60-1315] Creating rulecheck session with output '/home/centos/FPGA_accelerated_CNN/reports/link/v++_link_vdot.hw_guidance.html', at Wed May 12 09:02:29 2021
 INFO: [v++ 60-895]   Target platform: /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm
 INFO: [v++ 60-1578]   This platform contains Xilinx Shell Archive '/home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/hw/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xsa'
-INFO: [v++ 60-629] Linking for software emulation target
+INFO: [v++ 60-629] Linking for hardware target
 INFO: [v++ 60-423]   Target device: xilinx_aws-vu9p-f1_shell-v04261818_201920_2
-INFO: [v++ 60-645] kernel flags are '-g -I /home/centos/FPGA_accelerated_CNN/src -g'
-INFO: [v++ 60-586] Created build/vdot.sw_emu.xclbin
+INFO: [v++ 60-1332] Run 'run_link' status: Not started
+INFO: [v++ 60-1443] [09:02:34] Run run_link: Step system_link: Started
+INFO: [v++ 60-1453] Command Line: system_link --xo /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xo --config /home/centos/FPGA_accelerated_CNN/_x/link/int/syslinkConfig.ini --xpfm /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm --target hw --output_dir /home/centos/FPGA_accelerated_CNN/_x/link/int --temp_dir /home/centos/FPGA_accelerated_CNN/_x/link/sys_link
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+INFO: [SYSTEM_LINK 60-1316] Initiating connection to rulecheck server, at Wed May 12 09:02:36 2021
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xo
+INFO: [SYSTEM_LINK 82-53] Creating IP database /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-38] [09:02:38] build_xd_ip_db started: /opt/Xilinx/Vitis/2020.1/bin/build_xd_ip_db -ip_search 0  -sds-pf /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.hpfm -clkid 0 -ip /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/iprepo/xilinx_com_hls_vdot_1_0,vdot -o /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-37] [09:02:44] build_xd_ip_db finished successfully
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 978.254 ; gain = 0.000 ; free physical = 61457 ; free virtual = 82857
+INFO: [SYSTEM_LINK 82-51] Create system connectivity graph
+INFO: [SYSTEM_LINK 82-102] Applying explicit connections to the system connectivity graph: /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [SYSTEM_LINK 82-38] [09:02:44] cfgen started: /opt/Xilinx/Vitis/2020.1/bin/cfgen  -nk vdot:2:vdot_1.vdot_2 -sp vdot_1.input1:DDR[0] -sp vdot_1.input2:DDR[1] -sp vdot_1.output:DDR[2] -sp vdot_2.input1:DDR[2] -sp vdot_2.input2:DDR[3] -sp vdot_2.output:DDR[1] -dmclkid 0 -r /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [CFGEN 83-0] Kernel Specs: 
+INFO: [CFGEN 83-0]   kernel: vdot, num: 2  {vdot_1 vdot_2}
+INFO: [CFGEN 83-0] Port Specs: 
+INFO: [CFGEN 83-0]   kernel: vdot_1, k_port: input1, sptag: DDR[0]
+INFO: [CFGEN 83-0]   kernel: vdot_1, k_port: input2, sptag: DDR[1]
+INFO: [CFGEN 83-0]   kernel: vdot_1, k_port: output, sptag: DDR[2]
+INFO: [CFGEN 83-0]   kernel: vdot_2, k_port: input1, sptag: DDR[2]
+INFO: [CFGEN 83-0]   kernel: vdot_2, k_port: input2, sptag: DDR[3]
+INFO: [CFGEN 83-0]   kernel: vdot_2, k_port: output, sptag: DDR[1]
+INFO: [CFGEN 83-2228] Creating mapping for argument vdot_1.input1 to DDR[0] for directive vdot_1.input1:DDR[0]
+INFO: [CFGEN 83-2228] Creating mapping for argument vdot_1.input2 to DDR[1] for directive vdot_1.input2:DDR[1]
+INFO: [CFGEN 83-2228] Creating mapping for argument vdot_1.output to DDR[2] for directive vdot_1.output:DDR[2]
+INFO: [CFGEN 83-2228] Creating mapping for argument vdot_2.input1 to DDR[2] for directive vdot_2.input1:DDR[2]
+INFO: [CFGEN 83-2228] Creating mapping for argument vdot_2.input2 to DDR[3] for directive vdot_2.input2:DDR[3]
+INFO: [CFGEN 83-2228] Creating mapping for argument vdot_2.output to DDR[1] for directive vdot_2.output:DDR[1]
+INFO: [SYSTEM_LINK 82-37] [09:02:46] cfgen finished successfully
+Time (s): cpu = 00:00:00.96 ; elapsed = 00:00:01 . Memory (MB): peak = 978.254 ; gain = 0.000 ; free physical = 61425 ; free virtual = 82836
+INFO: [SYSTEM_LINK 82-52] Create top-level block diagram
+INFO: [SYSTEM_LINK 82-38] [09:02:46] cf2bd started: /opt/Xilinx/Vitis/2020.1/bin/cf2bd  --linux --trace_buffer 1024 --input_file /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml --ip_db /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml --cf_name dr --working_dir /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.xsd --temp_dir /home/centos/FPGA_accelerated_CNN/_x/link/sys_link --output_dir /home/centos/FPGA_accelerated_CNN/_x/link/int --target_bd cl.bd
+INFO: [CF2BD 82-31] Launching cf2xd: cf2xd -linux -trace-buffer 1024 -i /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/cfgraph/cfgen_cfgraph.xml -r /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o dr.xml
+INFO: [CF2BD 82-28] cf2xd finished successfully
+INFO: [CF2BD 82-31] Launching cf_xsd: cf_xsd -disable-address-gen -bd cl.bd -dn dr -dp /home/centos/FPGA_accelerated_CNN/_x/link/sys_link/_sysl/.xsd
+INFO: [CF2BD 82-28] cf_xsd finished successfully
+INFO: [SYSTEM_LINK 82-37] [09:02:48] cf2bd finished successfully
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 978.254 ; gain = 0.000 ; free physical = 61369 ; free virtual = 82801
+INFO: [v++ 60-1441] [09:02:48] Run run_link: Step system_link: Completed
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:15 . Memory (MB): peak = 1041.316 ; gain = 0.000 ; free physical = 61647 ; free virtual = 83077
+INFO: [v++ 60-1443] [09:02:48] Run run_link: Step cf2sw: Started
+INFO: [v++ 60-1453] Command Line: cf2sw -sdsl /home/centos/FPGA_accelerated_CNN/_x/link/int/sdsl.dat -rtd /home/centos/FPGA_accelerated_CNN/_x/link/int/cf2sw.rtd -xclbin /home/centos/FPGA_accelerated_CNN/_x/link/int/xclbin_orig.xml -o /home/centos/FPGA_accelerated_CNN/_x/link/int/xclbin_orig.1.xml
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+INFO: [v++ 60-1441] [09:02:49] Run run_link: Step cf2sw: Completed
+Time (s): cpu = 00:00:00.69 ; elapsed = 00:00:00.92 . Memory (MB): peak = 1041.316 ; gain = 0.000 ; free physical = 61630 ; free virtual = 83070
+INFO: [v++ 60-1443] [09:02:50] Run run_link: Step rtd2_system_diagram: Started
+INFO: [v++ 60-1453] Command Line: rtd2SystemDiagram
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+INFO: [v++ 60-1441] [09:02:51] Run run_link: Step rtd2_system_diagram: Completed
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:01 . Memory (MB): peak = 1049.266 ; gain = 7.949 ; free physical = 61329 ; free virtual = 82778
+INFO: [v++ 60-1443] [09:02:51] Run run_link: Step vpl: Started
+INFO: [v++ 60-1453] Command Line: vpl -t hw -f /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm -g --profile_kernel data:all:all:all --remote_ip_cache /home/centos/FPGA_accelerated_CNN/.ipcache --output_dir /home/centos/FPGA_accelerated_CNN/_x/link/int --log_dir /home/centos/FPGA_accelerated_CNN/logs/link --report_dir /home/centos/FPGA_accelerated_CNN/reports/link --config /home/centos/FPGA_accelerated_CNN/_x/link/int/vplConfig.ini -k /home/centos/FPGA_accelerated_CNN/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/centos/FPGA_accelerated_CNN/_x/link --no-info --iprepo /home/centos/FPGA_accelerated_CNN/_x/link/int/xo/ip_repo/xilinx_com_hls_vdot_1_0 --messageDb /home/centos/FPGA_accelerated_CNN/_x/link/run_link/vpl.pb /home/centos/FPGA_accelerated_CNN/_x/link/int/dr.bd.tcl
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+
+****** vpl v2020.1 (64-bit)
+  **** SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+INFO: [VPL 60-839] Read in kernel information from file '/home/centos/FPGA_accelerated_CNN/_x/link/int/kernel_info.dat'.
+WARNING: [VPL 60-642] Invalid or deprecated parameter name: compiler.lockFlowCritSlackThreshold
+INFO: [VPL 60-423]   Target device: xilinx_aws-vu9p-f1_shell-v04261818_201920_2
+INFO: [VPL 60-1032] Extracting hardware platform to /home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/.local/hw_platform
+[09:04:14] Run vpl: Step create_project: RUNNING...
+[09:05:04] Run vpl: Step create_project: Started
+Creating Vivado project.
+[09:05:18] Run vpl: Step create_project: Completed
+[09:05:18] Run vpl: Step create_bd: Started
+[09:06:35] Run vpl: Step create_bd: RUNNING...
+[09:07:50] Run vpl: Step create_bd: RUNNING...
+[09:07:52] Run vpl: Step create_bd: Completed
+[09:07:52] Run vpl: Step update_bd: Started
+[09:07:57] Run vpl: Step update_bd: Completed
+[09:07:57] Run vpl: Step generate_target: Started
+[09:09:12] Run vpl: Step generate_target: RUNNING...
+[09:10:27] Run vpl: Step generate_target: RUNNING...
+[09:11:43] Run vpl: Step generate_target: RUNNING...
+[09:12:58] Run vpl: Step generate_target: RUNNING...
+[09:13:01] Run vpl: Step generate_target: Completed
+[09:13:01] Run vpl: Step config_hw_runs: Started
+[09:13:10] Run vpl: Step config_hw_runs: Completed
+[09:13:10] Run vpl: Step synth: Started
+[09:13:40] Block-level synthesis in progress, 0 of 77 jobs complete, 4 jobs running.
+[09:14:11] Block-level synthesis in progress, 0 of 77 jobs complete, 4 jobs running.
+[09:14:41] Block-level synthesis in progress, 0 of 77 jobs complete, 4 jobs running.
+[09:15:11] Block-level synthesis in progress, 0 of 77 jobs complete, 4 jobs running.
+[09:15:41] Block-level synthesis in progress, 0 of 77 jobs complete, 4 jobs running.
+[09:16:11] Block-level synthesis in progress, 2 of 77 jobs complete, 3 jobs running.
+[09:16:42] Block-level synthesis in progress, 3 of 77 jobs complete, 3 jobs running.
+[09:17:12] Block-level synthesis in progress, 4 of 77 jobs complete, 4 jobs running.
+[09:17:42] Block-level synthesis in progress, 4 of 77 jobs complete, 4 jobs running.
+[09:18:12] Block-level synthesis in progress, 4 of 77 jobs complete, 4 jobs running.
+[09:18:42] Block-level synthesis in progress, 4 of 77 jobs complete, 4 jobs running.
+[09:19:12] Block-level synthesis in progress, 5 of 77 jobs complete, 4 jobs running.
+[09:19:42] Block-level synthesis in progress, 7 of 77 jobs complete, 4 jobs running.
+[09:20:12] Block-level synthesis in progress, 8 of 77 jobs complete, 4 jobs running.
+[09:20:42] Block-level synthesis in progress, 8 of 77 jobs complete, 4 jobs running.
+[09:21:13] Block-level synthesis in progress, 8 of 77 jobs complete, 4 jobs running.
+[09:21:43] Block-level synthesis in progress, 9 of 77 jobs complete, 4 jobs running.
+[09:22:13] Block-level synthesis in progress, 9 of 77 jobs complete, 4 jobs running.
+[09:22:43] Block-level synthesis in progress, 10 of 77 jobs complete, 4 jobs running.
+[09:23:13] Block-level synthesis in progress, 11 of 77 jobs complete, 4 jobs running.
+[09:23:43] Block-level synthesis in progress, 11 of 77 jobs complete, 4 jobs running.
+[09:24:13] Block-level synthesis in progress, 12 of 77 jobs complete, 3 jobs running.
+[09:24:44] Block-level synthesis in progress, 12 of 77 jobs complete, 4 jobs running.
+[09:25:14] Block-level synthesis in progress, 15 of 77 jobs complete, 3 jobs running.
+[09:25:44] Block-level synthesis in progress, 15 of 77 jobs complete, 4 jobs running.
+[09:26:14] Block-level synthesis in progress, 15 of 77 jobs complete, 4 jobs running.
+[09:26:44] Block-level synthesis in progress, 15 of 77 jobs complete, 4 jobs running.
+[09:27:15] Block-level synthesis in progress, 15 of 77 jobs complete, 4 jobs running.
+[09:27:45] Block-level synthesis in progress, 15 of 77 jobs complete, 4 jobs running.
+[09:28:15] Block-level synthesis in progress, 16 of 77 jobs complete, 4 jobs running.
+[09:28:45] Block-level synthesis in progress, 16 of 77 jobs complete, 4 jobs running.
+[09:29:15] Block-level synthesis in progress, 17 of 77 jobs complete, 4 jobs running.
+[09:29:46] Block-level synthesis in progress, 18 of 77 jobs complete, 4 jobs running.
+[09:30:16] Block-level synthesis in progress, 18 of 77 jobs complete, 4 jobs running.
+[09:30:46] Block-level synthesis in progress, 18 of 77 jobs complete, 4 jobs running.
+[09:31:16] Block-level synthesis in progress, 19 of 77 jobs complete, 4 jobs running.
+[09:31:47] Block-level synthesis in progress, 19 of 77 jobs complete, 4 jobs running.
+[09:32:17] Block-level synthesis in progress, 20 of 77 jobs complete, 4 jobs running.
+[09:32:47] Block-level synthesis in progress, 20 of 77 jobs complete, 4 jobs running.
+[09:33:17] Block-level synthesis in progress, 20 of 77 jobs complete, 4 jobs running.
+[09:33:48] Block-level synthesis in progress, 22 of 77 jobs complete, 4 jobs running.
+[09:34:18] Block-level synthesis in progress, 24 of 77 jobs complete, 4 jobs running.
+[09:34:48] Block-level synthesis in progress, 24 of 77 jobs complete, 4 jobs running.
+[09:35:19] Block-level synthesis in progress, 24 of 77 jobs complete, 4 jobs running.
+[09:35:49] Block-level synthesis in progress, 24 of 77 jobs complete, 4 jobs running.
+[09:36:19] Block-level synthesis in progress, 25 of 77 jobs complete, 3 jobs running.
+[09:36:49] Block-level synthesis in progress, 27 of 77 jobs complete, 4 jobs running.
+[09:37:20] Block-level synthesis in progress, 30 of 77 jobs complete, 4 jobs running.
+[09:37:50] Block-level synthesis in progress, 30 of 77 jobs complete, 4 jobs running.
+[09:38:20] Block-level synthesis in progress, 30 of 77 jobs complete, 4 jobs running.
+[09:38:51] Block-level synthesis in progress, 30 of 77 jobs complete, 4 jobs running.
+[09:39:21] Block-level synthesis in progress, 31 of 77 jobs complete, 4 jobs running.
+[09:39:51] Block-level synthesis in progress, 31 of 77 jobs complete, 4 jobs running.
+[09:40:22] Block-level synthesis in progress, 32 of 77 jobs complete, 4 jobs running.
+[09:40:52] Block-level synthesis in progress, 33 of 77 jobs complete, 4 jobs running.
+[09:41:23] Block-level synthesis in progress, 33 of 77 jobs complete, 4 jobs running.
+[09:41:53] Block-level synthesis in progress, 33 of 77 jobs complete, 4 jobs running.
+[09:42:23] Block-level synthesis in progress, 34 of 77 jobs complete, 4 jobs running.
+[09:42:54] Block-level synthesis in progress, 34 of 77 jobs complete, 4 jobs running.
+[09:43:24] Block-level synthesis in progress, 34 of 77 jobs complete, 4 jobs running.
+[09:43:54] Block-level synthesis in progress, 35 of 77 jobs complete, 4 jobs running.
+[09:44:25] Block-level synthesis in progress, 35 of 77 jobs complete, 4 jobs running.
+[09:44:55] Block-level synthesis in progress, 36 of 77 jobs complete, 4 jobs running.
+[09:45:25] Block-level synthesis in progress, 37 of 77 jobs complete, 4 jobs running.
+[09:45:56] Block-level synthesis in progress, 37 of 77 jobs complete, 4 jobs running.
+[09:46:26] Block-level synthesis in progress, 37 of 77 jobs complete, 4 jobs running.
+[09:46:56] Block-level synthesis in progress, 38 of 77 jobs complete, 4 jobs running.
+[09:47:27] Block-level synthesis in progress, 38 of 77 jobs complete, 4 jobs running.
+[09:47:57] Block-level synthesis in progress, 39 of 77 jobs complete, 4 jobs running.
+[09:48:28] Block-level synthesis in progress, 40 of 77 jobs complete, 4 jobs running.
+[09:48:58] Block-level synthesis in progress, 40 of 77 jobs complete, 4 jobs running.
+[09:49:28] Block-level synthesis in progress, 40 of 77 jobs complete, 4 jobs running.
+[09:49:59] Block-level synthesis in progress, 41 of 77 jobs complete, 4 jobs running.
+[09:50:29] Block-level synthesis in progress, 42 of 77 jobs complete, 3 jobs running.
+[09:51:00] Block-level synthesis in progress, 43 of 77 jobs complete, 3 jobs running.
+[09:51:30] Block-level synthesis in progress, 44 of 77 jobs complete, 4 jobs running.
+[09:52:01] Block-level synthesis in progress, 44 of 77 jobs complete, 4 jobs running.
+[09:52:31] Block-level synthesis in progress, 44 of 77 jobs complete, 4 jobs running.
+[09:53:02] Block-level synthesis in progress, 45 of 77 jobs complete, 3 jobs running.
+[09:53:32] Block-level synthesis in progress, 46 of 77 jobs complete, 4 jobs running.
+[09:54:02] Block-level synthesis in progress, 48 of 77 jobs complete, 4 jobs running.
+[09:54:33] Block-level synthesis in progress, 49 of 77 jobs complete, 4 jobs running.
+[09:55:03] Block-level synthesis in progress, 49 of 77 jobs complete, 4 jobs running.
+[09:55:34] Block-level synthesis in progress, 49 of 77 jobs complete, 4 jobs running.
+[09:56:04] Block-level synthesis in progress, 51 of 77 jobs complete, 4 jobs running.
+[09:56:35] Block-level synthesis in progress, 52 of 77 jobs complete, 3 jobs running.
+[09:57:05] Block-level synthesis in progress, 52 of 77 jobs complete, 4 jobs running.
+[09:57:35] Block-level synthesis in progress, 52 of 77 jobs complete, 4 jobs running.
+[09:58:06] Block-level synthesis in progress, 53 of 77 jobs complete, 4 jobs running.
+[09:58:36] Block-level synthesis in progress, 53 of 77 jobs complete, 4 jobs running.
+[09:59:07] Block-level synthesis in progress, 54 of 77 jobs complete, 3 jobs running.
+[09:59:37] Block-level synthesis in progress, 55 of 77 jobs complete, 4 jobs running.
+[10:00:08] Block-level synthesis in progress, 56 of 77 jobs complete, 4 jobs running.
+[10:00:38] Block-level synthesis in progress, 57 of 77 jobs complete, 4 jobs running.
+[10:01:08] Block-level synthesis in progress, 57 of 77 jobs complete, 4 jobs running.
+[10:01:39] Block-level synthesis in progress, 57 of 77 jobs complete, 4 jobs running.
+[10:02:09] Block-level synthesis in progress, 59 of 77 jobs complete, 3 jobs running.
+[10:02:40] Block-level synthesis in progress, 61 of 77 jobs complete, 4 jobs running.
+[10:03:10] Block-level synthesis in progress, 62 of 77 jobs complete, 3 jobs running.
+[10:03:41] Block-level synthesis in progress, 63 of 77 jobs complete, 4 jobs running.
+[10:04:11] Block-level synthesis in progress, 64 of 77 jobs complete, 4 jobs running.
+[10:04:42] Block-level synthesis in progress, 64 of 77 jobs complete, 4 jobs running.
+[10:05:12] Block-level synthesis in progress, 66 of 77 jobs complete, 4 jobs running.
+[10:05:43] Block-level synthesis in progress, 67 of 77 jobs complete, 4 jobs running.
+[10:06:13] Block-level synthesis in progress, 67 of 77 jobs complete, 4 jobs running.
+[10:06:44] Block-level synthesis in progress, 68 of 77 jobs complete, 4 jobs running.
+[10:07:14] Block-level synthesis in progress, 70 of 77 jobs complete, 3 jobs running.
+[10:07:45] Block-level synthesis in progress, 72 of 77 jobs complete, 3 jobs running.
+[10:08:15] Block-level synthesis in progress, 74 of 77 jobs complete, 2 jobs running.
+[10:08:45] Block-level synthesis in progress, 75 of 77 jobs complete, 1 job running.
+[10:09:16] Block-level synthesis in progress, 75 of 77 jobs complete, 1 job running.
+[10:09:46] Block-level synthesis in progress, 76 of 77 jobs complete, 1 job running.
+[10:10:17] Top-level synthesis in progress.
+[10:10:47] Top-level synthesis in progress.
+[10:11:17] Top-level synthesis in progress.
+[10:11:48] Top-level synthesis in progress.
+[10:12:18] Top-level synthesis in progress.
+[10:12:39] Run vpl: Step synth: Completed
+[10:12:39] Run vpl: Step impl: Started
+[10:26:52] Finished 2nd of 6 tasks (FPGA linking synthesized kernels to platform). Elapsed time: 01h 23m 59s 
+
+[10:26:52] Starting logic optimization..
+[10:28:24] Phase 1 Generate And Synthesize MIG Cores
+[10:38:02] Phase 2 Generate And Synthesize Debug Cores
+[10:43:37] Phase 3 Retarget
+[10:44:08] Phase 4 Constant propagation
+[10:44:38] Phase 5 Sweep
+[10:46:10] Phase 6 BUFG optimization
+[10:46:40] Phase 7 Shift Register Optimization
+[10:46:40] Phase 8 Post Processing Netlist
+[10:48:42] Finished 3rd of 6 tasks (FPGA logic optimization). Elapsed time: 00h 21m 49s 
+
+[10:48:42] Starting logic placement..
+[10:49:43] Phase 1 Placer Initialization
+[10:49:43] Phase 1.1 Placer Initialization Netlist Sorting
+[10:51:14] Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+[10:54:17] Phase 1.3 Build Placer Netlist Model
+[10:57:51] Phase 1.4 Constrain Clocks/Macros
+[10:57:51] Phase 2 Global Placement
+[10:57:51] Phase 2.1 Floorplanning
+[10:59:23] Phase 2.1.1 Partition Driven Placement
+[10:59:23] Phase 2.1.1.1 PBP: Partition Driven Placement
+[11:00:24] Phase 2.1.1.2 PBP: Clock Region Placement
+[11:01:25] Phase 2.1.1.3 PBP: Compute Congestion
+[11:01:25] Phase 2.1.1.4 PBP: UpdateTiming
+[11:01:55] Phase 2.1.1.5 PBP: Add part constraints
+[11:02:26] Phase 2.2 Global Placement Core
+[11:12:08] Phase 2.2.1 Physical Synthesis In Placer
+[11:15:42] Phase 3 Detail Placement
+[11:15:42] Phase 3.1 Commit Multi Column Macros
+[11:16:13] Phase 3.2 Commit Most Macros & LUTRAMs
+[11:16:43] Phase 3.3 Area Swap Optimization
+[11:17:14] Phase 3.4 Pipeline Register Optimization
+[11:17:14] Phase 3.5 IO Cut Optimizer
+[11:18:16] Phase 3.6 Fast Optimization
+[11:18:46] Phase 3.7 Small Shape DP
+[11:18:46] Phase 3.7.1 Small Shape Clustering
+[11:19:48] Phase 3.7.2 Flow Legalize Slice Clusters
+[11:19:48] Phase 3.7.3 Slice Area Swap
+[11:21:50] Phase 3.8 Place Remaining
+[11:21:50] Phase 3.9 Re-assign LUT pins
+[11:22:21] Phase 3.10 Pipeline Register Optimization
+[11:22:51] Phase 3.11 Fast Optimization
+[11:24:23] Phase 4 Post Placement Optimization and Clean-Up
+[11:24:23] Phase 4.1 Post Commit Optimization
+[11:25:56] Phase 4.1.1 Post Placement Optimization
+[11:25:56] Phase 4.1.1.1 BUFG Insertion
+[11:25:56] Phase 1 Physical Synthesis Initialization
+[11:27:27] Phase 4.1.1.2 BUFG Replication
+[11:28:59] Phase 4.1.1.3 Replication
+[11:30:00] Phase 4.2 Post Placement Cleanup
+[11:31:32] Phase 4.3 Placer Reporting
+[11:32:02] Phase 4.4 Final Placement Cleanup
+[11:35:07] Finished 4th of 6 tasks (FPGA logic placement). Elapsed time: 00h 46m 25s 
+
+[11:35:07] Starting logic routing..
+[11:36:39] Phase 1 Build RT Design
+[11:38:41] Phase 2 Router Initialization
+[11:38:41] Phase 2.1 Create Timer
+[11:39:11] Phase 2.2 Fix Topology Constraints
+[11:39:11] Phase 2.3 Pre Route Cleanup
+[11:39:42] Phase 2.4 Global Clock Net Routing
+[11:40:12] Phase 2.5 Update Timing
+[11:44:18] Phase 2.6 Update Timing for Bus Skew
+[11:44:18] Phase 2.6.1 Update Timing
+[11:45:50] Phase 3 Initial Routing
+[11:45:50] Phase 3.1 Global Routing
+[11:45:50] Phase 3.1.1 Build GR Node Graph
+[11:48:24] Phase 3.1.2 Run Global Routing
+[11:52:28] Phase 4 Rip-up And Reroute
+[11:52:28] Phase 4.1 Global Iteration 0
+[12:05:13] Phase 4.2 Global Iteration 1
+[12:11:50] Phase 4.3 Global Iteration 2
+[12:17:57] Phase 4.4 Global Iteration 3
+[12:27:07] Phase 5 Delay and Skew Optimization
+[12:27:07] Phase 5.1 Delay CleanUp
+[12:27:07] Phase 5.1.1 Update Timing
+[12:28:38] Phase 5.1.2 Update Timing
+[12:29:40] Phase 5.2 Clock Skew Optimization
+[12:30:10] Phase 6 Post Hold Fix
+[12:30:10] Phase 6.1 Hold Fix Iter
+[12:30:10] Phase 6.1.1 Update Timing
+[12:32:12] Phase 7 Leaf Clock Prog Delay Opt
+[12:35:48] Phase 7.1 Delay CleanUp
+[12:35:48] Phase 7.1.1 Update Timing
+[12:36:49] Phase 7.2 Hold Fix Iter
+[12:36:49] Phase 7.2.1 Update Timing
+[12:38:51] Phase 7.3 Additional Hold Fix
+[12:41:25] Phase 7.4 Global Iteration for Hold
+[12:41:25] Phase 7.4.1 Update Timing
+[12:44:28] Phase 8 Route finalize
+[12:44:59] Phase 9 Verifying routed nets
+[12:44:59] Phase 10 Depositing Routes
+[12:46:00] Phase 11 Post Router Timing
+[12:46:00] Finished 5th of 6 tasks (FPGA routing). Elapsed time: 01h 10m 52s 
+
+[12:46:00] Starting bitstream generation..
+[12:56:27] Run vpl: Step impl: Completed
+[12:56:28] Run vpl: FINISHED. Run Status: impl Complete!
+INFO: [v++ 60-1441] [12:56:28] Run run_link: Step vpl: Completed
+Time (s): cpu = 00:03:25 ; elapsed = 03:53:37 . Memory (MB): peak = 1370.848 ; gain = 321.582 ; free physical = 58226 ; free virtual = 83105
+INFO: [v++ 60-1443] [12:56:28] Run run_link: Step rtdgen: Started
+INFO: [v++ 60-1453] Command Line: rtdgen
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+WARNING: [v++ 60-990] _new_clk_freq contains more clocks than we expect, check Platform
+INFO: [v++ 60-991] clock name 'clk_main_a0' (clock ID '2') is being mapped to clock name 'clk_main_a0' in the xclbin
+INFO: [v++ 60-991] clock name 'clk_extra_b0' (clock ID '0') is being mapped to clock name 'DATA_CLK' in the xclbin
+WARNING: [v++ 60-990] _new_clk_freq contains more clocks than we expect, check Platform
+INFO: [v++ 60-991] clock name 'clk_extra_a1' (clock ID '3') is being mapped to clock name 'clk_extra_a1' in the xclbin
+INFO: [v++ 60-991] clock name 'clk_extra_c0' (clock ID '1') is being mapped to clock name 'KERNEL_CLK' in the xclbin
+INFO: [v++ 60-991] clock name 'clk_main_a0' (clock ID '') is being mapped to clock name 'clk_main_a0' in the xclbin
+INFO: [v++ 60-1230] The compiler selected the following frequencies for the runtime controllable kernel clock(s) and scalable system clock(s): System (SYSTEM) clock: clk_main_a0 = 250, Unused (UNUSED) clock: clk_main_a0 = 250, Kernel (DATA) clock: clk_extra_b0 = 250, Unused (UNUSED) clock: clk_extra_a1 = 125, Kernel (KERNEL) clock: clk_extra_c0 = 500
+INFO: [v++ 60-1453] Command Line: cf2sw -a /home/centos/FPGA_accelerated_CNN/_x/link/int/address_map.xml -sdsl /home/centos/FPGA_accelerated_CNN/_x/link/int/sdsl.dat -xclbin /home/centos/FPGA_accelerated_CNN/_x/link/int/xclbin_orig.xml -rtd /home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw.rtd -o /home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw.xml
+INFO: [v++ 60-1652] Cf2sw returned exit code: 0
+INFO: [v++ 60-2311] HPISystemDiagram::writeSystemDiagramAfterRunningVivado, rtdInputFilePath: /home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw.rtd
+INFO: [v++ 60-2312] HPISystemDiagram::writeSystemDiagramAfterRunningVivado, systemDiagramOutputFilePath: /home/centos/FPGA_accelerated_CNN/_x/link/int/systemDiagramModelSlrBaseAddress.json
+INFO: [v++ 60-1618] Launching 
+INFO: [v++ 60-1441] [12:56:29] Run run_link: Step rtdgen: Completed
+Time (s): cpu = 00:00:00.70 ; elapsed = 00:00:00.76 . Memory (MB): peak = 1370.848 ; gain = 0.000 ; free physical = 58228 ; free virtual = 83107
+INFO: [v++ 60-1443] [12:56:29] Run run_link: Step xclbinutil: Started
+INFO: [v++ 60-1453] Command Line: xclbinutil --add-section DEBUG_IP_LAYOUT:JSON:/home/centos/FPGA_accelerated_CNN/_x/link/int/debug_ip_layout.rtd --add-section BITSTREAM:RAW:/home/centos/FPGA_accelerated_CNN/_x/link/int/routed.dcp --force --target hw --key-value SYS:dfx_enable:true --add-section :JSON:/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw.rtd --append-section :JSON:/home/centos/FPGA_accelerated_CNN/_x/link/int/appendSection.rtd --add-section CLOCK_FREQ_TOPOLOGY:JSON:/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw_xml.rtd --add-section BUILD_METADATA:JSON:/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw_build.rtd --add-section EMBEDDED_METADATA:RAW:/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw.xml --add-section SYSTEM_METADATA:RAW:/home/centos/FPGA_accelerated_CNN/_x/link/int/systemDiagramModelSlrBaseAddress.json --key-value SYS:PlatformVBNV:xilinx_aws-vu9p-f1_shell-v04261818_201920_2 --output /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xclbin
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+XRT Build Version: 2.6.0 (2020.1)
+       Build Date: 2020-07-09 15:20:59
+          Hash ID: 12115fd4054cb46a5ade62fafa74c523f59116e6
+Creating a default 'in-memory' xclbin image.
+
+Section: 'DEBUG_IP_LAYOUT'(9) was successfully added.
+Size   : 1016 bytes
+Format : JSON
+File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/debug_ip_layout.rtd'
+
+Section: 'BITSTREAM'(0) was successfully added.
+Size   : 414508804 bytes
+Format : RAW
+File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/routed.dcp'
+
+Section: 'MEM_TOPOLOGY'(6) was successfully added.
+Format : JSON
+File   : 'mem_topology'
+
+Section: 'IP_LAYOUT'(8) was successfully added.
+Format : JSON
+File   : 'ip_layout'
+
+Section: 'CONNECTIVITY'(7) was successfully added.
+Format : JSON
+File   : 'connectivity'
+
+Section: 'CLOCK_FREQ_TOPOLOGY'(11) was successfully added.
+Size   : 682 bytes
+Format : JSON
+File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw_xml.rtd'
+
+Section: 'BUILD_METADATA'(14) was successfully added.
+Size   : 2738 bytes
+Format : JSON
+File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw_build.rtd'
+
+Section: 'EMBEDDED_METADATA'(2) was successfully added.
+Size   : 4119 bytes
+Format : RAW
+File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/vdot.hw.xml'
+
+Section: 'SYSTEM_METADATA'(22) was successfully added.
+Size   : 8269 bytes
+Format : RAW
+File   : '/home/centos/FPGA_accelerated_CNN/_x/link/int/systemDiagramModelSlrBaseAddress.json'
+
+Section: 'PARTITION_METADATA'(20) was successfully appended to.
+Format : JSON
+File   : 'partition_metadata'
+Successfully wrote (414535252 bytes) to the output file: /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xclbin
+Leaving xclbinutil.
+INFO: [v++ 60-1441] [12:56:30] Run run_link: Step xclbinutil: Completed
+Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.89 . Memory (MB): peak = 1370.848 ; gain = 0.000 ; free physical = 57822 ; free virtual = 83098
+INFO: [v++ 60-1443] [12:56:30] Run run_link: Step xclbinutilinfo: Started
+INFO: [v++ 60-1453] Command Line: xclbinutil --quiet --force --info /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xclbin.info --input /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xclbin
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+INFO: [v++ 60-1441] [12:56:32] Run run_link: Step xclbinutilinfo: Completed
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1370.848 ; gain = 0.000 ; free physical = 57822 ; free virtual = 83098
+INFO: [v++ 60-1443] [12:56:32] Run run_link: Step generate_sc_driver: Started
+INFO: [v++ 60-1453] Command Line: 
+INFO: [v++ 60-1454] Run Directory: /home/centos/FPGA_accelerated_CNN/_x/link/run_link
+INFO: [v++ 60-1441] [12:56:32] Run run_link: Step generate_sc_driver: Completed
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1370.848 ; gain = 0.000 ; free physical = 57822 ; free virtual = 83098
+INFO: [v++ 60-244] Generating system estimate report...
+INFO: [v++ 60-1092] Generated system estimate report: /home/centos/FPGA_accelerated_CNN/reports/link/system_estimate_vdot.hw.xtxt
+INFO: [v++ 60-586] Created /home/centos/FPGA_accelerated_CNN/build/vdot.hw.ltx
+INFO: [v++ 60-586] Created build/vdot.hw.xclbin
 INFO: [v++ 60-1307] Run completed. Additional information can be found in:
-	Guidance: /home/centos/FPGA_accelerated_CNN/reports/link/v++_link_vdot.sw_emu_guidance.html
+	Guidance: /home/centos/FPGA_accelerated_CNN/reports/link/v++_link_vdot.hw_guidance.html
+	Timing Report: /home/centos/FPGA_accelerated_CNN/reports/link/imp/xilinx_aws-vu9p-f1_shell-v04261818_201920_2_bb_locked_timing_summary_routed.rpt
+	Utilizations Report: /home/centos/FPGA_accelerated_CNN/reports/link/imp/kernel_util_routed.rpt
+	Vivado Log: /home/centos/FPGA_accelerated_CNN/logs/link/vivado.log
 	Steps Log File: /home/centos/FPGA_accelerated_CNN/logs/link/link.steps.log
 
 INFO: [v++ 60-2343] Use the vitis_analyzer tool to visualize and navigate the relevant reports. Run the following command. 
-    vitis_analyzer /home/centos/FPGA_accelerated_CNN/build/vdot.sw_emu.xclbin.link_summary 
-INFO: [v++ 60-791] Total elapsed time: 0h 0m 16s
+    vitis_analyzer /home/centos/FPGA_accelerated_CNN/build/vdot.hw.xclbin.link_summary 
+INFO: [v++ 60-791] Total elapsed time: 3h 54m 17s

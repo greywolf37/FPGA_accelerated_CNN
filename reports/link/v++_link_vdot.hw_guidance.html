@@ -3407,8 +3407,8 @@ window.onload = function () { addSorting(); }
 <center><h1>Design Guidance Report</h1></center><center><table class="header" border="0">
 <tr><td><b>Copyright</b></td><td>Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.</td></tr>
 <tr><td><b>Tool Version</b></td><td>xrcserver v.2020.1 (lin64) Build 0 </td></tr>
-<tr><td><b>Date</b></td><td>Tue May 11 06:46:45 2021</td></tr>
-<tr><td><b>Host</b></td><td>ip-172-31-1-76.ec2.internal running 64-bit CentOS Linux release 7.7.1908 (Core)</td></tr>
+<tr><td><b>Date</b></td><td>Wed May 12 12:56:33 2021</td></tr>
+<tr><td><b>Host</b></td><td>ip-172-31-15-41.ec2.internal running 64-bit CentOS Linux release 7.7.1908 (Core)</td></tr>
 <tr><td><b>Command</b></td><td>v++ --xp param:compiler.lockFlowCritSlackThreshold=0 --xp vivado_param:hd.routingContainmentAreaExpansion=true --xp vivado_param:hd.supportClockNetCrossDiffReconfigurablePartitions=1 --xp vivado_param:bitstream.enablePR=4123 --xp vivado_param:physynth.ultraRAMOptOutput=false --xp vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MAX_URAM_CASCADE_HEIGHT}={1} --xp vivado_param:synth.elaboration.rodinMoreOptions={rt::set_parameter disableOregPackingUram true}  -t hw --config ./configs/design.cfg --log_dir ./logs --report_dir ./reports --platform /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm --link -o build/vdot.hw.xclbin build/vdot.hw.xo </td></tr>
 </table></center><br>
 <table class="toc" border="1"><tr><td><b>Table of Contents</b></td></tr>
@@ -3440,33 +3440,13 @@ window.onload = function () { addSorting(); }
 <th align="left" width="380">Resolution</th>
 </tr>
 <tr>
-<td align="left">4</td>
-<td align="left">AUTO-FREQ-SCALING-08</td>
-<td align="left">advisory</td>
-<td align="left">Medium</td>
-<td align="left">Auto frequency scaling - Higher frequency possible</td>
-<td align="left">Accelerator.vdot.hw.Performance</td>
-<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_extra_a1</a>, the auto scaled frequency 205.9 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 125.0 MHz.</td>
-<td align="left">The automatic frequency scaling feature allows user kernels to operate in hardware, even if at a lower frequency than intended. In this case the clock may in fact be able to run at a higher frequency than specified. You may want to consider <a href="https://www.xilinx.com/cgi-bin/docs/rdoc?t=vitis+guidance;v=2020.1;d=AUTO-FREQ-SCALING-08.html">setting</a> the clock frequency higher for better performance. The '--kernel_frequency' option is one way to control the frequency specification.</td>
-</tr>
-<tr>
-<td align="left">5</td>
-<td align="left">AUTO-FREQ-SCALING-08</td>
-<td align="left">advisory</td>
-<td align="left">Medium</td>
-<td align="left">Auto frequency scaling - Higher frequency possible</td>
-<td align="left">Accelerator.vdot.hw.Performance</td>
-<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_main_a0</a>, the auto scaled frequency 250.4 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 250.0 MHz.</td>
-<td align="left">The automatic frequency scaling feature allows user kernels to operate in hardware, even if at a lower frequency than intended. In this case the clock may in fact be able to run at a higher frequency than specified. You may want to consider <a href="https://www.xilinx.com/cgi-bin/docs/rdoc?t=vitis+guidance;v=2020.1;d=AUTO-FREQ-SCALING-08.html">setting</a> the clock frequency higher for better performance. The '--kernel_frequency' option is one way to control the frequency specification.</td>
-</tr>
-<tr>
 <td align="left">2</td>
 <td align="left">AUTO-FREQ-SCALING-08</td>
 <td align="left">advisory</td>
 <td align="left">Medium</td>
 <td align="left">Auto frequency scaling - Higher frequency possible</td>
 <td align="left">Accelerator.vdot.hw.Performance</td>
-<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_main_a0</a>, the auto scaled frequency 250.4 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 250.0 MHz.</td>
+<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_main_a0</a>, the auto scaled frequency 250.3 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 250.0 MHz.</td>
 <td align="left">The automatic frequency scaling feature allows user kernels to operate in hardware, even if at a lower frequency than intended. In this case the clock may in fact be able to run at a higher frequency than specified. You may want to consider <a href="https://www.xilinx.com/cgi-bin/docs/rdoc?t=vitis+guidance;v=2020.1;d=AUTO-FREQ-SCALING-08.html">setting</a> the clock frequency higher for better performance. The '--kernel_frequency' option is one way to control the frequency specification.</td>
 </tr>
 <tr>
@@ -3476,7 +3456,27 @@ window.onload = function () { addSorting(); }
 <td align="left">Medium</td>
 <td align="left">Auto frequency scaling - Higher frequency possible</td>
 <td align="left">Accelerator.vdot.hw.Performance</td>
-<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_extra_b0</a>, the auto scaled frequency 259.9 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 250.0 MHz.</td>
+<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_extra_b0</a>, the auto scaled frequency 250.1 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 250.0 MHz.</td>
+<td align="left">The automatic frequency scaling feature allows user kernels to operate in hardware, even if at a lower frequency than intended. In this case the clock may in fact be able to run at a higher frequency than specified. You may want to consider <a href="https://www.xilinx.com/cgi-bin/docs/rdoc?t=vitis+guidance;v=2020.1;d=AUTO-FREQ-SCALING-08.html">setting</a> the clock frequency higher for better performance. The '--kernel_frequency' option is one way to control the frequency specification.</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">AUTO-FREQ-SCALING-08</td>
+<td align="left">advisory</td>
+<td align="left">Medium</td>
+<td align="left">Auto frequency scaling - Higher frequency possible</td>
+<td align="left">Accelerator.vdot.hw.Performance</td>
+<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_extra_a1</a>, the auto scaled frequency 165.7 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 125.0 MHz.</td>
+<td align="left">The automatic frequency scaling feature allows user kernels to operate in hardware, even if at a lower frequency than intended. In this case the clock may in fact be able to run at a higher frequency than specified. You may want to consider <a href="https://www.xilinx.com/cgi-bin/docs/rdoc?t=vitis+guidance;v=2020.1;d=AUTO-FREQ-SCALING-08.html">setting</a> the clock frequency higher for better performance. The '--kernel_frequency' option is one way to control the frequency specification.</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">AUTO-FREQ-SCALING-08</td>
+<td align="left">advisory</td>
+<td align="left">Medium</td>
+<td align="left">Auto frequency scaling - Higher frequency possible</td>
+<td align="left">Accelerator.vdot.hw.Performance</td>
+<td align="left">For clock <a href="file:///home/centos/FPGA_accelerated_CNN/_x/link/vivado/vpl/prj/prj.runs/impl_1/dr_timing_summary.rpt">clk_main_a0</a>, the auto scaled frequency 250.3 MHz exceeds the original specified frequency. The compiler will select the original specified frequency of 250.0 MHz.</td>
 <td align="left">The automatic frequency scaling feature allows user kernels to operate in hardware, even if at a lower frequency than intended. In this case the clock may in fact be able to run at a higher frequency than specified. You may want to consider <a href="https://www.xilinx.com/cgi-bin/docs/rdoc?t=vitis+guidance;v=2020.1;d=AUTO-FREQ-SCALING-08.html">setting</a> the clock frequency higher for better performance. The '--kernel_frequency' option is one way to control the frequency specification.</td>
 </tr>
 </table>
@@ -3497,10 +3497,15 @@ window.onload = function () { addSorting(); }
 profile_kernel=data:all:all:all
 
 [connectivity]
-nk=vdot:1:vdot_1
+nk=vdot:2:vdot_1.vdot_2
+
 sp = vdot_1.input1:DDR[0]
 sp = vdot_1.input2:DDR[1]
 sp = vdot_1.output:DDR[2]
+
+sp = vdot_2.input1:DDR[2]
+sp = vdot_2.input2:DDR[3]
+sp = vdot_2.output:DDR[1]
 </td>
 </tr>
 </table>
@@ -3531,7 +3536,7 @@ Kernel: clk_extra_b0 = 250.0 MHz
 Kernel: clk_extra_a1 = 125.0 MHz 
 Kernel: clk_extra_c0 = 500.0 MHz 
 System: clk_main_a0 = 250.0 MHz 
-Scalable clock clk_extra_b0 (Id = 0) is used for hls kernels. This design has 1 hls kernel(s).
+Scalable clock clk_extra_b0 (Id = 0) is used for hls kernels. This design has 2 hls kernel(s).
 Scalable clock clk_extra_c0 (Id = 1) is used for rtl kernels. This design has 0 rtl kernel(s).</td>
 <td align="left"><html> Kernel clocks (and system clocks for some platforms) are scalable; they can preserve functionality at the cost of performance by running at a lower frequency than requested. To be scalable, a clock must be driven by an MMCM where the control registers for the MMCM can be set by the runtime over AXI4-Lite. This item shows the final runtime controlled frequencies for the scalable clocks.</html></td>
 </tr>

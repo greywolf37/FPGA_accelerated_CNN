@@ -9,10 +9,10 @@
 <ENTRY>
 {
  "type": "ET_CmdStep",
- "dateTimestamp": "Tue May 11 03:58:35 2021",
- "timestampMillis": "1620705515276",
+ "dateTimestamp": "Tue May 11 23:30:19 2021",
+ "timestampMillis": "1620775819581",
  "buildStep": {
-  "cmdId": "02b43dbd-ce8a-4792-9d91-f77326bd7690",
+  "cmdId": "3338a182-3208-46bb-ab34-c45a3d24c0c7",
   "name": "v++",
   "logFile": "/home/centos/FPGA_accelerated_CNN/_x/vdot.hw/vdot.hw.steps.log",
   "commandLine": "/opt/Xilinx/Vitis/2020.1/bin/unwrapped/lnx64.o/v++  --xp \"vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -t hw --config ./configs/design.cfg --log_dir ./logs --report_dir ./reports --platform /home/centos/aws-fpga/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_2/xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm --compile --kernel vdot -I ./src -o build/vdot.hw.xo src/vdot.cpp ",
@@ -39,7 +39,7 @@
   "iniFiles": [
    {
     "path": "/home/centos/FPGA_accelerated_CNN/configs/design.cfg",
-    "content": "debug=1\nprofile_kernel=data:all:all:all\n\n[connectivity]\nnk=vdot:1:vdot_1\nsp = vdot_1.input1:DDR[0]\nsp = vdot_1.input2:DDR[1]\nsp = vdot_1.output:DDR[2]"
+    "content": "debug=1\nprofile_kernel=data:all:all:all\n\n[connectivity]\nnk=vdot:2:vdot_1.vdot_2\n\nsp = vdot_1.input1:DDR[0]\nsp = vdot_1.input2:DDR[1]\nsp = vdot_1.output:DDR[2]\n\nsp = vdot_2.input1:DDR[2]\nsp = vdot_2.input2:DDR[3]\nsp = vdot_2.output:DDR[1]"
    }
   ],
   "cwd": "/home/centos/FPGA_accelerated_CNN"
@@ -49,10 +49,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Tue May 11 03:58:35 2021",
- "timestampMillis": "1620705515276",
+ "dateTimestamp": "Tue May 11 23:30:19 2021",
+ "timestampMillis": "1620775819581",
  "status": {
-  "cmdId": "02b43dbd-ce8a-4792-9d91-f77326bd7690",
+  "cmdId": "3338a182-3208-46bb-ab34-c45a3d24c0c7",
   "state": "CS_RUNNING"
  }
 }
@@ -60,8 +60,8 @@
 <ENTRY>
 {
  "type": "ET_FlowMetaData",
- "dateTimestamp": "Tue May 11 03:58:51 2021",
- "timestampMillis": "1620705531514",
+ "dateTimestamp": "Tue May 11 23:30:35 2021",
+ "timestampMillis": "1620775835950",
  "buildSummary": {
   "hardwarePlatform": "xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xpfm",
   "hardwareDsa": "xilinx_aws-vu9p-f1_shell-v04261818_201920_2.xsa",
@@ -93,10 +93,10 @@
 <ENTRY>
 {
  "type": "ET_SubCmdStep",
- "dateTimestamp": "Tue May 11 03:58:51 2021",
- "timestampMillis": "1620705531517",
+ "dateTimestamp": "Tue May 11 23:30:35 2021",
+ "timestampMillis": "1620775835953",
  "buildStep": {
-  "cmdId": "bf842102-f02c-4d43-957b-3c3b79d4d0d6",
+  "cmdId": "924d6a75-d989-4fca-a7ce-b77ed792f3c5",
   "name": "vitis_hls",
   "logFile": "/home/centos/FPGA_accelerated_CNN/_x/vdot.hw/vdot/vitis_hls.log",
   "commandLine": "vitis_hls -f /home/centos/FPGA_accelerated_CNN/_x/vdot.hw/vdot/vdot.tcl -messageDb vitis_hls.pb",
@@ -115,10 +115,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Tue May 11 03:58:51 2021",
- "timestampMillis": "1620705531517",
+ "dateTimestamp": "Tue May 11 23:30:35 2021",
+ "timestampMillis": "1620775835953",
  "status": {
-  "cmdId": "bf842102-f02c-4d43-957b-3c3b79d4d0d6",
+  "cmdId": "924d6a75-d989-4fca-a7ce-b77ed792f3c5",
   "state": "CS_RUNNING"
  }
 }
@@ -126,10 +126,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Tue May 11 04:03:20 2021",
- "timestampMillis": "1620705800818",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115083",
  "status": {
-  "cmdId": "bf842102-f02c-4d43-957b-3c3b79d4d0d6",
+  "cmdId": "924d6a75-d989-4fca-a7ce-b77ed792f3c5",
   "state": "CS_PASSED"
  }
 }
@@ -137,8 +137,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:20 2021",
- "timestampMillis": "1620705800824",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115089",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/_x/vdot.hw/vdot/vdot/solution/.autopilot/db/vdot.design.xml",
   "name": "vdot",
@@ -150,8 +150,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:20 2021",
- "timestampMillis": "1620705800825",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115090",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/_x/vdot.hw/vdot/vdot/solution/.autopilot/db/.message_syn.xml",
   "name": "vdot",
@@ -163,8 +163,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:20 2021",
- "timestampMillis": "1620705800825",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115090",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/reports/vdot.hw/hls_reports/vdot_csynth.rpt",
   "name": "vdot",
@@ -176,8 +176,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:20 2021",
- "timestampMillis": "1620705800825",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115090",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/_x/vdot.hw/vdot/vdot/solution/syn/report/vdot_csynth.xml",
   "name": "vdot",
@@ -189,8 +189,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:20 2021",
- "timestampMillis": "1620705800828",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115094",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/reports/vdot.hw/system_estimate_vdot.hw.xtxt",
   "name": "",
@@ -202,8 +202,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:21 2021",
- "timestampMillis": "1620705801066",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115186",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/reports/vdot.hw/v++_compile_vdot.hw_guidance.html",
   "name": "",
@@ -215,8 +215,8 @@
 <ENTRY>
 {
  "type": "ET_Report",
- "dateTimestamp": "Tue May 11 04:03:21 2021",
- "timestampMillis": "1620705801066",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115186",
  "report": {
   "path": "/home/centos/FPGA_accelerated_CNN/_x/v++_compile_vdot.hw_guidance.pb",
   "name": "",
@@ -228,10 +228,10 @@
 <ENTRY>
 {
  "type": "ET_Status",
- "dateTimestamp": "Tue May 11 04:03:21 2021",
- "timestampMillis": "1620705801066",
+ "dateTimestamp": "Tue May 11 23:35:15 2021",
+ "timestampMillis": "1620776115186",
  "status": {
-  "cmdId": "02b43dbd-ce8a-4792-9d91-f77326bd7690",
+  "cmdId": "3338a182-3208-46bb-ab34-c45a3d24c0c7",
   "state": "CS_PASSED"
  }
 }

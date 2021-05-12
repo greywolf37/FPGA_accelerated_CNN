@@ -2,7 +2,7 @@
 Version:    v++ v2020.1 (64-bit)
 Build:      SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
 Copyright:  Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
-Created:    Tue May 11 04:03:20 2021
+Created:    Tue May 11 23:35:15 2021
 ===============================================================================
 
 -------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ Total number of kernels: 1
 Kernel Summary
 Kernel Name  Type  Target              OpenCL Library  Compute Units
 -----------  ----  ------------------  --------------  -------------
-vdot         c     fpga0:OCL_REGION_0  vdot.hw         1
+vdot         c     fpga0:OCL_REGION_0  vdot.hw         2
 
 
 -------------------------------------------------------------------------------
@@ -26,14 +26,17 @@ Timing Information (MHz)
 Compute Unit  Kernel Name  Module Name  Target Frequency  Estimated Frequency
 ------------  -----------  -----------  ----------------  -------------------
 vdot_1        vdot         vdot         250               342.465759
+vdot_2        vdot         vdot         250               342.465759
 
 Latency Information
 Compute Unit  Kernel Name  Module Name  Start Interval  Best (cycles)  Avg (cycles)  Worst (cycles)  Best (absolute)  Avg (absolute)  Worst (absolute)
 ------------  -----------  -----------  --------------  -------------  ------------  --------------  ---------------  --------------  ----------------
 vdot_1        vdot         vdot         undef           undef          undef         undef           undef            undef           undef
+vdot_2        vdot         vdot         undef           undef          undef         undef           undef            undef           undef
 
 Area Information
-Compute Unit  Kernel Name  Module Name  FF     LUT   DSP  BRAM  URAM
-------------  -----------  -----------  -----  ----  ---  ----  ----
-vdot_1        vdot         vdot         15880  9970  0    2     0
+Compute Unit  Kernel Name  Module Name  FF     LUT    DSP  BRAM  URAM
+------------  -----------  -----------  -----  -----  ---  ----  ----
+vdot_1        vdot         vdot         26004  14214  0    2     0
+vdot_2        vdot         vdot         26004  14214  0    2     0
 -------------------------------------------------------------------------------

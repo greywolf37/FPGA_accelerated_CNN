@@ -17,3 +17,9 @@ aws_ppi "run_script ./FPGA_accelerated_CNN/hw_run.ppi"
 
 # give access to AFI 
 ./FPGA_accelerated_CNN/afi_access.sh
+
+#View analyzer
+echo 'export DISPLAY=$(awk '\''/nameserver / {print $2; exit}'\'' /etc/resolv.conf 2>/dev/null):0' >> ~/.bashrc
+echo 'export LIBGL_ALWAYS_INDIRECT=1' >> ~/.bashrc
+
+start_job fpga_build -d FPGA_accelerated_CNN -c 'export LC_ALL="C"; source ~/aws-fpga/vitis_setup.sh; cd ~/FPGA_accelerated_CNN/reports/vdot.sw_emu; vitis_analyzer' -s -Y
