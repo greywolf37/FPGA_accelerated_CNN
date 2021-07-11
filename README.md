@@ -1,3 +1,3 @@
 # Project
 
-Final project for ESE680 documents.
+Accelerating a DCNN (VGG16) with an FPGA by implementing GEMM convolutional Kernel on AWS F1 FPGA and integrate into Pytorch using C++ extension
